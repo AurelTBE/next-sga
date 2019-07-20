@@ -8,7 +8,6 @@ const layoutStyle = {
 const Layout = props => (
   <div style={layoutStyle}>
     <AppBar />
-    <Header />
     {props.children}
   </div>
 );
