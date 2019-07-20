@@ -1,0 +1,21 @@
+{
+  "name": "next-sga",
+  "version": "0.2.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "latest",
+    "clsx": "latest",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "latest",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  }
+}
