@@ -5,6 +5,7 @@ const Post = props => (
   <Layout>
     <h1>{props.post.title.rendered}</h1>
     <p>{props.post.content.rendered.replace(/<[/]?p>/g, '')}</p>
+    <p>{props.post.acf.fichier_de_resultat_n1 ? props.post.acf.fichier_de_resultat_n1 : null}</p>
     {/*<img src={props.post.image.medium} />*/}
   </Layout>
 );
