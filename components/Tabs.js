@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FullWidthTabs() {
+export default function FullWidthTabs(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -81,12 +81,12 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
           <TabContainer dir={theme.direction}>
-            <Actus />
+            <Actus listactus={props.actus} />
           </TabContainer>
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
           <TabContainer dir={theme.direction}>Item Three</TabContainer>
           <TabContainer dir={theme.direction}>
-            <Resultats />
+            <Resultats listresults={props.results} />
           </TabContainer>
       </SwipeableViews>
     </div>

@@ -6,7 +6,6 @@ import fetch from 'isomorphic-unfetch';
 const Index = props => (
   <Layout>
     <Tabs actus={props.actus} results={props.results} />
-    {console.log(props)}
   </Layout>
 );
 

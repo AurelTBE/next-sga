@@ -1,21 +1,30 @@
-import Header from './Header';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import AppBar from './AppBar';
 
-const layoutStyle = {
-  margin: 0,
-};
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+       light: '#ff6659',
+       main: '#d32f2f',
+       dark: '#9a0007'
+    },
+    secondary: {
+      main: '#ffd740',
+    },
+ },
+ typography: { 
+    useNextVariants: true
+ }
+});
 
 const Layout = props => (
-  <div style={layoutStyle}>
+  <ThemeProvider theme={theme}>
     <AppBar />
     {props.children}
-  </div>
+  </ThemeProvider>
 );
 
-<style global jsx>{`
-        body {
-          margin: 0;
-        }
-      `}</style>
+
 
 export default Layout;
