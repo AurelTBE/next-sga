@@ -1,15 +1,13 @@
 import Layout from '../../components/Layout.js';
 import fetch from 'isomorphic-unfetch';
-import { Document, Page } from 'react-pdf';
+import PDFview from '../../components/PDFview'
 
 const Resultat = props => (
   <Layout>
     <h1>{props.result.title.rendered}</h1>
     <p>{props.result.content.rendered.replace(/<[/]?p>/g, '')}</p>
-    <p>{props.result.acf.fichier_de_resultat_n1 ? props.result.acf.fichier_de_resultat_n1 : null}</p>
-    {/*<Document file={props.result.acf.fichier_de_resultat_n1} >
-      <Page pageNumber={1} />
-    </Document>*/}
+    <p>{props.result.acf.fichier_de_resultat_n1 ? <PDFview pdf={props.result.acf.fichier_de_resultat_n1} /> : null}</p>
+    
   </Layout>
 );
 
@@ -25,4 +23,4 @@ Resultat.getInitialProps = async function(context) {
   };
 };
 
-export default Resultat;
+export default Resultat;  
