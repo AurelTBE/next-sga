@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function MenuAppBar() {
+export default function Header() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,

@@ -16,7 +16,8 @@ import { faDragon } from '@fortawesome/free-solid-svg-icons'
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 400,
+    height: "100%",
+    cursor: 'pointer',
   },
   media: {
     height: 0,
@@ -35,11 +36,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActuCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
 
   const { id, titre, exerpt, img, slug } = props;
 

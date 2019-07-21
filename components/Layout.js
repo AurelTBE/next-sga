@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import AppBar from './AppBar';
+import Header from './Header';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 
 const Layout = props => (
   <ThemeProvider theme={theme}>
-    <AppBar />
+    <Header />
     {props.children}
   </ThemeProvider>
 );

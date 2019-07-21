@@ -1,11 +1,19 @@
 import Layout from '../../components/Layout.js';
+import Grid from '@material-ui/core/Grid';
+import ErrorMessage from '../../components/ErrorMessage';
 import fetch from 'isomorphic-unfetch';
+import he from 'he'
+
 
 const Post = props => (
   <Layout>
-    <h1>{props.post.title.rendered}</h1>
-    <p>{props.post.content.rendered.replace(/<[/]?p>/g, '')}</p>
-    {/*<img src={props.post.image.medium} />*/}
+    <Grid container spacing={24}>
+      <Grid item xs={12}>
+      <h1>{props.post.title.rendered}</h1>
+      <p>{props.post.content.rendered.replace(/<[/]?p>/g, '')}</p>
+      {/*<img src={props.post.image.medium} />*/}
+      </Grid>
+    </Grid>
   </Layout>
 );
 
