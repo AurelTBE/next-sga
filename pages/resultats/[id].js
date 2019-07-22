@@ -56,8 +56,6 @@ Resultat.getInitialProps = async function(context) {
   const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/wp/v2/resultats?slug=${id}`);
   const result = await res.json();
 
-  console.log(result[0]);
-
   return {
     result: result[0]
   };

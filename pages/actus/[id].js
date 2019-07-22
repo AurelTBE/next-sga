@@ -31,7 +31,6 @@ export default function Actu(props) {
       <img src={props.post.featured_img ? props.post.featured_img : "/static/LOGO-CERTIFICATION.jpg"} alt={he.decode(String(props.post.title))} className={classes.media} />
       <Grid container justify="center" spacing={2} className={classes.root}>
         <Grid item xs={10}>
-          {console.log(props.post)}
           <Typography component="h2" variant="h2" gutterBottom>
             {he.decode(String(props.post.title.rendered))}
           </Typography>
@@ -54,8 +53,6 @@ Actu.getInitialProps = async function(context) {
   const { id } = context.query;
   const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/wp/v2/posts?slug=${id}`);
   const post = await res.json();
-
-  console.log(post[0]);
 
   return {
     post: post[0]

@@ -9,9 +9,9 @@ const Index = props => (
   </Layout>
 );
 
-Index.getInitialProps = async function(FETCH_URL) {
+Index.getInitialProps = async function() {
   const path = "http://sga-gymfeminine.fr/bo/wp-json"
-  
+
   const act = await fetch(`${path}/wp/v2/posts`);
   const actus = await act.json();
 

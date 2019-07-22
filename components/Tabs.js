@@ -11,15 +11,18 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDragon } from '@fortawesome/free-solid-svg-icons'
-import { faTrophy } from '@fortawesome/free-solid-svg-icons'
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons'
-import { faImages } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDragon } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
+import { faImages } from '@fortawesome/free-regular-svg-icons';
 
 // Components
-import Actus from './Actus'
-import Resultats from './Resultats'
+import Actus from './Actus';
+import Agenda from './Agenda';
+import Medias from './Medias';
+import Resultats from './Resultats';
+
 
 function TabContainer({ children, dir }) {
   return (
@@ -83,8 +86,12 @@ export default function FullWidthTabs(props) {
           <TabContainer dir={theme.direction}>
             <Actus listactus={props.actus} />
           </TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Agenda />
+          </TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Medias />
+          </TabContainer>
           <TabContainer dir={theme.direction}>
             <Resultats listresults={props.results} />
           </TabContainer>
