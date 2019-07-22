@@ -30,7 +30,7 @@ export default function Resultat(props) {
 
   return (
     <Layout>
-      <Grid container justify="center" spacing={2}>
+      <Grid container justify="center" spacing={2} className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
             {he.decode(String(props.result.title.rendered))}

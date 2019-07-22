@@ -29,7 +29,7 @@ export default function Actu(props) {
   return (
     <Layout>
       <img src={props.post.featured_img ? props.post.featured_img : "/static/LOGO-CERTIFICATION.jpg"} alt={he.decode(String(props.post.title))} className={classes.media} />
-      <Grid container justify="center" spacing={2}>
+      <Grid container justify="center" spacing={2} className={classes.root}>
         <Grid item xs={10}>
           {console.log(props.post)}
           <Typography component="h2" variant="h2" gutterBottom>
