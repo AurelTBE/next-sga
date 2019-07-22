@@ -9,11 +9,13 @@ const Index = props => (
   </Layout>
 );
 
-Index.getInitialProps = async function() {
-  const act = await fetch('http://sga-gymfeminine.fr/bo/wp-json/wp/v2/posts');
+Index.getInitialProps = async function(FETCH_URL) {
+  const path = "http://sga-gymfeminine.fr/bo/wp-json"
+  
+  const act = await fetch(`${path}/wp/v2/posts`);
   const actus = await act.json();
 
-  const res = await fetch('http://sga-gymfeminine.fr/bo/wp-json/wp/v2/resultats');
+  const res = await fetch(`${path}/wp/v2/resultats`);
   const resultats = await res.json();
 
   return {
