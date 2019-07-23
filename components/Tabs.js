@@ -60,11 +60,12 @@ export default function FullWidthTabs(props) {
 
   function handleChangeIndex(index) {
     setValue(index);
+    {console.log("Changement tab")}
   }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="sticky" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
