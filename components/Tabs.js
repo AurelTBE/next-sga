@@ -60,7 +60,7 @@ export default function FullWidthTabs(props) {
 
   function handleChangeIndex(index) {
     setValue(index);
-    {console.log("Changement tab")}
+    window.scrollTo(0, 0);
   }
 
   return (
