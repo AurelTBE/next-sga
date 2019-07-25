@@ -66,8 +66,7 @@ export default function ActuCard(props) {
               component="div" 
               dangerouslySetInnerHTML={ {
                 __html: exerpt
-                } }>
-            </Typography>
+                } } />
           </CardContent>
         </Card>
       </Link>
