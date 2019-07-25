@@ -6,7 +6,8 @@ import Grid from '@material-ui/core/Grid';
 const Agenda = props => (
   <>
     <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
-      Agenda
+    Agenda
+    {console.log(props.listevents)}
     </Grid>
   </>
 );

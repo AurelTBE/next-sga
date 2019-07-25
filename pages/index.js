@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch';
 
 const Index = props => (
   <Layout>
-    <Tabs actus={props.actus} results={props.results} />
+    <Tabs actus={props.actus} results={props.results} events={props.events} />
   </Layout>
 );
 
@@ -18,9 +18,13 @@ Index.getInitialProps = async function() {
   const res = await fetch(`${path}/wp/v2/resultats`);
   const resultats = await res.json();
 
+  const eve = await fetch(`${path}/tribe/events/v1/events`);
+  const events = await eve.json();
+
   return {
     actus: actus,
-    results: resultats
+    results: resultats,
+    events: events.events,
   };
 
 };
