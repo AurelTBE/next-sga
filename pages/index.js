@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch';
 
 const Index = props => (
   <Layout>
-    <Tabs actus={props.actus} results={props.results} events={props.events} />
+    <Tabs actus={props.actus} results={props.results} events={props.events} allevents={props.allevents} />
   </Layout>
 );
 
@@ -21,10 +21,14 @@ Index.getInitialProps = async function() {
   const eve = await fetch(`${path}/tribe/events/v1/events`);
   const events = await eve.json();
 
+  const alleve = await fetch(`${path}/tribe/events/v1/events?start_date=2018-06-01&end_date=2030-07-01`);
+  const allevents = await alleve.json();
+
   return {
     actus: actus,
     results: resultats,
     events: events.events,
+    allevents: allevents.events,
   };
 
 };
