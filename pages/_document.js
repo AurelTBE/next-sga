@@ -14,7 +14,7 @@ class MyDocument extends Document {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
-          {/* PWA primary color */}
+          {/* Favicon */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
@@ -24,7 +24,8 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <meta name="msapplication-TileColor" content="#d32f2f" />
           <meta name="msapplication-config" content="/static/browserconfig.xml" />
-          <meta name="theme-color" content="#d32f2f" />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

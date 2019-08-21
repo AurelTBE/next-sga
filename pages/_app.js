@@ -4,19 +4,8 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
-import fetch from 'isomorphic-unfetch';
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let props = {}
-    let FETCH_URL = "http://sga-gymfeminine.fr/bo/wp-json"
-    if (Component.getInitialProps) {
-      const pageProps = await Component.getInitialProps(ctx, FETCH_URL)
-      props = {...pageProps, FETCH_URL}
-    }
-
-    return { props }
-  }
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -26,7 +15,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, props } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
       <Container>
@@ -36,7 +25,7 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Component {...props} />
+          <Component {...pageProps} />
         </ThemeProvider>
       </Container>
     );

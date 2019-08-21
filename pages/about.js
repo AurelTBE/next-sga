@@ -6,14 +6,18 @@ import MuiLink from '@material-ui/core/Link';
 import ProTip from '../src/ProTip';
 import Link from '../src/Link';
 
-function MadeWithLove() {
+function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
+      {'Copyright © '}
       <MuiLink color="inherit" href="https://material-ui.com/">
-        Material-UI
+        Your Website
+      </MuiLink>{' '}
+      {new Date().getFullYear()}
+      {'. Built with '}
+      <MuiLink color="inherit" href="https://material-ui.com/">
+        Material-UI.
       </MuiLink>
-      {' team.'}
     </Typography>
   );
 }
@@ -23,11 +27,11 @@ export default function About() {
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Next.js v4-beta example
+          Next.js example
         </Typography>
         <Link href="/">Go to the main page</Link>
         <ProTip />
-        <MadeWithLove />
+        <Copyright />
       </Box>
     </Container>
   );
