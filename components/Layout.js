@@ -1,12 +1,13 @@
+import React from 'react'
 import Header from './Header';
+import Topbtn from '../hooks/topBtn'
 
-const Layout = props => (
-  <>
-    <Header />
-    {props.children}
-  </>
-);
-
-
-
-export default Layout;
+export default function Layout(props) {
+  return (
+    <>
+      <Header />
+      {props.children}
+      <Topbtn />
+    </>
+  )
+}

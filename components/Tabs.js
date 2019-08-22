@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+// Get & use scroll position
+import useScrollPosition from "../hooks/useScrollPosition";
+
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon } from '@fortawesome/free-solid-svg-icons';
@@ -52,20 +55,16 @@ export default function FullWidthTabs(props) {
   const labelProps = {
     size: isSmallScreen ? "small" : "large"
   };
-  
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setValue(newValue);
-    if (window.scrollY >= 64) {
-      window.scrollTo(0, 64);
-    }
+    scrollPos >= 64 ? window.scrollTo(0, 64) : null;
   }
 
   function handleChangeIndex(index) {
     setValue(index);
-    if (window.scrollY >= 64) {
-      window.scrollTo(0, 64);
-    }
+    scrollPos >= 64 ? window.scrollTo(0, 64) : null;
   }
 
   return (
