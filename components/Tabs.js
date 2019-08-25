@@ -95,7 +95,7 @@ export default function FullWidthTabs(props) {
             <Agenda allevents={props.allevents} />
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <Medias />
+            <Medias mediafolders={props.mediafolders} />
           </TabContainer>
           <TabContainer dir={theme.direction}>
             <Resultats listresults={props.results} />

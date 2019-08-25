@@ -56,6 +56,10 @@ export default function Header() {
     setState({ ...state, [side]: open });
   };
 
+  function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
+
   const sideList = side => (
     <div
       className={classes.list}
@@ -72,12 +76,51 @@ export default function Header() {
         <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
       </Grid>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <Link href="/organisation" as={`/organisation`}>
+          <ListItemLink>
+            <ListItemText primary="Organisation" />
+          </ListItemLink>
+        </Link>
+        <Link href="/SGA" as={`/SGA`}>
+          <ListItemLink>
+            <ListItemText primary="SGA" />
+          </ListItemLink>
+        </Link>
+        <Link href="/sectionFeminine" as={`/section-feminine`}>
+          <ListItemLink>
+            <ListItemText primary="SGA section féminine" />
+          </ListItemLink>
+        </Link>
+        <Link href="/calendrier" as={`/calendrier`}>
+          <ListItemLink>
+            <ListItemText primary="Calendrier" />
+          </ListItemLink>
+        </Link>
+        <Link href="/resultats" as={`/resultats`}>
+          <ListItemLink>
+            <ListItemText primary="Résultats" />
+          </ListItemLink>
+        </Link>
+        <Link href="/medias" as={`/medias`}>
+          <ListItemLink>
+            <ListItemText primary="Médias" />
+          </ListItemLink>
+        </Link>
+        <Link href="/archives" as={`/archives`}>
+          <ListItemLink>
+            <ListItemText primary="Archives" />
+          </ListItemLink>
+        </Link>
+        <Link href="/connexion" as={`/connexion`}>
+          <ListItemLink>
+            <ListItemText primary="Connexion" />
+          </ListItemLink>
+        </Link>
+        <Link href="/contact" as={`/contact`}>
+          <ListItemLink>
+            <ListItemText primary="Contact" />
+          </ListItemLink>
+        </Link>
       </List>
       <Divider />
       <List>
