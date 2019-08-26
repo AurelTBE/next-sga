@@ -17,8 +17,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 // Icons
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
