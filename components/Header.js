@@ -45,6 +45,9 @@ const useStyles = makeStyles(theme => ({
   },
   icons: {
     fontSize: '20px'
+  },
+  menu: {
+    paddingTop: '12px'
   }
 }));
 
@@ -75,15 +78,19 @@ export default function Header() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
-        <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
-      </Grid>
-      <List>
+      <Link href="/" >
+        <a>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
+          </Grid>
+        </a>
+      </Link>
+      <List className={classes.menu}>
         <Link href="/SGA" as={`/SGA`}>
           <ListItemLink>
             <ListItemIcon><FontAwesomeIcon icon={faDragon} className={classes.icons} /></ListItemIcon>
@@ -93,7 +100,7 @@ export default function Header() {
         <Link href="/sectionFeminine" as={`/section-feminine`}>
           <ListItemLink>
             <ListItemIcon><FontAwesomeIcon icon={faFlag} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Section féminine" />
+            <ListItemText primary="Gym féminine" />
           </ListItemLink>
         </Link>
         <Link href="/calendrier" as={`/calendrier`}>
