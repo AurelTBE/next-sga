@@ -34,12 +34,17 @@ export default function Organisation(props) {
                     <Typography component="h2" variant="h2" gutterBottom>
                         Bénévoles :
                     </Typography>
-                    <Typography component="h3" variant="h3" gutterBottom>
-                        {benevoles[0].acf.nom_du_benevole}
-                    </Typography>
-                    <Typography component="div" variant="body1" gutterBottom>
-                        {benevoles[0].acf.informations_sur_le_benevole}
-                    </Typography>
+                    
+                    {benevoles.map((benevole) => (
+                      <div key={benevole.id}>
+                        <Typography component="h3" variant="h3" gutterBottom>
+                          {benevole.acf.nom_du_benevole}
+                        </Typography>
+                        <Typography component="div" variant="body1" gutterBottom>
+                          {benevole.acf.informations_sur_le_benevole}
+                        </Typography>
+                      </div>
+                    ))}
                 </Grid>
             </Grid>
         </Layout>
