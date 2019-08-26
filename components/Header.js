@@ -15,8 +15,15 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
+// Icons
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,6 +45,9 @@ const useStyles = makeStyles(theme => ({
     width: '50%',
     padding: '10px'
   },
+  icons: {
+    fontSize: '20px'
+  }
 }));
 
 
@@ -76,60 +86,54 @@ export default function Header() {
         <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
       </Grid>
       <List>
-        <Link href="/organisation" as={`/organisation`}>
-          <ListItemLink>
-            <ListItemText primary="Organisation" />
-          </ListItemLink>
-        </Link>
         <Link href="/SGA" as={`/SGA`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faDragon} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="SGA" />
           </ListItemLink>
         </Link>
         <Link href="/sectionFeminine" as={`/section-feminine`}>
           <ListItemLink>
-            <ListItemText primary="SGA section féminine" />
+            <ListItemIcon><FontAwesomeIcon icon={faFlag} className={classes.icons} /></ListItemIcon>
+            <ListItemText primary="Section féminine" />
           </ListItemLink>
         </Link>
         <Link href="/calendrier" as={`/calendrier`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faCalendarAlt} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Calendrier" />
           </ListItemLink>
         </Link>
         <Link href="/resultats" as={`/resultats`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faTrophy} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Résultats" />
           </ListItemLink>
         </Link>
         <Link href="/medias" as={`/medias`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faImages} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Médias" />
           </ListItemLink>
         </Link>
         <Link href="/archives" as={`/archives`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
             <ListItemText primary="Archives" />
           </ListItemLink>
         </Link>
         <Link href="/connexion" as={`/connexion`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faUserCircle} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Connexion" />
           </ListItemLink>
         </Link>
         <Link href="/contact" as={`/contact`}>
           <ListItemLink>
+            <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Contact" />
           </ListItemLink>
         </Link>
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
       </List>
     </div>
   );

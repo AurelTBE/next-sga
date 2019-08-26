@@ -15,10 +15,8 @@ import useScrollPosition from "../hooks/useScrollPosition";
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDragon } from '@fortawesome/free-solid-svg-icons';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import { faImages } from '@fortawesome/free-regular-svg-icons';
+import { faDragon, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
 
 // Components
 import Actus from './Actus';
