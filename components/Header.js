@@ -97,7 +97,7 @@ export default function Header() {
             <ListItemText primary="SGA" />
           </ListItemLink>
         </Link>
-        <Link href="/sectionFeminine" as={`/section-feminine`}>
+        <Link href="/gymfeminine" as={`/gymfeminine`}>
           <ListItemLink>
             <ListItemIcon><FontAwesomeIcon icon={faFlag} className={classes.icons} /></ListItemIcon>
             <ListItemText primary="Gym féminine" />
