@@ -39,7 +39,7 @@ export default function GymFeminine(props) {
                     </Typography>
                 </Grid>
                 {benevoles.map((benevole) => (
-                      <Grid item xs={12} sm={5} key={benevole.id}>
+                      <Grid item xs={12} lg={5} key={benevole.id}>
                         <CardBenevole benevole={benevole} />
                       </Grid>
                     ))}
