@@ -28,7 +28,7 @@ export default function GymFeminine(props) {
     const { benevoles } = props;
     return (
         <Layout>
-            <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2} className={classes.root}>
+            <Grid container justify="center" alignItems="stretch" alignContent="center" className={classes.root}>
                 <Grid item xs={10}>
                     <Typography component="h2" variant="h2" gutterBottom>
                         Organisation
