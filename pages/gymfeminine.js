@@ -28,7 +28,8 @@ export default function GymFeminine(props) {
     const { benevoles } = props;
     return (
         <Layout>
-            <Grid container justify="center" alignItems="stretch" alignContent="center" className={classes.root}>
+          <div style={{ padding: 8 }}>
+            <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2} className={classes.root}>
                 <Grid item xs={10}>
                     <Typography component="h2" variant="h2" gutterBottom>
                         Organisation
@@ -39,16 +40,11 @@ export default function GymFeminine(props) {
                 </Grid>
                 {benevoles.map((benevole) => (
                       <Grid item xs={12} sm={6} md={4} lg={3} key={benevole.id}>
-                        <Typography component="h3" variant="h3" gutterBottom>
-                          {benevole.acf.nom_du_benevole}
-                        </Typography>
-                        <Typography component="div" variant="body1" gutterBottom>
-                          {benevole.acf.informations_sur_le_benevole}
-                        </Typography>
                         <CardBenevole benevole={benevole} />
                       </Grid>
                     ))}
             </Grid>
+          </div>
         </Layout>
     )
 }
