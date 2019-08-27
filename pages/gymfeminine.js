@@ -28,8 +28,8 @@ export default function GymFeminine(props) {
     const { benevoles } = props;
     return (
         <Layout>
-          <div style={{ padding: 8 }}>
-            <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2} className={classes.root}>
+          <div className={classes.root}>
+            <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
                 <Grid item xs={10}>
                     <Typography component="h2" variant="h2" gutterBottom>
                         Organisation
