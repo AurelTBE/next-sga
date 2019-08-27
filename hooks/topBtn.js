@@ -23,7 +23,7 @@ export default function FloatingActionButtons() {
 
   return (
     <>
-      <Zoom in={scrollPos >= 64} out>
+      <Zoom in={scrollPos >= 64}>
         <Fab color="primary" aria-label="add" className={classes.fab} onClick={() => handleClickTop()}>
           <UpIcon />
         </Fab>
