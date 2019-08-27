@@ -32,14 +32,14 @@ export default function GymFeminine(props) {
             <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
                 <Grid item xs={10}>
                     <Typography component="h2" variant="h2" gutterBottom>
-                        Organisation
+                        Section féminine de la SGA
                     </Typography>
                     <Typography component="h2" variant="h2" gutterBottom>
                         Bénévoles :
                     </Typography>
                 </Grid>
                 {benevoles.map((benevole) => (
-                      <Grid item xs={12} sm={6} md={4} lg={3} key={benevole.id}>
+                      <Grid item xs={12} sm={5} key={benevole.id}>
                         <CardBenevole benevole={benevole} />
                       </Grid>
                     ))}
