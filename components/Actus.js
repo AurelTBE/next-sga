@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 // MUI
 import Grid from '@material-ui/core/Grid';
 

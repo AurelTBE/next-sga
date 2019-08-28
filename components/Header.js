@@ -159,9 +159,11 @@ export default function Header() {
           <Link href="/" >
                 <Button color="inherit" ><Typography variant="h6" color="inherit" className={classes.grow}>SGA Gym Féminine</Typography></Button>
           </Link>
-          <IconButton color="inherit">
+          <Link href="/connexion" as={`/connexion`}>
+            <IconButton color="inherit">
                 <AccountCircle />
-          </IconButton>
+            </IconButton>
+          </Link>
           </Grid>
         </Toolbar>
       </AppBar>
