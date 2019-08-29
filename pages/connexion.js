@@ -1,14 +1,11 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
+import Layout from '../components/Layout'
+import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
-// Components
-import Layout from '../components/Layout'
+import Connexion from '../components/Connexion';
+import Inscription from '../components/Inscription';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,72 +19,22 @@ const useStyles = makeStyles(theme => ({
       '& figure': {
         textAlign: 'center',
       },
-    },
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: "100%",
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
+    }
   }));
 
-export default function Connexion() {
+export default function Medias() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-      name: '',
-    });
-
-    const handleChange = name => event => {
-      setValues({ ...values, [name]: event.target.value });
-    };
-  
     return (
         <Layout>
-          <Grid container justify="center" className={classes.root}>
-            <Grid item xs={10}>
-              <Typography component="h2" variant="h2" gutterBottom>
-                Connexion
-              </Typography>
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="stretch"
-              >
-                <form className={classes.container} noValidate autoComplete="off">
-                  <Grid item xs={12}>
-                    <TextField
-                      id="standard-name"
-                      label="Name"
-                      className={classes.textField}
-                      value={values.name}
-                      onChange={handleChange('name')}
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="standard-password-input"
-                      label="Password"
-                      className={classes.textField}
-                      type="password"
-                      autoComplete="current-password"
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Button variant="contained" color="primary" className={classes.button}>
-                    Connexion
-                  </Button>         
-                </form>
-              </Grid>
-            </Grid> 
-          </Grid>
+            <Grid container justify="center" className={classes.root}>
+                <Grid item xs={10}>
+                    <Typography component="h1" variant="h2" gutterBottom>
+                        Connexion
+                    </Typography>
+                    <Connexion />
+                    <Inscription />
+                </Grid>
+            </Grid>
         </Layout>
     )
 }
