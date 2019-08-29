@@ -1,17 +1,21 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
   },
@@ -39,14 +43,26 @@ const useStyles = makeStyles({
   icons: {
     fontSize: '20px'
   },
-  fct: {
-    marginBottom: 0,
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
   },
-});
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+}));
 
 export default function CardBenevole(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [expanded, setExpanded] = React.useState(false);
+
+  function handleExpandClick() {
+    setExpanded(!expanded);
+  }
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const labelProps = {
@@ -57,10 +73,10 @@ export default function CardBenevole(props) {
   const benevoleFullName = `${benevole.acf.prenom} ${benevole.acf.nom}`;
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} onClick={handleExpandClick}>
       <CardContent>
         <Grid container spacing={2}>
-          <Grid item>
+          <Grid item alignItems="center">
             <Avatar alt={benevoleFullName} src={benevole.acf.photo_du_benevole ? benevole.acf.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
             {labelProps.size==="small" && benevole.acf.date_anniv ? <span><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</span> : null}
           </Grid>
@@ -71,17 +87,17 @@ export default function CardBenevole(props) {
                   {benevoleFullName}
                 </Typography>
                 {labelProps.size==="large" && benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
-                <Typography className={classes.pos} variant="body1" className={classes.fct}><b>Fonction(s) :</b></Typography>
+                <Typography className={classes.pos} variant="body1" color="textSecondary">Fonction(s) :</Typography>
                 {
                   benevole.acf.fonction.map((fonction) => {
                     switch(fonction) {
                       case 'Coach':
                         return (
                           <div key={fonction}>
-                            <Typography className={classes.pos} variant="body1" className={classes.fct}>
-                              {fonction} ({benevole.acf.niveau_de_formation_entraineur}) :{benevole.acf.groupe_entraine.map((groupe) => {
+                            <Typography className={classes.pos} variant="body" color="textSecondary">
+                              {fonction} ({benevole.acf.niveau_de_formation_entraineur}){expanded ? ` :${benevole.acf.groupe_entraine.map((groupe) => {
                               return ` ${groupe}`
-                            })}
+                            })}` : null}
                             </Typography>
 
                           </div>
@@ -89,17 +105,17 @@ export default function CardBenevole(props) {
                       case 'Juge':
                         return (
                           <div key={fonction}>
-                            <Typography className={classes.pos} variant="body1" className={classes.fct}>
-                              {fonction} ({benevole.acf.niveau_de_formation_juge}) :{benevole.acf.agres.map((agr) => {
+                            <Typography className={classes.pos} variant="body" color="textSecondary">
+                              {fonction} ({benevole.acf.niveau_de_formation_juge}){expanded ? ` :${benevole.acf.agres.map((agr) => {
                               return ` ${agr}`
-                            })}
+                            })}` : null}
                             </Typography>
                           </div>
                         );
                       case 'Bureau':
                         return (
                           <div key={fonction}>
-                            <Typography className={classes.pos} variant="body1" className={classes.fct}>
+                            <Typography className={classes.pos} variant="body" color="textSecondary">
                               {fonction} ({benevole.acf.role})
                             </Typography>
                           </div>
@@ -107,16 +123,16 @@ export default function CardBenevole(props) {
                       case 'Gymnaste':
                         return (
                           <div key={fonction}>
-                            <Typography className={classes.pos} variant="body1" className={classes.fct}>
-                              {fonction} :{benevole.acf.groupe_de_pratique.map((gpprat) => {
+                            <Typography className={classes.pos} variant="body" color="textSecondary">
+                              {fonction}{expanded ? ` :${benevole.acf.groupe_de_pratique.map((gpprat) => {
                               return ` ${gpprat}`
-                            })}
+                            })}` : null}
                             </Typography>
                           </div>
                         );
                       default:
                         return (
-                          <Typography className={classes.pos} variant="body1" className={classes.fct}>
+                          <Typography className={classes.pos} variant="body" color="textSecondary">
                             {fonction}
                           </Typography>
                         );
@@ -128,6 +144,17 @@ export default function CardBenevole(props) {
           </Grid>
         </Grid>
       </CardContent>
+      <CardActions disableSpacing>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 }

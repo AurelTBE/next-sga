@@ -21,7 +21,7 @@ export default function GymFeminine(props) {
       <Layout>
         <Grid container justify="center" className={classes.root}>
           <Grid item xs={10}>
-            <Typography component="h2" variant="h2" gutterBottom>
+            <Typography component="h1" variant="h2" gutterBottom>
               Section féminine de la SGA
             </Typography>
             <Typography component="h2" variant="h2" gutterBottom>
