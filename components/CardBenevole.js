@@ -62,16 +62,15 @@ export default function CardBenevole(props) {
         <Grid container spacing={2}>
           <Grid item>
             <Avatar alt={benevoleFullName} src={benevole.acf.photo_du_benevole ? benevole.acf.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
-            {labelProps.size==="small" && benevole.acf.date_anniv ? <span><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</span> : null}
+            {labelProps.size==="small" && benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
           </Grid>
-          <Grid item xs container>
+          <Grid item xs container> 
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h2" color="primary">
                   {benevoleFullName}
                 </Typography>
                 {labelProps.size==="large" && benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
-                <Typography className={classes.pos} variant="body1" className={classes.fct}><b>Fonction(s) :</b></Typography>
                 {
                   benevole.acf.fonction.map((fonction) => {
                     switch(fonction) {
@@ -79,7 +78,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              {fonction} ({benevole.acf.niveau_de_formation_entraineur}) :{benevole.acf.groupe_entraine.map((groupe) => {
+                              <b>{fonction}</b> *{benevole.acf.niveau_de_formation_entraineur}* :{benevole.acf.groupe_entraine.map((groupe) => {
                               return <span key={fonction+groupe}> {groupe}</span>
                             })}
                             </Typography>
@@ -89,7 +88,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              {fonction} ({benevole.acf.niveau_de_formation_juge}) :{benevole.acf.agres.map((agr) => {
+                            <b>{fonction}</b> *{benevole.acf.niveau_de_formation_juge}* :{benevole.acf.agres.map((agr) => {
                               return <span key={fonction+agr}> {agr}</span>
                             })}
                             </Typography>
@@ -99,7 +98,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              {fonction} ({benevole.acf.role})
+                            <b>{fonction}</b> *{benevole.acf.role}*
                             </Typography>
                           </div>
                         );
@@ -107,9 +106,17 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              {fonction} :{benevole.acf.groupe_de_pratique.map((gpprat) => {
+                            <b>{fonction}</b> :{benevole.acf.groupe_de_pratique.map((gpprat) => {
                               return <span key={fonction+gpprat}> {gpprat}</span>
                             })}
+                            </Typography>
+                          </div>
+                        );
+                      case 'Secrétaire':
+                        return (
+                          <div key={fonction}>
+                            <Typography className={classes.pos} variant="body2" className={classes.fct}>
+                            <b>{fonction}</b>
                             </Typography>
                           </div>
                         );
@@ -117,7 +124,7 @@ export default function CardBenevole(props) {
                         return (
                             <div key={fonction}>
                                 <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                                    {fonction}
+                                  <b>{fonction}</b>
                                 </Typography>
                             </div>
                         );
