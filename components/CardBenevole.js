@@ -80,10 +80,9 @@ export default function CardBenevole(props) {
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body1" className={classes.fct}>
                               {fonction} ({benevole.acf.niveau_de_formation_entraineur}) :{benevole.acf.groupe_entraine.map((groupe) => {
-                              return ` ${groupe}`
+                              return <span key={fonction+groupe}> {groupe}</span>
                             })}
                             </Typography>
-
                           </div>
                         );
                       case 'Juge':
@@ -91,7 +90,7 @@ export default function CardBenevole(props) {
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body1" className={classes.fct}>
                               {fonction} ({benevole.acf.niveau_de_formation_juge}) :{benevole.acf.agres.map((agr) => {
-                              return ` ${agr}`
+                              return <span key={fonction+agr}> {agr}</span>
                             })}
                             </Typography>
                           </div>
@@ -109,16 +108,18 @@ export default function CardBenevole(props) {
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body1" className={classes.fct}>
                               {fonction} :{benevole.acf.groupe_de_pratique.map((gpprat) => {
-                              return ` ${gpprat}`
+                              return <span key={fonction+gpprat}> {gpprat}</span>
                             })}
                             </Typography>
                           </div>
                         );
                       default:
                         return (
-                          <Typography className={classes.pos} variant="body1" className={classes.fct}>
-                            {fonction}
-                          </Typography>
+                            <div key={fonction}>
+                                <Typography className={classes.pos} variant="body1" className={classes.fct}>
+                                    {fonction}
+                                </Typography>
+                            </div>
                         );
                     }
                   })
