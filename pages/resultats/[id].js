@@ -41,7 +41,7 @@ export default function Resultat(props) {
             gutterBottom
             className={classes.content}
             dangerouslySetInnerHTML={ {
-              __html: props.result.content.rendered
+              __html: props.result.excerpt.rendered
           } } />
           <p>{props.result.acf.fichier_de_resultat_n1 ? <PDFview pdf={props.result.acf.fichier_de_resultat_n1} /> : null}</p>
         </Grid>
