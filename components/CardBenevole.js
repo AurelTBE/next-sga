@@ -54,14 +54,15 @@ export default function CardBenevole(props) {
   };
 
   const { benevole } = props;
-  const benevoleFullName = `${benevole.acf.prenom} ${benevole.acf.nom}`;
+  const { infos } = benevole;
+  const benevoleFullName = `${infos.prenom} ${infos.nom}`;
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item>
-            <Avatar alt={benevoleFullName} src={benevole.acf.photo_du_benevole ? benevole.acf.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
+            <Avatar alt={benevoleFullName} src={infos.photo_du_benevole ? infos.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
           </Grid>
           <Grid item xs container> 
             <Grid item xs container direction="column" spacing={2}>
@@ -69,15 +70,15 @@ export default function CardBenevole(props) {
                 <Typography variant="h5" component="h2" color="primary">
                   {benevoleFullName}
                 </Typography>
-                {benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
+                {infos.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {infos.date_anniv}</Typography> : null}
                 {
-                  benevole.acf.fonction.map((fonction) => {
+                  infos.fonction.map((fonction) => {
                     switch(fonction) {
                       case 'Coach':
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              <b>{fonction}</b> *{benevole.acf.niveau_de_formation_entraineur}* :{benevole.acf.groupe_entraine.map((groupe) => {
+                              <b>{fonction}</b> *{infos.niveau_de_formation_entraineur}* :{infos.groupe_entraine.map((groupe) => {
                               return <span key={fonction+groupe}> {groupe}</span>
                             })}
                             </Typography>
@@ -87,7 +88,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                            <b>{fonction}</b> *{benevole.acf.niveau_de_formation_juge}* :{benevole.acf.agres.map((agr) => {
+                            <b>{fonction}</b> *{infos.niveau_de_formation_juge}* :{infos.agres.map((agr) => {
                               return <span key={fonction+agr}> {agr}</span>
                             })}
                             </Typography>
@@ -97,7 +98,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                            <b>{fonction}</b> *{benevole.acf.role}*
+                            <b>{fonction}</b> *{infos.role}*
                             </Typography>
                           </div>
                         );
@@ -105,7 +106,7 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                            <b>{fonction}</b> :{benevole.acf.groupe_de_pratique.map((gpprat) => {
+                            <b>{fonction}</b> :{infos.groupe_de_pratique.map((gpprat) => {
                               return <span key={fonction+gpprat}> {gpprat}</span>
                             })}
                             </Typography>

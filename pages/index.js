@@ -12,10 +12,10 @@ const Index = props => (
 Index.getInitialProps = async function() {
   const path = "http://sga-gymfeminine.fr/bo/wp-json"
 
-  const act = await fetch(`${path}/wp/v2/posts`);
+  const act = await fetch(`${path}/sga/v1/posts`);
   const actus = await act.json();
 
-  const res = await fetch(`${path}/wp/v2/resultats`);
+  const res = await fetch(`${path}/sga/v1/resultats`);
   const resultats = await res.json();
 
   const eve = await fetch(`${path}/tribe/events/v1/events`);

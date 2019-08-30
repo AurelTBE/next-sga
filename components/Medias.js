@@ -7,7 +7,7 @@ const Medias = props => (
   <>
     <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
       Medias
-      {console.log(props.mediafolders)}
+      {/*console.log(props.mediafolders)*/}
     </Grid>
   </>
 );

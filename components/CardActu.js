@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 export default function ActuCard(props) {
   const classes = useStyles();
 
-  const { id, titre, exerpt, img, slug } = props;
+  const { id, titre, excerpt, img, slug } = props;
 
   function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
@@ -65,7 +65,7 @@ export default function ActuCard(props) {
             <Typography 
               component="div" 
               dangerouslySetInnerHTML={ {
-                __html: exerpt
+                __html: excerpt
                 } } />
           </CardContent>
         </Card>
