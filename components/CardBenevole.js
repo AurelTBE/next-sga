@@ -33,8 +33,8 @@ const useStyles = makeStyles({
   },
   smallAvatar: {
     margin: 5,
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
   icons: {
     fontSize: '20px'
@@ -62,7 +62,6 @@ export default function CardBenevole(props) {
         <Grid container spacing={2}>
           <Grid item>
             <Avatar alt={benevoleFullName} src={benevole.acf.photo_du_benevole ? benevole.acf.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
-            {labelProps.size==="small" && benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
           </Grid>
           <Grid item xs container> 
             <Grid item xs container direction="column" spacing={2}>
@@ -70,7 +69,7 @@ export default function CardBenevole(props) {
                 <Typography variant="h5" component="h2" color="primary">
                   {benevoleFullName}
                 </Typography>
-                {labelProps.size==="large" && benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
+                {benevole.acf.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {benevole.acf.date_anniv}</Typography> : null}
                 {
                   benevole.acf.fonction.map((fonction) => {
                     switch(fonction) {
