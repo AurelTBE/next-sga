@@ -68,7 +68,6 @@ export default function Agenda(props) {
   return (
   <div className={classes.root}>
     {props.events.map((event) => (
-        moment(event.datefin).isBefore(moment(), 'day') ? null : 
         <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
