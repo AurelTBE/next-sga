@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch';
 
 const Index = props => (
   <Layout>
-    <Tabs actus={props.actus} results={props.results} events={props.events} allevents={props.allevents} mediafolders={props.mediafolders} />
+    <Tabs actus={props.actus} results={props.results} events={props.events} mediafolders={props.mediafolders} />
   </Layout>
 );
 
@@ -18,11 +18,8 @@ Index.getInitialProps = async function() {
   const publicmedia = await fetch(`${path}/sga/v1/mediatheque`);
   const publicmediafolders = await publicmedia.json();
 
-  const eve = await fetch(`${path}/tribe/events/v1/events`);
+  const eve = await fetch(`${path}/sga/v1/evenements`);
   const events = await eve.json();
-
-  const alleve = await fetch(`${path}/tribe/events/v1/events?start_date=2018-06-01&end_date=2030-07-01`);
-  const allevents = await alleve.json();
 
   const res = await fetch(`${path}/sga/v1/resultats`);
   const resultats = await res.json();
@@ -30,8 +27,7 @@ Index.getInitialProps = async function() {
   return {
     actus: actus,
     results: resultats,
-    events: events.events,
-    allevents: allevents.events,
+    events: events,
     mediafolders: publicmediafolders,
   };
 

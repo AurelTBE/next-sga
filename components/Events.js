@@ -62,8 +62,8 @@ export default function Events(props) {
 
   return (
     <div className={classes.root}>
-      {props.allevents.map((event) => (
-          moment(event.end_date).isBefore(moment(), 'day') ? null : 
+      {props.events.map((event) => (
+          moment(event.datefin).isBefore(moment(), 'day') ? null : 
           <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}

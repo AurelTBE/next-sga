@@ -13,9 +13,6 @@ import he from 'he';
 // MUI
 import Grid from '@material-ui/core/Grid';
 
-import Events from './Events';
-import PastEvents from './PastEvents'
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -59,20 +56,60 @@ function displayMonth(numonth) {
 
 export default function Agenda(props) {
   const classes = useStyles();
-  const [isPrev, setIsPrev] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
-  function togglePrev() {
-    isPrev ? setIsPrev(false) : setIsPrev(true);
-  }
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   const currentDate = moment().format("DD");
   const currentMonth = moment().format("MM");
 
   return (
-    <div className={classes.root}>
-      <Button onClick={togglePrev} variant="contained" color="primary" className={classes.button}>{isPrev ? "Prochains événements" : "Événements passés"}</Button>
-      {isPrev ? <PastEvents allevents={props.allevents} /> : <Events allevents={props.allevents} /> }
-    </div>
-  );
+  <div className={classes.root}>
+    {props.events.map((event) => (
+        moment(event.datefin).isBefore(moment(), 'day') ? null : 
+        <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm container>
+                <Grid item xs={5} container spacing={2} >
+                  <Grid item xs={12} container justify="flex-start">
+                    <Grid item xs={5}>
+                      <Typography variant="h4">
+                        {event.datedebut}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography gutterBottom variant="h5">
+                        {event.datefin != event.datedebut ? ` - ${event.datefin}` : null }
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs>
+                  <Typography className={classes.heading}>{event.type}</Typography>
+                  </Grid>
+                </Grid>
+                <Typography className={classes.secondaryHeading}>{event.title}</Typography>
+              </Grid>
+            </Grid>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+          <Grid container justify="center" className={classes.root}>
+          <Grid item xs={12}>
+          <Typography className={classes.pos} variant="body2">
+            {event.infos}
+          </Typography>
+            </Grid>
+          </Grid>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ))}
+  </div>
+);
 }
 
