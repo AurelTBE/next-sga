@@ -60,8 +60,8 @@ export default function Agenda(props) {
       eve.push({
         id: event.id,
         title: event.title,
-        datedebut: moment(event.datedebut),
-        datefin: moment(event.datefin),
+        datedebut: moment(event.datedebut.date),
+        datefin: moment(event.datefin.date),
         type: event.type,
         groupe: event.groupe,
         lieu: event.lieu,
@@ -86,6 +86,7 @@ export default function Agenda(props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
+          {console.log(event)}
           <Grid container spacing={2}>
             <Grid item xs={12} sm container>
               <Grid item xs={5} container spacing={2} >
