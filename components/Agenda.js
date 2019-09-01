@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -49,65 +49,77 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function displayMonth(numonth) {
-  const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"];
-  return months[numonth-1]
-}
-
 export default function Agenda(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const eve = []
+    props.events.map(event => ([
+      eve.push({
+        id: event.id,
+        title: event.title,
+        datedebut: moment(event.datedebut),
+        datefin: moment(event.datefin),
+        type: event.type,
+        groupe: event.groupe,
+        lieu: event.lieu,
+        infos: event.infos,
+      })
+    ]))
+    setEvents(eve)
+  }, [setEvents])
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const currentDate = moment().format("DD");
-  const currentMonth = moment().format("MM");
+  moment.locale('fr')
 
   return (
   <div className={classes.root}>
-    {props.events.map((event) => (
-        <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm container>
-                <Grid item xs={5} container spacing={2} >
-                  <Grid item xs={12} container justify="flex-start">
-                    <Grid item xs={5}>
-                      <Typography variant="h4">
-                        {event.datedebut}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Typography gutterBottom variant="h5">
-                        {event.datefin != event.datedebut ? ` - ${event.datefin}` : null }
-                      </Typography>
-                    </Grid>
+    {events.map((event) => (
+      <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm container>
+              <Grid item xs={5} container spacing={2} >
+                <Grid item xs={12} container justify="flex-start">
+                  <Grid item xs={5}>
+                    <Typography variant="h4">
+                    {moment(event.datedebut).format('DD MMMM')}
+                    </Typography>
                   </Grid>
-                  <Grid item xs>
-                  <Typography className={classes.heading}>{event.type}</Typography>
+                  <Grid item xs={4}>
+                    <Typography gutterBottom variant="h5">
+                      {event.datefin != event.datedebut ? ` - ${moment(event.datefin).format('DD MMMM')}` : null }
+                    </Typography>
                   </Grid>
                 </Grid>
-                <Typography className={classes.secondaryHeading}>{event.title}</Typography>
+                <Grid item xs>
+                <Typography className={classes.heading}>{event.type}</Typography>
+                </Grid>
               </Grid>
-            </Grid>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-          <Grid container justify="center" className={classes.root}>
-          <Grid item xs={12}>
-          <Typography className={classes.pos} variant="body2">
-            {event.infos}
-          </Typography>
+              <Typography className={classes.secondaryHeading}>{event.title}</Typography>
             </Grid>
           </Grid>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      ))}
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+        <Grid container justify="center" className={classes.root}>
+        <Grid item xs={12}>
+        <Typography className={classes.pos} variant="body2">
+          {event.infos}
+        </Typography>
+          </Grid>
+        </Grid>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    ))}
   </div>
 );
 }
