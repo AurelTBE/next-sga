@@ -20,16 +20,9 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
-  smgridList: {
-    width: 500,
-    height: 450,
-  },
-  lggridList: {
-    width: 1000,
-    height: 900,
-  },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+  gridList: {
+    width: "100%",
+    height: "auto",
   },
 }));
 
@@ -44,12 +37,14 @@ export default function Media(props) {
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={labelProps.size==="large" ? 350 : 160} className={labelProps.size==="large" ? classes.lggridList : classes.smgridList}>
+      <GridList cellHeight={labelProps.size==="large" ? 350 : 250} cols={labelProps.size==="large" ? 3 : 1} className={classes.gridList}>
         {props.mediafolders.map(mediafolder => (
-          <GridListTile key={mediafolder.id}>
-            <img src={mediafolder.couverture} alt={mediafolder.title} />
-            <GridListTileBar title={mediafolder.title} />
-          </GridListTile>
+          
+            <GridListTile button component="a" key={mediafolder.id}>
+              <img src={mediafolder.couverture} alt={mediafolder.title} />
+              <GridListTileBar title={mediafolder.title} />
+            </GridListTile>
+
         ))}
       </GridList>
     </div>
