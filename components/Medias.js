@@ -44,7 +44,7 @@ export default function Media(props) {
               <img src={mediafolder.couverture} alt={mediafolder.title} />
               <GridListTileBar title={mediafolder.title} />
             </GridListTile>
-
+          
         ))}
       </GridList>
     </div>
