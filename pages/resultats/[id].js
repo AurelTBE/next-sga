@@ -33,7 +33,7 @@ export default function Resultat(props) {
       <Grid container justify="center" className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
-            {he.decode(String(props.result.title.rendered))}
+            {he.decode(String(props.result.title))}
           </Typography>
           <Typography 
             variant="body1"
@@ -41,9 +41,9 @@ export default function Resultat(props) {
             gutterBottom
             className={classes.content}
             dangerouslySetInnerHTML={ {
-              __html: props.result.excerpt.rendered
+              __html: props.result.content
           } } />
-          <p>{props.result.acf.fichier_de_resultat_n1 ? <PDFview pdf={props.result.acf.fichier_de_resultat_n1} /> : null}</p>
+          <p>{props.result.resultfile ? <PDFview pdf={props.result.resultfile} /> : null}</p>
         </Grid>
       </Grid>
     </Layout>
@@ -53,10 +53,10 @@ export default function Resultat(props) {
 
 Resultat.getInitialProps = async function(context) {
   const { id } = context.query;
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/wp/v2/resultats?slug=${id}`);
+  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultats/${id}`);
   const result = await res.json();
 
   return {
-    result: result[0]
+    result: result
   };
 };

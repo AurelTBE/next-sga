@@ -21,7 +21,7 @@ Index.getInitialProps = async function() {
   const eve = await fetch(`${path}/sga/v1/evenements`);
   const events = await eve.json();
 
-  const res = await fetch(`${path}/sga/v1/resultats`);
+  const res = await fetch(`${path}/sga/v1/listresults`);
   const resultats = await res.json();
 
   return {
