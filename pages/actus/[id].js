@@ -28,11 +28,11 @@ export default function Actu(props) {
 
   return (
     <Layout>
-      <img src={props.post.featured_img_1920x500 ? props.post.featured_img_1920x500 : "/static/LOGO-CERTIFICATION.jpg"} alt={he.decode(String(props.post.title))} className={classes.media} />
+      {props.post.bigbanner ? <img src={props.post.bigbanner} alt={he.decode(String(props.post.title))} className={classes.media} /> : null}
       <Grid container justify="center" className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
-            {he.decode(String(props.post.title.rendered))}
+            {he.decode(String(props.post.title))}
           </Typography>
           <Typography 
             variant="body1"
@@ -40,7 +40,7 @@ export default function Actu(props) {
             gutterBottom
             className={classes.content}
             dangerouslySetInnerHTML={ {
-              __html: props.post.content.rendered
+              __html: props.post.content
           } } />
         {/*<img src={props.post.image.medium} />*/}
         </Grid>
@@ -51,10 +51,10 @@ export default function Actu(props) {
 
 Actu.getInitialProps = async function(context) {
   const { id } = context.query;
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/wp/v2/posts?slug=${id}`);
+  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/posts/${id}`);
   const post = await res.json();
 
   return {
-    post: post[0]
+    post: post
   };
 };

@@ -12,7 +12,7 @@ const Index = props => (
 Index.getInitialProps = async function() {
   const path = "http://sga-gymfeminine.fr/bo/wp-json"
 
-  const act = await fetch(`${path}/sga/v1/posts`);
+  const act = await fetch(`${path}/sga/v1/listeposts`);
   const actus = await act.json();
 
   const publicmedia = await fetch(`${path}/sga/v1/mediatheque`);
