@@ -59,10 +59,10 @@ export default function Resultat(props) {
 
 Resultat.getInitialProps = async function(context) {
   const { id } = context.query;
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galerie?slug=${id}`);
+  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
   const galerie = await res.json();
 
   return {
-    galerie: galerie[0]
+    galerie: galerie
   };
 };
