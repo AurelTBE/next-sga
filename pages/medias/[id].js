@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Typography from '@material-ui/core/Typography';
 
 import Link from 'next/link';
 
@@ -40,19 +40,40 @@ export default function Resultat(props) {
     size: isSmallScreen ? "small" : "large"
   };
 
-  return (
-    <Layout>
-      <div className={classes.root}>
-        <GridList cellHeight={labelProps.size==="large" ? 350 : 250} cols={labelProps.size==="large" ? 3 : 1} className={classes.gridList}>
-          {props.galerie.photos.map(image => (
-              <GridListTile button component="a" key={image.id}>
-                <img src={image.small} alt={image.title} />
-              </GridListTile>
-          ))}
-        </GridList>
-      </div>
-    </Layout>
-  )
+  switch(props.galerie.visible) {
+    case 'Public':
+      return (
+        <Layout>
+          <div className={classes.root}>
+            <GridList cellHeight={labelProps.size==="large" ? 350 : 250} cols={labelProps.size==="large" ? 3 : 1} className={classes.gridList} spacing={0}>
+              {props.galerie.photos.map(image => (
+                  <GridListTile button component="a" key={image.id}>
+                    <img src={image.small} alt={image.title} />
+                  </GridListTile>
+              ))}
+            </GridList>
+          </div>
+        </Layout>
+      );
+    case 'Gym':
+      return (
+        <Layout>
+          <div className={classes.root}>
+          <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
+          </div>
+        </Layout>
+      );
+    case 'Bénévole':
+      return (
+        <Layout>
+          <div className={classes.root}>
+            <Typography variant="h5" component="h2" color="primary">Seules les bénévoles membres de la SGA Peuvent accèder à cette page. Si vous êtes bénévole, connectez-vous.</Typography>
+          </div>
+        </Layout>
+      );
+    default:
+      return null;
+  }
 }
 
 

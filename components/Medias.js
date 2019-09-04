@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import Button from '@material-ui/core/Button'
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import Link from 'next/link';
 
@@ -49,7 +49,7 @@ export default function Media(props) {
       <GridList cellHeight={labelProps.size==="large" ? 350 : 250} cols={labelProps.size==="large" ? 3 : 1} className={classes.gridList} spacing={0}>
         {props.mediafolders.map(mediafolder => (
             <GridListTileLink key={mediafolder.id} slug={mediafolder.slug}>          
-              <img src={mediafolder.couverture} alt={mediafolder.title} />
+              <img button src={mediafolder.couverture} alt={mediafolder.title} />
               <GridListTileBar title={mediafolder.title} />
             </GridListTileLink>
         ))}
