@@ -47,7 +47,6 @@ export default function Resultat(props) {
           {props.galerie.photos.map(image => (
               <GridListTile button component="a" key={image.id}>
                 <img src={image.small} alt={image.title} />
-                <GridListTileBar title={image.title} />
               </GridListTile>
           ))}
         </GridList>
