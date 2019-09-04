@@ -36,14 +36,22 @@ export default function Media(props) {
     size: isSmallScreen ? "small" : "large"
   };
 
+  function GridListTileLink(props) {
+    return (
+    <Link href="/medias/[id]" as={`/medias/${props.slug}`}>
+      <GridListTile button component="a" {...props} />
+    </Link>
+    )
+  }
+
   return (
     <div className={classes.root}>
       <GridList cellHeight={labelProps.size==="large" ? 350 : 250} cols={labelProps.size==="large" ? 3 : 1} className={classes.gridList} spacing={0}>
         {props.mediafolders.map(mediafolder => (
-            <GridListTile key={mediafolder.id}>          
+            <GridListTileLink key={mediafolder.id} slug={mediafolder.slug}>          
               <img src={mediafolder.couverture} alt={mediafolder.title} />
               <GridListTileBar title={mediafolder.title} />
-            </GridListTile>
+            </GridListTileLink>
         ))}
       </GridList>
     </div>
