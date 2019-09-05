@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,7 +18,6 @@ import { faTrophy } from '@fortawesome/free-solid-svg-icons'
 const useStyles = makeStyles(theme => ({
   card: {
     height: "100%",
-    cursor: 'pointer',
   },
   media: {
     height: 0,
@@ -37,16 +37,13 @@ const useStyles = makeStyles(theme => ({
 export default function ResultCard(props) {
   const classes = useStyles();
 
-  const { id, titre, excerpt, img, slug } = props;
-
-  function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-  }
+  const { titre, excerpt, img, slug } = props;
 
   return (
-    <Link href="/resultats/[id]" as={`/resultats/${props.slug}`}>
-        <Card className={classes.card}>
-          <ListItemLink>
+    <Card className={classes.card}>
+      <Link href="/resultats/[id]" as={`/resultats/${slug}`}>
+        <CardActionArea>
+          <ListItem>
             <CardHeader
               avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -55,21 +52,22 @@ export default function ResultCard(props) {
               }
               title={he.decode(titre)}
             />
-          </ListItemLink>
+          </ListItem>
           <CardMedia
             className={classes.media}
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
             title={he.decode(titre)}
           />
-          <CardContent>
-            <Typography 
-              component="div" 
-              dangerouslySetInnerHTML={ {
-                __html: excerpt
-                } }>
-            </Typography>
-          </CardContent>
-        </Card>
+        </CardActionArea>
       </Link>
+      <CardContent>
+        <Typography 
+          component="div" 
+          dangerouslySetInnerHTML={ {
+            __html: excerpt
+            } }>
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }

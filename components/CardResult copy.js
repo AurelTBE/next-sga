@@ -5,7 +5,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +13,7 @@ import Link from "next/link";
 import he from 'he';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDragon } from '@fortawesome/free-solid-svg-icons'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -30,49 +29,47 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: red[500],
   },
-  actuBtn: {
-    display: 'block',
-    textAlign: 'initial'
-  },
   logo: {
         maxWidth: "100%"
-  }
+    }
 }));
 
-export default function ActuCard(props) {
+export default function ResultCard(props) {
   const classes = useStyles();
 
   const { titre, excerpt, img, slug } = props;
 
+  function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
+
   return (
-    <Card className={classes.card}>
-      <Link href="/actus/[id]" as={`/actus/${slug}`}>
-        <CardActionArea>
-          <ListItem>
+    <Link href="/resultats/[id]" as={`/resultats/${slug}`}>
+        <Card className={classes.card}>
+          <ListItemLink>
             <CardHeader
               avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
-                  <FontAwesomeIcon icon={faDragon} />
+                  <FontAwesomeIcon icon={faTrophy} />
                 </Avatar>
               }
               title={he.decode(titre)}
             />
-          </ListItem>
+          </ListItemLink>
           <CardMedia
             className={classes.media}
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
             title={he.decode(titre)}
           />
-        </CardActionArea>
+          <CardContent>
+            <Typography 
+              component="div" 
+              dangerouslySetInnerHTML={ {
+                __html: excerpt
+                } }>
+            </Typography>
+          </CardContent>
+        </Card>
       </Link>
-      <CardContent>
-        <Typography 
-          component="div" 
-          dangerouslySetInnerHTML={ {
-            __html: excerpt
-            } } />
-      </CardContent>
-    </Card>
-      
   );
 }
