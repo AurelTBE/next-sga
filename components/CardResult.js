@@ -63,8 +63,7 @@ export default function ResultCard(props) {
               component="div" 
               dangerouslySetInnerHTML={ {
                 __html: excerpt
-                } }>
-            </Typography>
+                } } />
           </CardContent>
         </CardActionArea>
       </Link>
