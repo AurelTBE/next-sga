@@ -58,16 +58,16 @@ export default function ResultCard(props) {
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
             title={he.decode(titre)}
           />
+          <CardContent>
+            <Typography 
+              component="div" 
+              dangerouslySetInnerHTML={ {
+                __html: excerpt
+                } }>
+            </Typography>
+          </CardContent>
         </CardActionArea>
       </Link>
-      <CardContent>
-        <Typography 
-          component="div" 
-          dangerouslySetInnerHTML={ {
-            __html: excerpt
-            } }>
-        </Typography>
-      </CardContent>
     </Card>
   );
 }

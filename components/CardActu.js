@@ -63,15 +63,15 @@ export default function ActuCard(props) {
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
             title={he.decode(titre)}
           />
+          <CardContent>
+            <Typography 
+              component="div" 
+              dangerouslySetInnerHTML={ {
+                __html: excerpt
+                } } />
+          </CardContent>
         </CardActionArea>
       </Link>
-      <CardContent>
-        <Typography 
-          component="div" 
-          dangerouslySetInnerHTML={ {
-            __html: excerpt
-            } } />
-      </CardContent>
     </Card>
       
   );
