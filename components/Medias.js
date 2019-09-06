@@ -52,8 +52,8 @@ export default function Media(props) {
     <div className={classes.root}>
       <GridList cellHeight={labelProps.size==="large" ? 350 : 150} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
         {props.mediafolders.map(mediafolder => (
-            <ButtonBase className={classes.tileBtn}>
-              <GridListTileLink key={mediafolder.id} slug={mediafolder.slug}>
+            <ButtonBase key={mediafolder.id} className={classes.tileBtn}>
+              <GridListTileLink slug={mediafolder.slug}>
                 <img src={mediafolder.couverture} alt={mediafolder.title} />
                 <GridListTileBar title={mediafolder.title} />
               </GridListTileLink>
