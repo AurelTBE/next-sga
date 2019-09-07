@@ -43,7 +43,7 @@ export default function Media(props) {
   function GridListTileLink(props) {
     return (
     <Link href="/medias/[id]" as={`/medias/${props.slug}`}>
-      <GridListTile button component="a" {...props} />
+      <GridListTile component="a" {...props} />
     </Link>
     )
   }

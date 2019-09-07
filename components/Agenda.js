@@ -1,57 +1,56 @@
-import Link from 'next/link';
 import React, {useState, useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import * as moment from 'moment';
-import he from 'he';
-
-// MUI
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import * as moment from 'moment';
 
-const useStyles = makeStyles(theme => ({
+// Media Query
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+const useStyles = makeStyles({
   root: {
     width: '100%',
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
+  card: {
+    minWidth: 275,
   },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
   },
-  media: {
-    maxWidth: "100%",
+  title: {
+    fontSize: 14,
   },
-  competitions: {
-    backgroundColor: "red",
+  pos: {
+    marginBottom: 12,
   },
-  divers: {
-    backgroundColor: "blue",
+  bigAvatar: {
+    margin: 12,
+    width: 180,
+    height: 180,
   },
-  formations: {
-    backgroundColor: "green",
+  smallAvatar: {
+    margin: 5,
+    width: 100,
+    height: 100,
   },
-  reunions: {
-    backgroundColor: "yellow",
+  icons: {
+    fontSize: '20px'
   },
-  stages: {
-    backgroundColor: "pink",
+  fct: {
+    marginBottom: 0,
   },
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
+});
 
-export default function Agenda(props) {
+export default function CardBenevole(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const theme = useTheme();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -71,57 +70,50 @@ export default function Agenda(props) {
     setEvents(eve)
   }, [setEvents])
 
-  const handleChange = panel => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const labelProps = {
+    size: isSmallScreen ? "small" : "large"
   };
 
   moment.locale('fr')
 
   return (
-  <div className={classes.root}>
-    {events.map((event) => (
-      <ExpansionPanel expanded={expanded === `panel${event.id}`} onChange={handleChange(`panel${event.id}`)} key={event.id} >
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          {console.log(event)}
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm container>
-              <Grid item xs={5} container spacing={2} >
-                <Grid item xs={12} container justify="flex-start">
-                  <Grid item xs={5}>
-                    <Typography variant="h4">
-                    {moment(event.datedebut).format('DD MMMM')}
+    <Grid container spacing={2}>
+      {events.map(event => (
+        <Grid item xs={12} key={event.id}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={4} md={2}>
+                <Box
+                  display="flex" 
+                  color="background.paper"
+                  bgcolor="primary.main"
+                  fontFamily="h6.fontFamily"
+                  fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+                  p={{ xs: 2, sm: 3, md: 4 }}
+                  justifyContent="center"
+                  alignItems="center"
+                  height={{xs: 100, md: 120}}
+                >
+                  <Box align="center">{labelProps.size==="large" ? moment(event.datefin).format('DD MMMM') : moment(event.datefin).format('DD MMM')}</Box>
+                </Box>
+              </Grid>
+              <Grid item xs container> 
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                    <Typography variant="h5" component="h2" color="primary">
+                      {event.title}
                     </Typography>
+                    {event.lieu ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faMapMarkedAlt} className={classes.icons} /> {event.lieu.address}</Typography> : null}
                   </Grid>
-                  <Grid item xs={4}>
-                    <Typography gutterBottom variant="h5">
-                      {event.datefin != event.datedebut ? ` - ${moment(event.datefin).format('DD MMMM')}` : null }
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs>
-                <Typography className={classes.heading}>{event.type}</Typography>
                 </Grid>
               </Grid>
-              <Typography className={classes.secondaryHeading}>{event.title}</Typography>
             </Grid>
-          </Grid>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-        <Grid container justify="center" className={classes.root}>
-        <Grid item xs={12}>
-        <Typography className={classes.pos} variant="body2">
-          {event.infos}
-        </Typography>
-          </Grid>
+          </CardContent>
+        </Card>
         </Grid>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    ))}
-  </div>
-);
+      ))}
+    </Grid>
+  );
 }
-
