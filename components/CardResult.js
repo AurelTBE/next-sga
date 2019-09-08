@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 export default function ResultCard(props) {
   const classes = useStyles();
 
-  const { titre, excerpt, img, slug } = props;
+  const { titre, img, slug } = props;
 
   return (
     <Card className={classes.card}>
@@ -57,13 +57,6 @@ export default function ResultCard(props) {
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
             title={titre}
           />
-          <CardContent>
-            <Typography 
-              component="div" 
-              dangerouslySetInnerHTML={ {
-                __html: excerpt
-                } } />
-          </CardContent>
         </CardActionArea>
       </Link>
     </Card>

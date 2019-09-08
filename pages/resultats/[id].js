@@ -33,17 +33,18 @@ export default function Resultat(props) {
       <Grid container justify="center" className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
-            {he.decode(String(props.result.title))}
+            {props.result.title}
           </Typography>
-          <Typography 
-            variant="body1"
-            component="div" 
-            gutterBottom
-            className={classes.content}
-            dangerouslySetInnerHTML={ {
-              __html: props.result.content
-          } } />
-          <p>{props.result.resultfile ? <PDFview pdf={props.result.resultfile} /> : null}</p>
+          <Typography component="div" variant="body2" gutterBottom>
+            Date de la compétition : {props.result.date}
+          </Typography>
+          <Typography component="div" variant="body2" gutterBottom>
+            Lieu de la compétition : {props.result.ville}
+          </Typography>
+          <Typography component="div" variant="body2" gutterBottom>
+            Groupes ayant participé : {props.result.groupe}
+          </Typography>
+            <p>{props.result.resultfile ? <PDFview pdf={props.result.resultfile} /> : null}</p>
         </Grid>
       </Grid>
     </Layout>
