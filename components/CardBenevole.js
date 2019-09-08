@@ -33,8 +33,8 @@ const useStyles = makeStyles({
   },
   smallAvatar: {
     margin: 5,
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
   },
   icons: {
     fontSize: '20px'
