@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -7,46 +8,35 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import Link from '@material-ui/core/Link';
 import * as moment from 'moment';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
+const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
   },
-  bullet: {
+  link: {
+    margin: theme.spacing(1),
+  },
+  city: {
+    textTransform: 'uppercase',
+  },
+  place: {
     display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 14,
+  leftIcon: {
+    marginRight: theme.spacing(1),
   },
-  pos: {
-    marginBottom: 12,
-  },
-  bigAvatar: {
-    margin: 12,
-    width: 180,
-    height: 180,
-  },
-  smallAvatar: {
-    margin: 5,
-    width: 100,
-    height: 100,
-  },
-  icons: {
-    fontSize: '20px'
+  iconSmall: {
+    fontSize: 20,
   },
   fct: {
     marginBottom: 0,
   },
-});
+}));
 
 export default function CardBenevole(props) {
   const classes = useStyles();
@@ -142,12 +132,19 @@ export default function CardBenevole(props) {
               <Grid item xs container> 
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <Box color={eventColor(event.type)}>
-                      <Typography variant="h5" component="h2" color="inherit">
+                    <Box 
+                      color={eventColor(event.type)}
+                    >
+                      <Typography variant={labelProps.size==="large" ? 'h4' : 'h5'} component="h2" color="inherit">
                         {event.title}
                       </Typography>
                     </Box>
-                    {event.ville ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faMapMarkedAlt} className={classes.icons} /> {event.ville}, {event.lieu}</Typography> : null}
+                    {event.ville ? 
+                      <Link href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
+                        <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                        <span className={classes.city}>{event.ville},</span> <span className={classes.place}>{event.lieu}</span>
+                      </Link>
+                       : null}
                   </Grid>
                 </Grid>
               </Grid>
