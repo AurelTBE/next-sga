@@ -63,7 +63,18 @@ export default function CardBenevole(props) {
         datefin: moment(event.datefin.date),
         type: event.type,
         groupe: event.groupe,
+        participants_1: event.participants_1,
+        horaire_1: event.horaire_1,
+        palmares_1: event.palmares_1,
+        participants_2: event.participants_2,
+        horaire_2: event.horaire_2,
+        palmares_2: event.palmares_2,
+        participants_3: event.participants_3,
+        horaire_3: event.horaire_3,
+        palmares_3: event.palmares_3,
+        ville: event.ville,
         lieu: event.lieu,
+        adresse: event.adresse,
         infos: event.infos,
       })
     ]))
@@ -136,7 +147,7 @@ export default function CardBenevole(props) {
                         {event.title}
                       </Typography>
                     </Box>
-                    {event.lieu ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faMapMarkedAlt} className={classes.icons} /> {event.lieu.address}</Typography> : null}
+                    {event.ville ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faMapMarkedAlt} className={classes.icons} /> {event.ville}, {event.lieu}</Typography> : null}
                   </Grid>
                 </Grid>
               </Grid>

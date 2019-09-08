@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { red } from '@material-ui/core/colors';
 import Link from "next/link";
-import he from 'he';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons'
@@ -50,13 +49,13 @@ export default function ResultCard(props) {
                   <FontAwesomeIcon icon={faTrophy} />
                 </Avatar>
               }
-              title={he.decode(titre)}
+              title={titre}
             />
           </ListItem>
           <CardMedia
             className={classes.media}
             image={img ? img : "/static/LOGO-CERTIFICATION.jpg"}
-            title={he.decode(titre)}
+            title={titre}
           />
           <CardContent>
             <Typography 
