@@ -77,6 +77,25 @@ export default function CardBenevole(props) {
 
   moment.locale('fr')
 
+  function eventColor(type) {
+    switch(type) {
+      case 'Compétition':
+        return "#E91E63";
+      case 'Formation':
+        return "#00BCD4";
+      case 'Stage':
+        return "#AA00FF";
+      case 'Réunion':
+        return "#2962FF";
+      case 'Fête':
+        return "#FF9800";
+      case 'Divers':
+        return "#1DE9B6";
+      default:
+        return "primary.paper";
+    }
+  }
+
   return (
     <Grid container spacing={2}>
       {events.map(event => (
@@ -88,7 +107,7 @@ export default function CardBenevole(props) {
                 <Box
                   display="flex" 
                   color="background.paper"
-                  bgcolor="primary.main"
+                  bgcolor={eventColor(event.type)}
                   fontFamily="h6.fontFamily"
                   fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
                   p={{ xs: 2, sm: 3, md: 4 }}
@@ -98,13 +117,25 @@ export default function CardBenevole(props) {
                 >
                   <Box align="center">{labelProps.size==="large" ? moment(event.datefin).format('DD MMMM') : moment(event.datefin).format('DD MMM')}</Box>
                 </Box>
+                <Box
+                  display="flex" 
+                  color={eventColor(event.type)}
+                  fontFamily="h6.fontFamily"
+                  fontSize={{ xs: 'subtitle1.fontSize', md: 'h6.fontSize' }}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  {event.type}
+                </Box>
               </Grid>
               <Grid item xs container> 
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <Typography variant="h5" component="h2" color="primary">
-                      {event.title}
-                    </Typography>
+                    <Box color={eventColor(event.type)}>
+                      <Typography variant="h5" component="h2" color="inherit">
+                        {event.title}
+                      </Typography>
+                    </Box>
                     {event.lieu ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faMapMarkedAlt} className={classes.icons} /> {event.lieu.address}</Typography> : null}
                   </Grid>
                 </Grid>

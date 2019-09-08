@@ -49,6 +49,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function eventColor(type) {
+  switch(type) {
+    case 'Compétition':
+      return "#E91E63";
+    case 'Formation':
+      return "#FF9800";
+    case 'Stage':
+      return "#1DE9B6";
+    case 'Réunion':
+      return "#005ECB";
+    case 'Fête':
+      return "#AA00FF";
+    case 'Divers':
+      return "#00BCD4";
+    default:
+      return "primary.paper";
+  }
+}
+
 export default function Agenda(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
