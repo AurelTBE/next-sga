@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
   },
   link: {
+    textDecoration: 'none',
+  },
+  ico: {
     margin: theme.spacing(1),
   },
   city: {
@@ -133,15 +136,15 @@ export default function CardBenevole(props) {
                       </Typography>
                     </Box>
                     {event.ville ? 
-                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank">
-                        <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" className={classes.link}>
+                        <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
                         <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         <span className={classes.city}>{event.ville},</span> <span className={classes.linebreak}>{event.lieu}</span>
                         </Typography>
                       </a>
                     : null}
                     {event.groupe ? 
-                      <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
+                      <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
                         <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         {event.groupe.map((grp, index) => {
                               return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
