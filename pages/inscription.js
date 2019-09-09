@@ -3,11 +3,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from "next/link";
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenAlt } from '@fortawesome/free-solid-svg-icons';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -51,7 +48,7 @@ export default function Inscription() {
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <FontAwesomeIcon icon={faPenAlt} />
           </Avatar>
           <Typography component="h1" variant="h5">
             Inscription
@@ -79,10 +76,6 @@ export default function Inscription() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Se souvenir de moi"
-            />
             <Button
               type="submit"
               fullWidth
@@ -90,24 +83,8 @@ export default function Inscription() {
               color="primary"
               className={classes.submit}
             >
-              Connexion
+              Inscription
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" passHref>
-                <Typography variant="body2" component="a" color="primary">
-                  Mot de passe oublié ?
-                  </Typography>
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" passHref>
-                  <Typography variant="body2" component="a" color="primary">
-                  {"Pas de compte ? Inscrivez-vous"}
-                  </Typography>
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Container>

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   city: {
     textTransform: 'uppercase',
   },
-  place: {
+  linebreak: {
     display: 'inline-block',
   },
   leftIcon: {
@@ -135,14 +135,14 @@ export default function CardBenevole(props) {
                     {event.ville ? 
                       <Link href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
                         <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
-                        <span className={classes.city}>{event.ville},</span> <span className={classes.place}>{event.lieu}</span>
+                        <span className={classes.city}>{event.ville},</span> <span className={classes.linebreak}>{event.lieu}</span>
                       </Link>
                        : null}
                     {event.groupe ? 
                       <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
                         <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         {event.groupe.map((grp, index) => {
-                              return <span key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                              return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
                             })}</Typography> : null}
                   </Grid>
                 </Grid>

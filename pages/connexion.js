@@ -83,6 +83,13 @@ export default function Connexion() {
               control={<Checkbox value="remember" color="primary" />}
               label="Se souvenir de moi"
             />
+            <Grid item xs>
+                <Link href="#" passHref>
+                <Typography variant="body2" component="a" color="primary">
+                  Mot de passe oublié ?
+                  </Typography>
+                </Link>
+            </Grid>
             <Button
               type="submit"
               fullWidth
@@ -92,18 +99,11 @@ export default function Connexion() {
             >
               Connexion
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" passHref>
-                <Typography variant="body2" component="a" color="primary">
-                  Mot de passe oublié ?
-                  </Typography>
-                </Link>
-              </Grid>
+            <Grid container justify="center">
               <Grid item>
                 <Link href="/inscription" passHref>
                   <Typography variant="body2" component="a" color="primary">
-                  {"Pas de compte ? Inscrivez-vous"}
+                  {"Pas de compte ? Inscrivez-vous !"}
                   </Typography>
                 </Link>
               </Grid>
