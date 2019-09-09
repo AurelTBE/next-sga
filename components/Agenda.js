@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkedAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import Link from '@material-ui/core/Link';
 import * as moment from 'moment';
 
@@ -138,6 +138,12 @@ export default function CardBenevole(props) {
                         <span className={classes.city}>{event.ville},</span> <span className={classes.place}>{event.lieu}</span>
                       </Link>
                        : null}
+                    {event.groupe ? 
+                      <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
+                        <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                        {event.groupe.map((grp, index) => {
+                              return <span key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                            })}</Typography> : null}
                   </Grid>
                 </Grid>
               </Grid>

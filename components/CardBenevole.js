@@ -78,8 +78,8 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                              <b>{fonction}</b> *{infos.niveau_de_formation_entraineur}* :{infos.groupe_entraine.map((groupe) => {
-                              return <span key={fonction+groupe}> {groupe}</span>
+                              <b>{fonction}</b> *{infos.niveau_de_formation_entraineur}* :{infos.groupe_entraine.map((groupe, index) => {
+                              return <span key={fonction+groupe}> {groupe}{index < infos.groupe_entraine.length - 1 ? ',' : ''}</span>
                             })}
                             </Typography>
                           </div>
@@ -88,8 +88,8 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                            <b>{fonction}</b> *{infos.niveau_de_formation_juge}* :{infos.agres.map((agr) => {
-                              return <span key={fonction+agr}> {agr}</span>
+                            <b>{fonction}</b> *{infos.niveau_de_formation_juge}* :{infos.agres.map((agr, index) => {
+                              return <span key={fonction+agr}> {agr}{index < infos.agres.length - 1 ? ',' : ''}</span>
                             })}
                             </Typography>
                           </div>
@@ -106,8 +106,8 @@ export default function CardBenevole(props) {
                         return (
                           <div key={fonction}>
                             <Typography className={classes.pos} variant="body2" className={classes.fct}>
-                            <b>{fonction}</b> :{infos.groupe_de_pratique.map((gpprat) => {
-                              return <span key={fonction+gpprat}> {gpprat}</span>
+                            <b>{fonction}</b> :{infos.groupe_de_pratique.map((gpprat, index) => {
+                              return <span key={fonction+gpprat}> {gpprat}{index < infos.groupe_de_pratique.length - 1 ? ',' : ''}</span>
                             })}
                             </Typography>
                           </div>
