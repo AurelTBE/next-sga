@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
-import Link from '@material-ui/core/Link';
+import Link from "next/link";
 import * as moment from 'moment';
 
 // Media Query
@@ -133,10 +133,12 @@ export default function CardBenevole(props) {
                       </Typography>
                     </Box>
                     {event.ville ? 
-                      <Link href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank">
+                        <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
                         <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         <span className={classes.city}>{event.ville},</span> <span className={classes.linebreak}>{event.lieu}</span>
-                      </Link>
+                        </Typography>
+                      </a>
                     : null}
                     {event.groupe ? 
                       <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
