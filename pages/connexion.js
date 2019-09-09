@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -44,6 +44,24 @@ const useStyles = makeStyles(theme => ({
 
 export default function Connexion() {
   const classes = useStyles();
+  const [credentials, setCredentials] = React.useState({
+    username: '',
+    password: '',
+    userNiceName: '',
+    userEmail: '',
+    loggedIn: false,
+    loading: false,
+    error: '',
+  });
+
+  const handleSubmit = () => {
+    event.preventDefault();
+    console.log(credentials.userEmail);
+  }
+
+  const handleChange = userEmail => event => {
+    setCredentials({ ...credentials, [userEmail]: event.target.value });
+  };
 
   return (
     <Layout>
@@ -56,7 +74,7 @@ export default function Connexion() {
           <Typography component="h1" variant="h5">
             Connexion
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -66,6 +84,8 @@ export default function Connexion() {
               label="Adresse email"
               name="email"
               autoComplete="email"
+              value={credentials.userEmail}
+              onChange={handleChange('userEmail')}
               autoFocus
             />
             <TextField

@@ -137,13 +137,15 @@ export default function CardBenevole(props) {
                         <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         <span className={classes.city}>{event.ville},</span> <span className={classes.linebreak}>{event.lieu}</span>
                       </Link>
-                       : null}
+                    : null}
                     {event.groupe ? 
                       <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.link}>
                         <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                         {event.groupe.map((grp, index) => {
                               return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
-                            })}</Typography> : null}
+                        })}
+                      </Typography> 
+                    : null}
                   </Grid>
                 </Grid>
               </Grid>
