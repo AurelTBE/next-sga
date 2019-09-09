@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Connexion() {
+export default function Inscription() {
   const classes = useStyles();
 
   return (
@@ -54,7 +54,7 @@ export default function Connexion() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Connexion
+            Inscription
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -101,7 +101,7 @@ export default function Connexion() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/inscription" passHref>
+                <Link href="#" passHref>
                   <Typography variant="body2" component="a" color="primary">
                   {"Pas de compte ? Inscrivez-vous"}
                   </Typography>

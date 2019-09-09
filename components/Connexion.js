@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default function Connexion() {
+export default function Blabla() {
     const classes = useStyles();
     const [values, setValues] = React.useState({
       name: '',
