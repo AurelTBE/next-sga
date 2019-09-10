@@ -97,6 +97,7 @@ export default function CardBenevole(props) {
     <Grid container spacing={2}>
       {events.map(event => (
         <Grid item xs={12} key={event.id}>
+          {event.groupe.includes("Juges") ? console.log("true") : console.log('false')}
         <Card className={classes.card}>
           <CardContent>
             <Grid container spacing={2}>
