@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Hidden from '@material-ui/core/Hidden';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 
@@ -63,6 +64,15 @@ export default function CardBenevole(props) {
         <Grid container spacing={2}>
           <Grid item>
             <Avatar alt={benevoleFullName} src={infos.photo_du_benevole ? infos.photo_du_benevole : "/static/logo-sga.svg"} className={labelProps.size==="large" ? classes.bigAvatar : classes.smallAvatar} />
+            <Grid container justify="center">
+              {infos.date_anniv ? 
+                <Hidden smUp>
+                  <Typography className={classes.pos} variant="body2" color="textSecondary">
+                    <FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {infos.date_anniv}
+                  </Typography>
+                </Hidden>
+               : null}
+            </Grid>
           </Grid>
           <Grid item xs container> 
             <Grid item xs container direction="column" spacing={2}>
@@ -70,7 +80,7 @@ export default function CardBenevole(props) {
                 <Typography variant="h5" component="h2" color="primary">
                   {benevoleFullName}
                 </Typography>
-                {infos.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {infos.date_anniv}</Typography> : null}
+                {infos.date_anniv ? <Hidden xsDown><Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {infos.date_anniv}</Typography></Hidden> : null}
                 {
                   infos.fonction.map((fonction) => {
                     switch(fonction) {
