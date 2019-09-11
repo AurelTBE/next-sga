@@ -56,11 +56,12 @@ export default function Connexion() {
 
   const handleSubmit = () => {
     event.preventDefault();
-    console.log(credentials.userEmail);
+    
+    console.log(credentials);
   }
 
-  const handleChange = userEmail => event => {
-    setCredentials({ ...credentials, [userEmail]: event.target.value });
+  const handleChange = input => event => {
+    setCredentials({ ...credentials, [input]: event.target.value });
   };
 
   return (
@@ -80,12 +81,12 @@ export default function Connexion() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Adresse email"
-              name="email"
-              autoComplete="email"
-              value={credentials.userEmail}
-              onChange={handleChange('userEmail')}
+              id="pseudo"
+              label="Pseudo"
+              name="pseudo"
+              autoComplete="username"
+              value={credentials.username}
+              onChange={handleChange('username')}
               autoFocus
             />
             <TextField
@@ -97,6 +98,8 @@ export default function Connexion() {
               label="Mot de passe"
               type="password"
               id="password"
+              value={credentials.password}
+              onChange={handleChange('password')}
               autoComplete="current-password"
             />
             <FormControlLabel
