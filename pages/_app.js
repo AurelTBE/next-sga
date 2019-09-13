@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
-import { createStore } from 'redux';
+import { makeStore } from '../redux';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 
