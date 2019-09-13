@@ -1,9 +1,25 @@
 import React from 'react';
-import App from 'next/app';
+import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+
+const reducer = (state = { foo: '' }, action) => {
+  switch (action.type) {
+      case 'FOO':
+          return { ...state, foo: action.payload };
+      default:
+          return state;
+  }
+};
+
+const makeStore = (initialState, options) => {
+  return createStore(reducer, initialState);
+};
 
 class MyApp extends App {
   componentDidMount() {
@@ -15,10 +31,11 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
       <>
+        <Provider store={store}>
         <Head>
           <title>SGA GYM FÉMININE</title>
         </Head>
@@ -27,9 +44,17 @@ class MyApp extends App {
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
+        </Provider>
       </>
     );
   }
 }
 
-export default MyApp;
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  // we can dispatch from here too
+  ctx.store.dispatch({ type: 'FOO', payload: 'foo' });
+  const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+  return { pageProps };
+};
+
+export default withRedux(makeStore)(MyApp);
