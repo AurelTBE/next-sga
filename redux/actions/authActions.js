@@ -36,7 +36,6 @@ export const checkServerSideCookie = ctx => {
         if (ctx.req.headers.cookie) {
             const rawToken = getCookie('token', ctx.req);
             const token = rawToken ? JSON.parse(decodeURIComponent(rawToken)) : null
-            console.log("Whoami : ", token)
             ctx.store.dispatch(reauthenticate(token));
         }
     } else {
