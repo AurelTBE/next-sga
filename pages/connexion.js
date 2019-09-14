@@ -44,24 +44,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Connexion() {
   const classes = useStyles();
-  const [credentials, setCredentials] = React.useState({
-    username: '',
-    password: '',
-    userNiceName: '',
-    userEmail: '',
-    loggedIn: false,
-    loading: false,
-    error: '',
-  });
 
-  const handleSubmit = () => {
-    event.preventDefault();
-    
-    console.log(credentials);
-  }
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleChange = input => event => {
-    setCredentials({ ...credentials, [input]: event.target.value });
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('login with ', { username, password });
   };
 
   return (
@@ -85,8 +74,8 @@ export default function Connexion() {
               label="Pseudo"
               name="pseudo"
               autoComplete="username"
-              value={credentials.username}
-              onChange={handleChange('username')}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
               autoFocus
             />
             <TextField
@@ -98,8 +87,8 @@ export default function Connexion() {
               label="Mot de passe"
               type="password"
               id="password"
-              value={credentials.password}
-              onChange={handleChange('password')}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
             />
             <FormControlLabel

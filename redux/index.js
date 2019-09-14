@@ -1,14 +1,8 @@
-import { createStore } from 'redux';
-
-export const reducer = (state = { foo: '' }, action) => {
-    switch (action.type) {
-        case 'FOO':
-            return { ...state, foo: action.payload };
-        default:
-            return state;
-    }
-};
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import reducer from './reducers';
 
 export const makeStore = (initialState, options) => {
-    return createStore(reducer, initialState);
+    return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
 };

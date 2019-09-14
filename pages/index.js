@@ -2,12 +2,19 @@ import Layout from '../components/Layout';
 import Tabs from '../components/Tabs';
 import fetch from 'isomorphic-unfetch';
 import { connect } from 'react-redux';
+import { getPosts } from '../redux/actions/fooActions';
 
+const handleSubmit = (props, e) => {
+  e.preventDefault();
+  props.getPosts();
+};
 
 const Index = props => (
   <Layout>
     <Tabs actus={props.actus} results={props.results} events={props.events} mediafolders={props.mediafolders} />
-    {console.log(props.custom)}
+    <div>Prop from Redux {JSON.stringify(props)}</div>
+            <button onClick={handleSubmit}>Load</button>
+            <div>Prop from getInitialProps {props.custom}</div>
   </Layout>
 );
 
@@ -26,7 +33,7 @@ Index.getInitialProps = async function({ store, isServer, pathname, query }) {
   const res = await fetch(`${path}/sga/v1/listresults`);
   const resultats = await res.json();
 
-  store.dispatch({ type: 'FOO', payload: 'foo' });
+  await store.dispatch(getPosts());
 
   return {
     actus: actus,
@@ -38,4 +45,7 @@ Index.getInitialProps = async function({ store, isServer, pathname, query }) {
 
 };
 
-export default connect(state => state)(Index);
+export default connect(
+  state => state,
+  { getPosts }
+  )(Index);
