@@ -12,14 +12,14 @@ export const authenticate = user => dispatch =>
     })
     .catch(err => console.log(err));
 
-// gets the token from the cookie and saves it in the store
+// Récupère le token dans le cookie et le sauvegarde dans le store
 export const reauthenticate = token => {
     return dispatch => {
         dispatch({ type: AUTHENTICATE, payload: token });
     };
 };
 
-// removing the token
+// Suppression du token
 export const deauthenticate = () => {
     return dispatch => {
         Router.push('/').then(() => {
@@ -27,6 +27,25 @@ export const deauthenticate = () => {
             dispatch({ type: DEAUTHENTICATE });
         })
     };
+};
+
+// Persistence de la session
+export const checkServerSideCookie = ctx => {
+    if (ctx.isServer) {
+        if (ctx.req.headers.cookie) {
+            const token = getCookie('token', ctx.req);
+            console.log("Whoami : ", token)
+            ctx.store.dispatch(reauthenticate(token));
+        }
+    } else {
+        const token = ctx.store.getState().authentication.token;
+
+        if (token && (ctx.pathname === '/connexion' || ctx.pathname === '/inscription')) {
+            setTimeout(function() {
+                Router.push('/');
+            }, 0);
+        }
+    }
 };
 
 

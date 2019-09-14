@@ -7,6 +7,7 @@ import theme from '../src/theme';
 import { makeStore } from '../redux';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
+import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actions/authActions';
 
 class MyApp extends App {
   componentDidMount() {
@@ -40,6 +41,7 @@ class MyApp extends App {
 MyApp.getInitialProps = async ({ Component, ctx }) => {
   // we can dispatch from here too
   ctx.store.dispatch({ type: 'URL', payload: 'http://sga-gymfeminine.fr/bo' });
+  checkServerSideCookie(ctx);
   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   return { pageProps };
 };

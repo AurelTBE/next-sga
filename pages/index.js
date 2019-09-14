@@ -16,6 +16,7 @@ const Index = props => (
     <div>Prop from Redux {JSON.stringify(props)}</div>
             <button onClick={handleSubmit}>Load</button>
             <div>Prop from getInitialProps {props.custom}</div>
+            {console.log(props)}
   </Layout>
 );
 
