@@ -16,6 +16,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+// Redux
+import { connect } from 'react-redux';
+import { deauthenticate } from '../redux/actions/authActions';
+
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag } from '@fortawesome/free-solid-svg-icons';
@@ -53,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Header() {
+function Header({isAuthenticated}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -159,11 +163,18 @@ export default function Header() {
           <Link href="/" >
                 <Button color="inherit" ><Typography variant="h6" color="inherit" className={classes.grow}>SGA Gym Féminine</Typography></Button>
           </Link>
-          <Link href="/connexion" as={`/connexion`}>
+          {isAuthenticated ? 
+           <Link href="/profil" as={`/profil`}>
             <IconButton color="inherit">
                 <AccountCircle />
             </IconButton>
-          </Link>
+           </Link> 
+           : 
+           <Link href="/connexion" as={`/connexion`}>
+              <IconButton color="inherit">
+                  <AccountCircle />
+              </IconButton>
+            </Link>}
           </Grid>
         </Toolbar>
       </AppBar>
@@ -177,3 +188,9 @@ export default function Header() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.token });
+
+export default connect(
+  mapStateToProps,
+)(Header);

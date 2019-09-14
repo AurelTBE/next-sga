@@ -12,6 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// Redux Authentication
+import { connect } from 'react-redux';
+import { authenticate } from '../redux/actions/authActions';
+
 import Layout from '../components/Layout'
 
 const useStyles = makeStyles(theme => ({
@@ -42,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Connexion() {
+function Connexion({ authenticate }) {
   const classes = useStyles();
 
   const [username, setUsername] = useState('');
@@ -50,7 +54,9 @@ export default function Connexion() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('login with ', { username, password });
+    // console.log('login with ', { username, password });
+    const user = { username, password };
+    authenticate(user);
   };
 
   return (
@@ -126,3 +132,10 @@ export default function Connexion() {
     </Layout>
   );
 }
+
+Connexion.getInitialProps = ctx => {};
+
+export default connect(
+  state => state,
+  { authenticate }
+)(Connexion);

@@ -3,6 +3,7 @@ import Tabs from '../components/Tabs';
 import fetch from 'isomorphic-unfetch';
 import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/fooActions';
+import axios from 'axios';
 
 const handleSubmit = (props, e) => {
   e.preventDefault();
