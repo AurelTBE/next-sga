@@ -1,6 +1,7 @@
 import { AUTHENTICATE, DEAUTHENTICATE } from '../actionTypes';
 import axios from 'axios';
 import cookie from 'js-cookie';
+import cookieParser from 'cookie-parser'
 import Router from 'next/router';
 
 export const authenticate = user => dispatch =>
@@ -33,7 +34,8 @@ export const deauthenticate = () => {
 export const checkServerSideCookie = ctx => {
     if (ctx.isServer) {
         if (ctx.req.headers.cookie) {
-            const token = getCookie('token', ctx.req);
+            const rawToken = getCookie('token', ctx.req);
+            const token = rawToken ? JSON.parse(decodeURIComponent(rawToken)) : null
             console.log("Whoami : ", token)
             ctx.store.dispatch(reauthenticate(token));
         }

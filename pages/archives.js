@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function Archives({ user }) {
+function Archives({ name, user }) {
     const classes = useStyles();
     return (
         <Layout>
@@ -36,7 +36,7 @@ function Archives({ user }) {
                     {(user && (
                       <div>
                         <h2>Who am i</h2>
-                        {JSON.stringify(user)}
+                        {user}
                       </div>
                     )) ||
                       'Accessible aux membres du club uniquement. Connectez-vous pour voir cette page.'}
@@ -50,7 +50,7 @@ Archives.getInitialProps = async ctx => {
   const token = ctx.store.getState().authentication.token;
   if (token) {
     return {
-      user: 'Ryan'
+      user: ctx.store.getState().authentication.token.user_display_name
     };
   }
 };

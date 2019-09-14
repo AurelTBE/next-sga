@@ -1,9 +1,7 @@
 import Layout from '../components/Layout';
 import Tabs from '../components/Tabs';
 import fetch from 'isomorphic-unfetch';
-import { connect } from 'react-redux';
-import { getPosts } from '../redux/actions/fooActions';
-import axios from 'axios';
+
 
 const handleSubmit = (props, e) => {
   e.preventDefault();
@@ -13,14 +11,10 @@ const handleSubmit = (props, e) => {
 const Index = props => (
   <Layout>
     <Tabs actus={props.actus} results={props.results} events={props.events} mediafolders={props.mediafolders} />
-    <div>Prop from Redux {JSON.stringify(props)}</div>
-            <button onClick={handleSubmit}>Load</button>
-            <div>Prop from getInitialProps {props.custom}</div>
-            {console.log(props)}
   </Layout>
 );
 
-Index.getInitialProps = async function({ store, isServer, pathname, query }) {
+Index.getInitialProps = async function() {
   const path = "http://sga-gymfeminine.fr/bo/wp-json"
 
   const act = await fetch(`${path}/sga/v1/listeposts`);
@@ -35,19 +29,13 @@ Index.getInitialProps = async function({ store, isServer, pathname, query }) {
   const res = await fetch(`${path}/sga/v1/listresults`);
   const resultats = await res.json();
 
-  await store.dispatch(getPosts());
-
   return {
     actus: actus,
     results: resultats,
     events: events,
     mediafolders: publicmediafolders,
-    custom: 'custom',
   };
 
 };
 
-export default connect(
-  state => state,
-  { getPosts }
-  )(Index);
+export default Index;
