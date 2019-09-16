@@ -13,6 +13,11 @@ import Layout from '../../components/Layout.js';
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+// Redux
+import { connect } from 'react-redux';
+import { reauthenticate, getCookie } from '../redux/actions/authActions';
+import Router from 'next/router'; 
+
 // FCT
 import fetch from 'isomorphic-unfetch';
 
