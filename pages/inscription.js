@@ -20,9 +20,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useTheme } from '@material-ui/core/styles';
 
-// Obfuscated mailto
-import Mailto from 'react-protected-mailto'
-
 // Authenticate after signup
 import { connect } from 'react-redux';
 import { authenticate } from '../redux/actions/authActions';
