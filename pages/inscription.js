@@ -12,18 +12,6 @@ import Container from '@material-ui/core/Container';
 import Layout from '../components/Layout'
 import axios from 'axios';
 
-// Signup message
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { useTheme } from '@material-ui/core/styles';
-
-// Authenticate after signup
-import { connect } from 'react-redux';
-import { authenticate } from '../redux/actions/authActions';
-
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -52,28 +40,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Inscription({ authenticate }) {
+export default function Inscription() {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [display_name, setDisplayname] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const [open, setOpen] = React.useState(false);
-
-  function handleClickOpen() {
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false)
-    const user = { username, password };
-    authenticate(user)
-  }
-
-  
 
   const insertData = nonce => {
     axios.post(`http://sga-gymfeminine.fr/bo/api/user/register/?username=${username}&email=${email}&nonce=${nonce}&display_name=${display_name}&user_pass=${password}&insecure=cool`)
@@ -89,7 +62,6 @@ function Inscription({ authenticate }) {
     .then(res => {
       console.log(res.data)
       insertData(res.data.nonce)
-      handleClickOpen()
     }).catch(error => {
       console.log(error.response)
     })
@@ -97,7 +69,9 @@ function Inscription({ authenticate }) {
   const handleSubmit = e => {
     e.preventDefault();
     // console.log('login with ', { username, password });
+    const user = { username, email, display_name, password };
     getWPnonce()
+    console.log('Inscrit avec ', user)
   };
 
   return (
@@ -123,6 +97,7 @@ function Inscription({ authenticate }) {
               autoComplete="name"
               value={display_name}
               onChange={e => setDisplayname(e.target.value)}
+              autoFocus
             />
             <TextField
               variant="outlined"
@@ -135,6 +110,7 @@ function Inscription({ authenticate }) {
               autoComplete="username"
               value={username}
               onChange={e => setUsername(e.target.value)}
+              autoFocus
             />
             <TextField
               variant="outlined"
@@ -147,6 +123,7 @@ function Inscription({ authenticate }) {
               autoComplete="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
+              autoFocus
             />
             <TextField
               variant="outlined"
@@ -173,32 +150,6 @@ function Inscription({ authenticate }) {
           </form>
         </div>
       </Container>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title">{`Bienvenue ${display_name}`}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Ton compte vient d'être créé. Tu n'a pas encore accès à toutes les zones du site, car nous devons d'abord vérifier que tu es bien adhérent au club, parent d'un adhérent ou bénévole. 
-            Tu peux continuer ta navigation en cliquant sur retour et attendre que l'on te donne les accès, ou nous envoyer un email pour demander à un bénévole du club de te rattacher à un groupe.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Envoyer une demande
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Retour
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Layout>
   );
 }
-
-export default connect(
-  state => state,
-  { authenticate }
-)(Inscription);

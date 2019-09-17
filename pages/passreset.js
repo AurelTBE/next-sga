@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 // Redux Authentication
 import { connect } from 'react-redux';
@@ -46,17 +47,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Connexion({ authenticate }) {
+function PassReset() {
   const classes = useStyles();
 
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    // console.log('login with ', { username, password });
-    const user = { username, password };
-    authenticate(user);
+    axios.post(`http://sga-gymfeminine.fr/bo/api/user/retrieve_password/?user_login=${username}&insecure=cool`)
+    .then(res => {
+      console.log('Password reset', res.data)
+    }).catch(error => {
+      console.log(error.response)
+    })
   };
 
   return (
@@ -68,7 +71,7 @@ function Connexion({ authenticate }) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Connexion
+            Réinitialisation
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -84,30 +87,6 @@ function Connexion({ authenticate }) {
               onChange={e => setUsername(e.target.value)}
               autoFocus
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Mot de passe"
-              type="password"
-              id="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Se souvenir de moi"
-            />
-            <Grid item xs>
-                <Link href="/passreset" passHref>
-                <Typography variant="body2" component="a" color="primary">
-                  Mot de passe oublié ?
-                  </Typography>
-                </Link>
-            </Grid>
             <Button
               type="submit"
               fullWidth
@@ -115,17 +94,8 @@ function Connexion({ authenticate }) {
               color="primary"
               className={classes.submit}
             >
-              Connexion
+              Réinitialiser
             </Button>
-            <Grid container justify="center">
-              <Grid item>
-                <Link href="/inscription" passHref>
-                  <Typography variant="body2" component="a" color="primary">
-                  {"Pas de compte ? Inscrivez-vous !"}
-                  </Typography>
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Container>
@@ -133,9 +103,8 @@ function Connexion({ authenticate }) {
   );
 }
 
-Connexion.getInitialProps = ctx => {};
+PassReset.getInitialProps = ctx => {};
 
 export default connect(
   state => state,
-  { authenticate }
-)(Connexion);
+)(PassReset);
