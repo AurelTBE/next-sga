@@ -35,7 +35,7 @@ export const checkServerSideCookie = ctx => {
     if (ctx.isServer) {
         if (ctx.req.headers.cookie) {
             const rawToken = getCookie('token', ctx.req);
-            const token = rawToken ? JSON.parse(decodeURIComponent(rawToken)) : null
+            const token = rawToken ? JSON.parse(decodeURIComponent(rawToken)) : null;
             ctx.store.dispatch(reauthenticate(token));
         }
     } else {

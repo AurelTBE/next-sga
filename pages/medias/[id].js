@@ -15,7 +15,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Redux
 import { connect } from 'react-redux';
-import { reauthenticate, getCookie } from '../redux/actions/authActions';
+import { reauthenticate, getCookie } from '../../redux/actions/authActions';
 import Router from 'next/router'; 
 
 // FCT
@@ -61,7 +61,7 @@ const photos = [...new Set(props.galerie.photos.map(photo => photo.large))]
 }
 
 
-export default function Galerie(props) {
+function Galerie(props, {isAuthenticated, usergroup}) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -110,7 +110,7 @@ export default function Galerie(props) {
         <Layout>
           <div className={classes.root}>
           <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
-          </div>
+          {console.log(usergroup)}</div>
         </Layout>
       );
     case 'Bénévole':
@@ -118,7 +118,7 @@ export default function Galerie(props) {
         <Layout>
           <div className={classes.root}>
             <Typography variant="h5" component="h2" color="primary">Seules les bénévoles membres de la SGA Peuvent accèder à cette page. Si vous êtes bénévole, connectez-vous.</Typography>
-          </div>
+            {console.log(usergroup)}</div>
         </Layout>
       );
     default:
@@ -138,3 +138,9 @@ Galerie.getInitialProps = async function(context) {
     images: images
   };
 };
+
+const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.token, usergroup: state.authentication.token });
+
+export default connect(
+  mapStateToProps,
+)(Galerie);
