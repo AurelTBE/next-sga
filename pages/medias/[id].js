@@ -61,7 +61,7 @@ const photos = [...new Set(props.galerie.photos.map(photo => photo.large))]
 }
 
 
-function Galerie(props, {isAuthenticated, usergroup}) {
+function Galerie({galerie, images, user, role}) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -82,15 +82,15 @@ function Galerie(props, {isAuthenticated, usergroup}) {
     }); 
   }
 
-  switch(props.galerie.visible) {
+  switch(galerie.visible) {
     case 'Public':
       return (
         <Layout>
           <div className={classes.root}>
             <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
-              {props.galerie.photos.map(image => (
+              {galerie.photos.map(image => (
                   <ButtonBase className={classes.tileBtn} key={image.id}>
-                    <GridListTile component="a"  onClick={ () => openLightboxOnSlide(props.galerie.photos.indexOf(image)+1) }>
+                    <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
                       <img src={image.small} alt={image.title} />
                     </GridListTile>
                   </ButtonBase>
@@ -99,7 +99,7 @@ function Galerie(props, {isAuthenticated, usergroup}) {
             <FsLightbox 
               toggler={ lightboxController.toggler } 
               slide={ lightboxController.slide } 
-              sources={ props.images } 
+              sources={ images } 
               type='image'
             /> 
           </div>
@@ -109,16 +109,56 @@ function Galerie(props, {isAuthenticated, usergroup}) {
       return (
         <Layout>
           <div className={classes.root}>
-          <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
-          {console.log(usergroup)}</div>
+            {user && role.includes("benevole") ? 
+              <>
+                <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
+                  {galerie.photos.map(image => (
+                      <ButtonBase className={classes.tileBtn} key={image.id}>
+                        <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
+                          <img src={image.small} alt={image.title} />
+                        </GridListTile>
+                      </ButtonBase>
+                  ))}
+                </GridList>
+                <FsLightbox 
+                  toggler={ lightboxController.toggler } 
+                  slide={ lightboxController.slide } 
+                  sources={ images } 
+                  type='image'
+                />
+              </>
+              : 
+            <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
+            }
+          </div>
         </Layout>
       );
     case 'Bénévole':
       return (
         <Layout>
           <div className={classes.root}>
-            <Typography variant="h5" component="h2" color="primary">Seules les bénévoles membres de la SGA Peuvent accèder à cette page. Si vous êtes bénévole, connectez-vous.</Typography>
-            {console.log(usergroup)}</div>
+            {user && role.includes("benevole") ? 
+              <>
+                <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
+                  {galerie.photos.map(image => (
+                      <ButtonBase className={classes.tileBtn} key={image.id}>
+                        <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
+                          <img src={image.small} alt={image.title} />
+                        </GridListTile>
+                      </ButtonBase>
+                  ))}
+                </GridList>
+                <FsLightbox 
+                  toggler={ lightboxController.toggler } 
+                  slide={ lightboxController.slide } 
+                  sources={ images } 
+                  type='image'
+                />
+              </>
+              : 
+            <Typography variant="h5" component="h2" color="primary">Seules les bénévoles membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
+            }
+          </div>
         </Layout>
       );
     default:
@@ -126,21 +166,29 @@ function Galerie(props, {isAuthenticated, usergroup}) {
   }
 }
 
-
-Galerie.getInitialProps = async function(context) {
-  const { id } = context.query;
+Galerie.getInitialProps = async ctx => {
+  const token = ctx.store.getState().authentication.token;
+  const { id } = ctx.query;
   const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
   const galerie = await res.json();
   const images = [...new Set(galerie.photos.map(photo => photo.large))]
-
-  return {
+  if (token) {
+    return {
+      user: ctx.store.getState().authentication.token.user_display_name,
+      role: ctx.store.getState().authentication.token.user_role,
+      galerie: galerie,
+      images: images,
+    };
+  } else {
+      return {
     galerie: galerie,
-    images: images
-  };
+    images: images,
+  }
+  }
+
 };
 
-const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.token, usergroup: state.authentication.token });
-
 export default connect(
-  mapStateToProps,
+  state => state,
+  { reauthenticate }
 )(Galerie);
