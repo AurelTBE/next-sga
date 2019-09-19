@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function Profil({name, deauthenticate}) {
+function Profil({name, role, deauthenticate}) {
     const classes = useStyles();
     return (
         <Layout>
@@ -34,7 +34,7 @@ function Profil({name, deauthenticate}) {
                         Profil
                     </Typography>
                     {name ? <Typography component="div" variant="body1" gutterBottom>
-                      Bonjour {name}, bienvenue sur ton profil
+                      Bonjour {name}, bienvenue sur ton profil. Tu es {role}
                     </Typography> : null}
                     <Button
                       fullWidth
@@ -54,6 +54,7 @@ function Profil({name, deauthenticate}) {
 const mapStateToProps = state => ({ 
   isAuthenticated: !!state.authentication.token,
   name: state.authentication.token.user_display_name,
+  role: state.authentication.token.user_role,
  });
 
 export default connect(
