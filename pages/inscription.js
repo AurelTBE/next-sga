@@ -22,7 +22,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 // Authenticate after signup
 import { connect } from 'react-redux';
-import { authenticate } from '../redux/actions/authActions';
+import { postsignup } from '../redux/actions/authActions';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Inscription({ authenticate }) {
+function Inscription({ postsignup }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -70,7 +70,7 @@ function Inscription({ authenticate }) {
   function handleClose() {
     setOpen(false)
     const user = { username, password };
-    authenticate(user)
+    postsignup(user)
   }
 
   const insertData = nonce => {
@@ -202,5 +202,5 @@ function Inscription({ authenticate }) {
 
 export default connect(
   state => state,
-  { authenticate }
+  { postsignup }
 )(Inscription); 

@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 import cookieParser from 'cookie-parser'
 import Router from 'next/router';
 
+// Connexion
 export const authenticate = user => dispatch =>
     axios.post(`http://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
     .then(response => {
@@ -12,6 +13,16 @@ export const authenticate = user => dispatch =>
         Router.back();
     })
     .catch(err => console.log(err));
+
+// Premiere connexion post signup
+export const postsignup = user => dispatch =>
+axios.post(`http://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
+.then(response => {
+    dispatch({ type: AUTHENTICATE, payload: response.data });
+    setCookie('token', response.data);
+    Router.push('/');
+})
+.catch(err => console.log(err));
 
 // Récupère le token dans le cookie et le sauvegarde dans le store
 export const reauthenticate = token => {
