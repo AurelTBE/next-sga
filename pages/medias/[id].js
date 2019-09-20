@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
@@ -86,6 +87,22 @@ function Galerie({galerie, images, user, role}) {
     case 'Public':
       return (
         <Layout>
+          <Box
+            display="flex" 
+            color="background.paper"
+            bgcolor={theme.palette.secondary.main}
+            fontFamily="h6.fontFamily"
+            fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+            p={{ xs: 2, sm: 3, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            height={{xs: 60, md: 90}}
+            width={1}
+          >
+            <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
+              {galerie.title}
+            </Typography>
+          </Box>
           <div className={classes.root}>
             <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
               {galerie.photos.map(image => (
@@ -108,6 +125,22 @@ function Galerie({galerie, images, user, role}) {
     case 'Membres':
       return (
         <Layout>
+          <Box
+            display="flex" 
+            color="background.paper"
+            bgcolor={theme.palette.secondary.main}
+            fontFamily="h6.fontFamily"
+            fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+            p={{ xs: 2, sm: 3, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            height={{xs: 60, md: 90}}
+            width={1}
+          >
+            <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
+              {galerie.title}
+            </Typography>
+          </Box>
           <div className={classes.root}>
             {user ? 
               (!role.includes("subscriber") ?
