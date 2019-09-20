@@ -9,7 +9,7 @@ export const authenticate = user => dispatch =>
     .then(response => {
         dispatch({ type: AUTHENTICATE, payload: response.data });
         setCookie('token', response.data);
-        Router.push('/');
+        Router.back();
     })
     .catch(err => console.log(err));
 

@@ -109,7 +109,8 @@ function Galerie({galerie, images, user, role}) {
       return (
         <Layout>
           <div className={classes.root}>
-            {user && !role.includes("subscriber") ? 
+            {user ? 
+              (!role.includes("subscriber") ?
               <>
                 <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
                   {galerie.photos.map(image => (
@@ -128,7 +129,10 @@ function Galerie({galerie, images, user, role}) {
                 />
               </>
               : 
-            <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
+            <Typography variant="h5" component="h2" color="primary">Seules les adhérents de la SGA ou leurs parents peuvent accèder à cette page. Ton compte n'a pas encore été validé. Prend contact avec un bénévole pour demander qu'on valide ton compte</Typography>
+            ) 
+              :
+            Router.push('/connexion')
             }
           </div>
         </Layout>

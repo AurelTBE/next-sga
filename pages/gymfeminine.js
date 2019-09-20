@@ -12,8 +12,11 @@ import Box from '@material-ui/core/Box';
 // Components
 import Layout from '../components/Layout'
 import Benevoles from '../components/Benevoles';
+import Entrainements from '../components/Entrainements';
 
+// Requetes
 import fetch from 'isomorphic-unfetch';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -86,7 +89,7 @@ export default function GymFem(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Entrainements
+          <Entrainements entrainements={props.entrainements} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Benevoles benevoles={props.benevoles} />
@@ -102,10 +105,13 @@ export default function GymFem(props) {
 
 
 GymFem.getInitialProps = async function() {
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
-  const benevoles = await res.json();
+  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
+  const entrainements = await ent.json();
+  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
+  const benevoles = await ben.json();
 
   return {
-    benevoles: benevoles
+    entrainements: entrainements,
+    benevoles: benevoles,
   };
 };
