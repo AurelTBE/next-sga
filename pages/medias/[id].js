@@ -105,11 +105,11 @@ function Galerie({galerie, images, user, role}) {
           </div>
         </Layout>
       );
-    case 'Gym':
+    case 'Membres':
       return (
         <Layout>
           <div className={classes.root}>
-            {user && role.includes("benevole") ? 
+            {user && !role.includes("subscriber") ? 
               <>
                 <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
                   {galerie.photos.map(image => (
@@ -129,34 +129,6 @@ function Galerie({galerie, images, user, role}) {
               </>
               : 
             <Typography variant="h5" component="h2" color="primary">Seules les gymnastes membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
-            }
-          </div>
-        </Layout>
-      );
-    case 'Bénévole':
-      return (
-        <Layout>
-          <div className={classes.root}>
-            {user && role.includes("benevole") ? 
-              <>
-                <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
-                  {galerie.photos.map(image => (
-                      <ButtonBase className={classes.tileBtn} key={image.id}>
-                        <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
-                          <img src={image.small} alt={image.title} />
-                        </GridListTile>
-                      </ButtonBase>
-                  ))}
-                </GridList>
-                <FsLightbox 
-                  toggler={ lightboxController.toggler } 
-                  slide={ lightboxController.slide } 
-                  sources={ images } 
-                  type='image'
-                />
-              </>
-              : 
-            <Typography variant="h5" component="h2" color="primary">Seules les bénévoles membres de la SGA Peuvent accèder à cette page. Si vous êtes membre, connectez-vous.</Typography>
             }
           </div>
         </Layout>
