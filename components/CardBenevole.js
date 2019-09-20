@@ -20,6 +20,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const useStyles = makeStyles(theme => ({
   card: {
     padding: 0,
+    display: 'flex',
   },
   title: {
     fontSize: 14,
@@ -85,7 +86,7 @@ export default function CardBenevole(props) {
           <Grid item xs container> 
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography variant="h5" component="h2" color="primary">
+                <Typography variant="h5" component="h3" color="primary">
                   {benevoleFullName}
                 </Typography>
                 {infos.date_anniv ? <Typography className={classes.pos} variant="body2" color="textSecondary"><FontAwesomeIcon icon={faBirthdayCake} className={classes.icons} /> {infos.date_anniv}</Typography> : null}

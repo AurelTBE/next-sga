@@ -34,7 +34,7 @@ function Profil({name, role, deauthenticate}) {
                         Profil
                     </Typography>
                     {name ? <Typography component="div" variant="body1" gutterBottom>
-                      Bonjour {name}, bienvenue sur ton profil. Tu es {role}
+                      Bonjour {name}, bienvenue sur ton profil. {role.includes("subscriber") ? "Tu es en attente de validation de ton compte" : `Tu as un accès ${role}`}
                     </Typography> : null}
                     <Button
                       fullWidth

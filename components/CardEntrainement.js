@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
+import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,8 +22,15 @@ const useStyles = makeStyles(theme => ({
   card: {
     padding: 0,
   },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
   title: {
     fontSize: 14,
+  },
+  indent: {
+    paddingLeft: 20,
   },
   pos: {
     marginBottom: 12,
@@ -76,12 +84,36 @@ export default function CardEntrainement(props) {
 
   return (
     <Card className={labelProps.size==="large" ? null : classes.card}>
-      <CardContent>
-        <Typography color="textSecondary" gutterBottom>
-          {entrainement.title}
-        </Typography>
-        {console.log(infos)}
-      </CardContent>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={5} lg={3} container direction="column">
+          <CardMedia
+            className={classes.media}
+            image={entrainement.couverture ? entrainement.couverture : "/static/LOGO-CERTIFICATION.jpg"}
+            title={entrainement.title}
+          />
+        </Grid>
+        <CardContent>
+          <Typography variant="h5" component="h3" color="primary" gutterBottom>
+            {entrainement.title}
+          </Typography>
+          <Typography variant="subtitle1">
+            Saison {entrainement.saison} - Prix de la cotisation {entrainement.cotisation}€
+          </Typography>
+          <Typography variant="body1">
+            Années de naissance : {entrainement.annees_de_naissance}
+          </Typography>
+          <Typography variant="body1">
+            Créneaux : 
+            {entrainement.creneaux.map((creneau, index) => (
+              entrainement.creneaux.length > 1 ? 
+              <Typography variant="body1" className={classes.indent}> {creneau.jour} ({creneau.horaire_de_debut} - {creneau.horaire_de_fin}), {creneau.lieu}</Typography>
+              :
+              ` ${creneau.jour} (${creneau.horaire_de_debut} - ${creneau.horaire_de_fin}), ${creneau.lieu}${index < entrainement.creneaux.length - 1 ? ',' : ''}`
+            ))}
+          </Typography>
+          {console.log(entrainement.couverture)}
+        </CardContent>
+      </Grid>
     </Card>
   );
 }
