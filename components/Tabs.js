@@ -8,6 +8,10 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+// Redux
+import { connect } from 'react-redux';
+import { setactivhometab } from '../redux/actions/navActions'
+
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -62,10 +66,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function HomeTabs(props) {
+function HomeTabs({ setactivhometab, activeTab, actus, events, mediafolders, results }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
   //const isSmallScreen = /xs|sm/.test(width);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const labelProps = {
@@ -74,12 +77,12 @@ export default function HomeTabs(props) {
   const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
-    setValue(newValue);
+    setactivhometab(newValue);
     scrollPos >= 64 ? window.scrollTo(0, 64) : null;
   }
 
   function handleChangeIndex(index) {
-    setValue(index);
+    setactivhometab(index);
     scrollPos >= 64 ? window.scrollTo(0, 64) : null;
   }
 
@@ -87,7 +90,7 @@ export default function HomeTabs(props) {
     <div className={classes.root}>
       <AppBar position="sticky" color="default">
         <Tabs
-          value={value}
+          value={activeTab}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
@@ -102,22 +105,29 @@ export default function HomeTabs(props) {
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
+        index={activeTab}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Actus listactus={props.actus} />
+        <TabPanel value={activeTab} index={0} dir={theme.direction}>
+          <Actus listactus={actus} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Agenda events={props.events} />
+        <TabPanel value={activeTab} index={1} dir={theme.direction}>
+          <Agenda events={events} />
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <Medias mediafolders={props.mediafolders} />
+        <TabPanel value={activeTab} index={2} dir={theme.direction}>
+          <Medias mediafolders={mediafolders} />
         </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-          <Resultats listresults={props.results} />
+        <TabPanel value={activeTab} index={3} dir={theme.direction}>
+          <Resultats listresults={results} />
         </TabPanel>
       </SwipeableViews>
     </div>
   );
 }
+
+const mapStateToProps = state => ({ activeTab: state.activhometab });
+
+export default connect(
+  mapStateToProps,
+  { setactivhometab }
+)(HomeTabs);

@@ -6,8 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Redux
 import { connect } from 'react-redux';
-import { reauthenticate, getCookie } from '../redux/actions/authActions';
-import Router from 'next/router';
+import { reauthenticate } from '../redux/actions/authActions';
 
 const useStyles = makeStyles(theme => ({
     root: {

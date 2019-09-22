@@ -9,6 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 // Redux
 import { connect } from 'react-redux';
-import { deauthenticate } from '../redux/actions/authActions';
+import { setactivhometab } from '../redux/actions/navActions';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,13 +56,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
-function Header({isAuthenticated}) {
+function Header({isAuthenticated, setactivhometab}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
   });
+  const router = useRouter()
+
+  function handleHomePage() {
+    setactivhometab(0);
+    router.push('/');
+  }
 
   const toggleDrawer = (side, open) => event => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -82,18 +87,15 @@ function Header({isAuthenticated}) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <Link href="/" >
-        <a>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
-          </Grid>
-        </a>
-      </Link>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        onClick={handleHomePage}
+      >
+        <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
+      </Grid>
       <List className={classes.menu}>
         <Link href="/SGA" as={`/SGA`}>
           <ListItemLink>
@@ -160,9 +162,9 @@ function Header({isAuthenticated}) {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu" onClick={toggleDrawer('left', true)} >
             <MenuIcon />
           </IconButton>
-          <Link href="/" >
-                <Button color="inherit" ><Typography variant="h6" color="inherit" className={classes.grow}>SGA Gym Féminine</Typography></Button>
-          </Link>
+          <Button color="inherit" onClick={handleHomePage}>
+            <Typography variant="h6" color="inherit" className={classes.grow}>SGA Gym Féminine</Typography>
+          </Button>
           {isAuthenticated ? 
            <Link href="/profil" as={`/profil`}>
             <IconButton color="inherit">
@@ -193,4 +195,5 @@ const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.toke
 
 export default connect(
   mapStateToProps,
+  { setactivhometab }
 )(Header);

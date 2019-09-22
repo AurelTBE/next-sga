@@ -16,8 +16,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Redux
 import { connect } from 'react-redux';
-import { reauthenticate, getCookie } from '../../redux/actions/authActions';
-import Router from 'next/router'; 
+import { reauthenticate } from '../../redux/actions/authActions';
+import { useRouter } from 'next/router'
 
 // FCT
 import fetch from 'isomorphic-unfetch';
@@ -65,6 +65,7 @@ const photos = [...new Set(props.galerie.photos.map(photo => photo.large))]
 function Galerie({galerie, images, user, role}) {
   const classes = useStyles();
   const theme = useTheme();
+  const router = useRouter()
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const labelProps = {
@@ -165,7 +166,7 @@ function Galerie({galerie, images, user, role}) {
             <Typography variant="h5" component="h2" color="primary">Seules les adhérents de la SGA ou leurs parents peuvent accèder à cette page. Ton compte n'a pas encore été validé. Prend contact avec un bénévole pour demander qu'on valide ton compte</Typography>
             ) 
               :
-            Router.push('/connexion')
+            router.push('/connexion')
             }
           </div>
         </Layout>
