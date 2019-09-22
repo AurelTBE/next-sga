@@ -12,14 +12,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivhometab } from '../redux/actions/navActions';
+import { setactivhometab, setactivgftab } from '../redux/actions/navActions';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,16 +55,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header({isAuthenticated, setactivhometab}) {
+function Header({isAuthenticated, setactivhometab, setactivgftab}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
   });
   const router = useRouter()
 
-  function handleHomePage() {
-    setactivhometab(0);
-    router.push('/');
+  function handleNav(link) {
+    switch (link) {
+      case '/':
+          return (
+            setactivhometab(0),
+            router.push(link)
+          );
+      case '/gymfeminine':
+          return (
+            setactivgftab(0),
+            router.push(link)
+            );
+      default:
+          return router.push(link);
+    }
   }
 
   const toggleDrawer = (side, open) => event => {
@@ -75,10 +86,6 @@ function Header({isAuthenticated, setactivhometab}) {
 
     setState({ ...state, [side]: open });
   };
-
-  function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-  }
 
   const sideList = side => (
     <div
@@ -92,59 +99,43 @@ function Header({isAuthenticated, setactivhometab}) {
         direction="row"
         justify="center"
         alignItems="center"
-        onClick={handleHomePage}
+        onClick={() => handleNav('/')}
       >
         <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
       </Grid>
       <List className={classes.menu}>
-        <Link href="/SGA" as={`/SGA`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faDragon} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="SGA" />
-          </ListItemLink>
-        </Link>
-        <Link href="/gymfeminine" as={`/gymfeminine`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faFlag} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Gym féminine" />
-          </ListItemLink>
-        </Link>
-        <Link href="/calendrier" as={`/calendrier`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faCalendarAlt} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Calendrier" />
-          </ListItemLink>
-        </Link>
-        <Link href="/resultats" as={`/resultats`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faTrophy} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Résultats" />
-          </ListItemLink>
-        </Link>
-        <Link href="/medias" as={`/medias`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faImages} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Médias" />
-          </ListItemLink>
-        </Link>
-        <Link href="/archives" as={`/archives`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
-            <ListItemText primary="Archives" />
-          </ListItemLink>
-        </Link>
-        <Link href="/connexion" as={`/connexion`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faUserCircle} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Connexion" />
-          </ListItemLink>
-        </Link>
-        <Link href="/contact" as={`/contact`}>
-          <ListItemLink>
-            <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Contact" />
-          </ListItemLink>
-        </Link>
+        <ListItem button onClick={() => handleNav('/SGA')}>
+          <ListItemIcon><FontAwesomeIcon icon={faDragon} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="SGA" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/gymfeminine')}>
+          <ListItemIcon><FontAwesomeIcon icon={faFlag} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Gym féminine" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/calendrier')}>
+          <ListItemIcon><FontAwesomeIcon icon={faCalendarAlt} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Calendrier" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/resultats')}>
+          <ListItemIcon><FontAwesomeIcon icon={faTrophy} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Résultats" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/medias')}>
+          <ListItemIcon><FontAwesomeIcon icon={faImages} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Médias" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/archives')}>
+          <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
+          <ListItemText primary="Archives" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/connexion')}>
+          <ListItemIcon><FontAwesomeIcon icon={faUserCircle} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Connexion" />
+        </ListItem>
+        <ListItem button onClick={() => handleNav('/contact')}>
+          <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Contact" />
+        </ListItem>
       </List>
     </div>
   );
@@ -162,7 +153,7 @@ function Header({isAuthenticated, setactivhometab}) {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu" onClick={toggleDrawer('left', true)} >
             <MenuIcon />
           </IconButton>
-          <Button color="inherit" onClick={handleHomePage}>
+          <Button color="inherit" onClick={() => handleNav('/')}>
             <Typography variant="h6" color="inherit" className={classes.grow}>SGA Gym Féminine</Typography>
           </Button>
           {isAuthenticated ? 
@@ -195,5 +186,5 @@ const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.toke
 
 export default connect(
   mapStateToProps,
-  { setactivhometab }
+  { setactivhometab, setactivgftab }
 )(Header);

@@ -4,3 +4,4 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const DEAUTHENTICATE = 'DEAUTHENTICATE';
 // Nav
 export const HOMETAB = 'HOMETAB';
+export const GFTAB = 'GFTAB';

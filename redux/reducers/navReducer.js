@@ -1,12 +1,19 @@
-import { HOMETAB } from '../actionTypes';
+import { HOMETAB, GFTAB } from '../actionTypes';
 
-const reducer = (state = 0, action) => {
+export const homeTabReducer = (state = 0, action) => {
     switch (action.type) {
         case HOMETAB:
-            return action.payload
+            return action.payload;
         default:
             return state;
     }
 };
 
-export default reducer;
+export const gfTabReducer = (state = 0, action) => {
+    switch (action.type) {
+        case GFTAB:
+            return action.payload;
+        default:
+            return state;
+    }
+};

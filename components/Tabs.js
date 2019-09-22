@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivhometab } from '../redux/actions/navActions'
+import { setactivhometab } from '../redux/actions/navActions';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';

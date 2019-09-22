@@ -14,6 +14,10 @@ import Layout from '../components/Layout'
 import Benevoles from '../components/Benevoles';
 import Entrainements from '../components/Entrainements';
 
+// Redux
+import { connect } from 'react-redux';
+import { setactivgftab } from '../redux/actions/navActions';
+
 // Requetes
 import fetch from 'isomorphic-unfetch';
 
@@ -54,17 +58,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function GymFem(props) {
+function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   function handleChange(event, newValue) {
-    setValue(newValue);
+    setactivgftab(newValue);
   }
 
   function handleChangeIndex(index) {
-    setValue(index);
+    setactivgftab(index);
   }
 
   return (
@@ -72,7 +76,7 @@ export default function GymFem(props) {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={value}
+          value={activeTab}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
@@ -85,14 +89,14 @@ export default function GymFem(props) {
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
+        index={activeTab}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Entrainements entrainements={props.entrainements} />
+        <TabPanel value={activeTab} index={0} dir={theme.direction}>
+          <Entrainements entrainements={entrainements} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Benevoles benevoles={props.benevoles} />
+        <TabPanel value={activeTab} index={1} dir={theme.direction}>
+          <Benevoles benevoles={benevoles} />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -115,3 +119,10 @@ GymFem.getInitialProps = async function() {
     benevoles: benevoles,
   };
 };
+
+const mapStateToProps = state => ({ activeTab: state.activgftab });
+
+export default connect(
+  mapStateToProps,
+  { setactivgftab }
+)(GymFem);
