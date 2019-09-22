@@ -102,16 +102,15 @@ export default function CardEntrainement(props) {
           <Typography variant="body1">
             Années de naissance : {entrainement.annees_de_naissance}
           </Typography>
-          <Typography variant="body1">
+          <Typography component="div" variant="body1">
             Créneaux : 
             {entrainement.creneaux.map((creneau, index) => (
               entrainement.creneaux.length > 1 ? 
-              <Typography variant="body1" className={classes.indent}> {creneau.jour} ({creneau.horaire_de_debut} - {creneau.horaire_de_fin}), {creneau.lieu}</Typography>
+              <Typography component="div" variant="body1" className={classes.indent} key={creneau+index}> {creneau.jour} ({creneau.horaire_de_debut} - {creneau.horaire_de_fin}), {creneau.lieu}</Typography>
               :
               ` ${creneau.jour} (${creneau.horaire_de_debut} - ${creneau.horaire_de_fin}), ${creneau.lieu}${index < entrainement.creneaux.length - 1 ? ',' : ''}`
             ))}
           </Typography>
-          {console.log(entrainement.couverture)}
         </CardContent>
       </Grid>
     </Card>
