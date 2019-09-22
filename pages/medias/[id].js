@@ -179,8 +179,8 @@ function Galerie({galerie, images, user, role}) {
 Galerie.getInitialProps = async ctx => {
   const token = ctx.store.getState().authentication.token;
   const { id } = ctx.query;
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
-  const galerie = await res.json();
+  const gal = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
+  const galerie = await gal.json();
   const images = [...new Set(galerie.photos.map(photo => photo.large))]
   if (token) {
     return {
@@ -190,10 +190,10 @@ Galerie.getInitialProps = async ctx => {
       images: images,
     };
   } else {
-      return {
-    galerie: galerie,
-    images: images,
-  }
+    return {
+      galerie: galerie,
+      images: images,
+    }
   }
 
 };

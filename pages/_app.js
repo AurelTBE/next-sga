@@ -39,8 +39,6 @@ class MyApp extends App {
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
-  // we can dispatch from here too
-  ctx.store.dispatch({ type: 'URL', payload: 'http://sga-gymfeminine.fr/bo' });
   checkServerSideCookie(ctx);
   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   return { pageProps };
