@@ -33,7 +33,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box>{children}</Box>
     </Typography>
   );
 }
@@ -60,7 +60,6 @@ const useStyles = makeStyles(theme => ({
 function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
 
   function handleChange(event, newValue) {
     setactivgftab(newValue);
@@ -92,10 +91,14 @@ function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Entrainements entrainements={entrainements} />
+          <Box p={3}>
+            <Entrainements entrainements={entrainements} />
+          </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Benevoles benevoles={benevoles} />
+          <Box p={1}>
+            <Benevoles benevoles={benevoles} />
+          </Box>
         </TabPanel>
       </SwipeableViews>
     </div>
