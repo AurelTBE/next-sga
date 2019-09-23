@@ -16,7 +16,7 @@ import { setactivhometab } from '../redux/actions/navActions';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Get & use scroll position
-import useScrollPosition from "../hooks/useScrollPosition";
+import useScrollPosition from "../utils/useScrollPosition";
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

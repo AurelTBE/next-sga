@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './Header';
-import Topbtn from '../hooks/topBtn'
+import Topbtn from '../utils/topBtn'
 
 export default function Layout(props) {
   const {children} = props;

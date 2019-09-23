@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
-import useScrollPosition from "../hooks/useScrollPosition";
+import useScrollPosition from "../utils/useScrollPosition";
 
 const useStyles = makeStyles(theme => ({
   fab: {
