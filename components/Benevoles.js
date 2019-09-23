@@ -22,7 +22,7 @@ export default function Benevoles(props) {
       <Box
         display="flex" 
         color="background.paper"
-        bgcolor={theme.palette.primary.light}
+        bgcolor={theme.palette.secondary.main}
         fontFamily="h6.fontFamily"
         fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
         p={{ xs: 2, sm: 3, md: 4 }}
@@ -46,7 +46,7 @@ export default function Benevoles(props) {
       <Box
         display="flex" 
         color="background.paper"
-        bgcolor={theme.palette.primary.light}
+        bgcolor={theme.palette.secondary.main}
         fontFamily="h6.fontFamily"
         fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
         p={{ xs: 2, sm: 3, md: 4 }}
@@ -70,7 +70,7 @@ export default function Benevoles(props) {
       <Box
         display="flex" 
         color="background.paper"
-        bgcolor={theme.palette.primary.light}
+        bgcolor={theme.palette.secondary.main}
         fontFamily="h6.fontFamily"
         fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
         p={{ xs: 2, sm: 3, md: 4 }}
@@ -94,7 +94,7 @@ export default function Benevoles(props) {
       <Box
         display="flex" 
         color="background.paper"
-        bgcolor={theme.palette.primary.light}
+        bgcolor={theme.palette.secondary.main}
         fontFamily="h6.fontFamily"
         fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
         p={{ xs: 2, sm: 3, md: 4 }}
