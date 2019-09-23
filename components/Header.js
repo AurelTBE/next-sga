@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivhometab, setactivgftab } from '../redux/actions/navActions';
+import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab } from '../redux/actions/navActions';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header({isAuthenticated, setactivhometab, setactivgftab}) {
+function Header({isAuthenticated, setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -69,11 +69,31 @@ function Header({isAuthenticated, setactivhometab, setactivgftab}) {
             setactivhometab(0),
             router.push(link)
           );
+      case '/SGA':
+        return (
+          setactivsgatab(0),
+          router.push(link)
+        );
       case '/gymfeminine':
           return (
             setactivgftab(0),
             router.push(link)
             );
+      case '/resultats':
+        return (
+          setactivresultab(0),
+          router.push(link)
+        );
+      case '/medias':
+        return (
+          setactivmediatab(0),
+          router.push(link)
+        );
+      case '/archives':
+        return (
+          setactivarchivtab(0),
+          router.push(link)
+        );
       default:
           return router.push(link);
     }
@@ -186,5 +206,5 @@ const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.toke
 
 export default connect(
   mapStateToProps,
-  { setactivhometab, setactivgftab }
+  { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab  }
 )(Header);

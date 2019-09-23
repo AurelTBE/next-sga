@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-import { homeTabReducer, gfTabReducer } from './navReducer';
-import boUrl from './boUrl';
+import { homeTabReducer, gfTabReducer, sgaTabReducer, resulTabReducer, mediaTabReducer, archivTabReducer } from './navReducer';
 
 const rootReducer = combineReducers({
-    url: boUrl,
     activhometab: homeTabReducer,
     activgftab: gfTabReducer,
+    activsgatab: sgaTabReducer,
+    activresultab: resulTabReducer,
+    activmediatab: mediaTabReducer,
+    activarchivtab: archivTabReducer,
     authentication: authReducer,
 });
 

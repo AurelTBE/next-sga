@@ -1,6 +1,5 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
