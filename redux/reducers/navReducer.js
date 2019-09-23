@@ -1,4 +1,4 @@
-import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, ARCHIVTAB } from '../actionTypes';
+import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, JUGESTAB } from '../actionTypes';
 
 export const homeTabReducer = (state = 0, action) => {
     switch (action.type) {
@@ -45,9 +45,9 @@ export const mediaTabReducer = (state = 0, action) => {
     }
 };
 
-export const archivTabReducer = (state = 0, action) => {
+export const jugesTabReducer = (state = 0, action) => {
     switch (action.type) {
-        case ARCHIVTAB:
+        case JUGESTAB:
             return action.payload;
         default:
             return state;

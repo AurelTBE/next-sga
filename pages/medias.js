@@ -57,10 +57,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function GymFem({ setactivmediatab, activeTab, entrainements, benevoles }) {
+function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
 
   function handleChange(event, newValue) {
     setactivmediatab(newValue);
@@ -82,8 +81,9 @@ function GymFem({ setactivmediatab, activeTab, entrainements, benevoles }) {
           variant="fullWidth"
           aria-label="Présentation de la section féminine de gym de la SGA"
         >
-          <Tab label="Entrainements" {...a11yProps(0)} />
-          <Tab label="Bénévoles" {...a11yProps(1)} />
+          <Tab label="Photos" {...a11yProps(0)} />
+          <Tab label="Vidéos" {...a11yProps(1)} />
+          <Tab label="Musiques" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -97,6 +97,9 @@ function GymFem({ setactivmediatab, activeTab, entrainements, benevoles }) {
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
           <Benevoles benevoles={benevoles} />
         </TabPanel>
+        <TabPanel value={activeTab} index={2} dir={theme.direction}>
+          <div>Musiques</div>
+        </TabPanel>
       </SwipeableViews>
     </div>
     </Layout>
@@ -107,7 +110,7 @@ function GymFem({ setactivmediatab, activeTab, entrainements, benevoles }) {
 
 
 
-GymFem.getInitialProps = async function() {
+Medias.getInitialProps = async function() {
   const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();
   const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
@@ -124,4 +127,4 @@ const mapStateToProps = state => ({ activeTab: state.activmediatab });
 export default connect(
   mapStateToProps,
   { setactivmediatab }
-)(GymFem);
+)(Medias);

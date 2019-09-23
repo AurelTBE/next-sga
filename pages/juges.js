@@ -15,7 +15,7 @@ import Entrainements from '../components/Entrainements';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivsgatab } from '../redux/actions/navActions';
+import { setactivjugestab } from '../redux/actions/navActions';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -57,16 +57,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
+function Juges({ setactivjugestab, activeTab, entrainements, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
 
   function handleChange(event, newValue) {
-    setactivsgatab(newValue);
+    setactivjugestab(newValue);
   }
 
   function handleChangeIndex(index) {
-    setactivsgatab(index);
+    setactivjugestab(index);
   }
 
   return (
@@ -81,8 +81,8 @@ function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
           variant="fullWidth"
           aria-label="Présentation de la section féminine de gym de la SGA"
         >
-          <Tab label="Le club" {...a11yProps(0)} />
-          <Tab label="La Gym" {...a11yProps(1)} />
+          <Tab label="Documents" {...a11yProps(0)} />
+          <Tab label="Vidéos" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -102,11 +102,7 @@ function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
   );
 }
 
-//
-
-
-
-SGA.getInitialProps = async function() {
+Juges.getInitialProps = async function() {
   const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();
   const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
@@ -118,9 +114,9 @@ SGA.getInitialProps = async function() {
   };
 };
 
-const mapStateToProps = state => ({ activeTab: state.activsgatab });
+const mapStateToProps = state => ({ activeTab: state.activjugestab });
 
 export default connect(
   mapStateToProps,
-  { setactivsgatab }
-)(SGA);
+  { setactivjugestab }
+)(Juges);

@@ -195,7 +195,6 @@ Galerie.getInitialProps = async ctx => {
       images: images,
     }
   }
-
 };
 
 export default connect(

@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab } from '../redux/actions/navActions';
+import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivjugestab } from '../redux/actions/navActions';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header({isAuthenticated, setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab }) {
+function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivjugestab }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -89,9 +89,9 @@ function Header({isAuthenticated, setactivhometab, setactivsgatab, setactivgftab
           setactivmediatab(0),
           router.push(link)
         );
-      case '/archives':
+      case '/juges':
         return (
-          setactivarchivtab(0),
+          setactivjugestab(0),
           router.push(link)
         );
       default:
@@ -144,6 +144,19 @@ function Header({isAuthenticated, setactivhometab, setactivsgatab, setactivgftab
           <ListItemIcon><FontAwesomeIcon icon={faImages} className={classes.icons} /></ListItemIcon>
           <ListItemText primary="Médias" />
         </ListItem>
+        {
+          role ? (
+            role.includes("administrator") || role.includes("Juge") ?
+              <ListItem button onClick={() => handleNav('/juges')}>
+                <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
+                <ListItemText primary="Juges" />
+              </ListItem>
+            : 
+            null 
+            ) 
+            : 
+          null
+        }
         <ListItem button onClick={() => handleNav('/archives')}>
           <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
           <ListItemText primary="Archives" />
@@ -202,9 +215,15 @@ function Header({isAuthenticated, setactivhometab, setactivsgatab, setactivgftab
   );
 }
 
-const mapStateToProps = state => ({ isAuthenticated: !!state.authentication.token });
+function mapStateToProps(state) {
+  const role = state.authentication.token ? state.authentication.token.user_role : null
+  return { 
+    isAuthenticated: !!state.authentication.token,
+    role: role,
+  }
+}
 
 export default connect(
   mapStateToProps,
-  { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivarchivtab  }
+  { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivjugestab  }
 )(Header);
