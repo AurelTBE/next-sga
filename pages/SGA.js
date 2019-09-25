@@ -10,15 +10,17 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import Benevoles from '../components/Benevoles';
-import Entrainements from '../components/Entrainements';
+import SGAClub from '../components/SGAClub';
+import SGAGym from '../components/SGAGym';
 
 // Redux
 import { connect } from 'react-redux';
 import { setactivsgatab } from '../redux/actions/navActions';
+import { SGACONTENT } from '../redux/actionTypes';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
+
 
 
 function TabPanel(props) {
@@ -57,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
+function SGA({ setactivsgatab, activeTab, sgaContent }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -91,10 +93,10 @@ function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Entrainements entrainements={entrainements} />
+          <SGAClub club={sgaContent.club} />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Benevoles benevoles={benevoles} />
+          <SGAGym gym={sgaContent.gym} />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -102,23 +104,21 @@ function SGA({ setactivsgatab, activeTab, entrainements, benevoles }) {
   );
 }
 
-//
+SGA.getInitialProps = async function(ctx) {
+  const data = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/sga`);
+  const sga = await data.json();
 
-
-
-SGA.getInitialProps = async function() {
-  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
-  const entrainements = await ent.json();
-  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
-  const benevoles = await ben.json();
-
+  ctx.store.dispatch({ type: SGACONTENT, payload: sga });
   return {
-    entrainements: entrainements,
-    benevoles: benevoles,
+    club: sga.club,
+    gym: sga.gym,
   };
 };
 
-const mapStateToProps = state => ({ activeTab: state.activsgatab });
+const mapStateToProps = state => ({ 
+  activeTab: state.activsgatab,
+  sgaContent: state.sgacontent,
+ });
 
 export default connect(
   mapStateToProps,

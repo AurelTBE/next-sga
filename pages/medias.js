@@ -106,10 +106,6 @@ function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
   );
 }
 
-//
-
-
-
 Medias.getInitialProps = async function() {
   const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();

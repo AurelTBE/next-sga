@@ -16,6 +16,7 @@ import Entrainements from '../components/Entrainements';
 // Redux
 import { connect } from 'react-redux';
 import { setactivgftab } from '../redux/actions/navActions';
+import { GFCONTENT } from '../redux/actionTypes'
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -57,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
+function GymFem({ setactivgftab, activeTab, gfContent }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -92,12 +93,12 @@ function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
           <Box p={3}>
-            <Entrainements entrainements={entrainements} />
+            <Entrainements entrainements={gfContent.entrainements} />
           </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
           <Box p={1}>
-            <Benevoles benevoles={benevoles} />
+            <Benevoles benevoles={gfContent.benevoles} />
           </Box>
         </TabPanel>
       </SwipeableViews>
@@ -106,15 +107,17 @@ function GymFem({ setactivgftab, activeTab, entrainements, benevoles }) {
   );
 }
 
-//
-
-
-
-GymFem.getInitialProps = async function() {
+GymFem.getInitialProps = async function(ctx) {
   const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();
   const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
   const benevoles = await ben.json();
+  const gymfem = {
+    entrainements: entrainements,
+    benevoles: benevoles,
+  }
+
+  ctx.store.dispatch({ type: GFCONTENT, payload: gymfem });
 
   return {
     entrainements: entrainements,
@@ -122,7 +125,10 @@ GymFem.getInitialProps = async function() {
   };
 };
 
-const mapStateToProps = state => ({ activeTab: state.activgftab });
+const mapStateToProps = state => ({ 
+  activeTab: state.activgftab,
+  gfContent: state.gfcontent
+ });
 
 export default connect(
   mapStateToProps,

@@ -11,3 +11,6 @@ export const MEDIATAB = 'MEDIATAB';
 export const JUGESTAB = 'JUGESTAB';
 // Content
 export const HOMECONTENT = 'HOMECONTENT';
+export const SGACONTENT = 'SGACONTENT';
+export const GFCONTENT = 'GFCONTENT';
+export const JUGESCONTENT = 'JUGESCONTENT';

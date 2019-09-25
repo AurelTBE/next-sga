@@ -106,10 +106,6 @@ function Resultats({ setactivresultab, activeTab, entrainements, benevoles }) {
   );
 }
 
-//
-
-
-
 Resultats.getInitialProps = async function() {
   const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import { homeTabReducer, gfTabReducer, sgaTabReducer, resulTabReducer, mediaTabReducer, jugesTabReducer } from './navReducer';
-import { homeContentReducer } from './contentReducer';
+import { homeContentReducer, sgaContentReducer, gfContentReducer, jugContentReducer } from './contentReducer';
 
 const rootReducer = combineReducers({
     authentication: authReducer,
@@ -12,6 +12,9 @@ const rootReducer = combineReducers({
     activmediatab: mediaTabReducer,
     activjugestab: jugesTabReducer,
     homecontent: homeContentReducer,
+    sgacontent: sgaContentReducer,
+    gfcontent: gfContentReducer,
+    jugescontent: jugContentReducer,
 });
 
 export default rootReducer;

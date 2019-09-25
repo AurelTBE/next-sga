@@ -10,12 +10,13 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import Benevoles from '../components/Benevoles';
-import Entrainements from '../components/Entrainements';
+import JugesDocs from '../components/JugesDocs';
+import JugesVids from '../components/JugesVids';
 
 // Redux
 import { connect } from 'react-redux';
 import { setactivjugestab } from '../redux/actions/navActions';
+import { JUGESCONTENT } from '../redux/actionTypes';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -57,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Juges({ setactivjugestab, activeTab, entrainements, benevoles }) {
+function Juges({ setactivjugestab, activeTab, jugesContent }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -91,10 +92,10 @@ function Juges({ setactivjugestab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Entrainements entrainements={entrainements} />
+          <JugesDocs docs={jugesContent}  />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Benevoles benevoles={benevoles} />
+          <JugesVids vids={jugesContent} />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -102,19 +103,21 @@ function Juges({ setactivjugestab, activeTab, entrainements, benevoles }) {
   );
 }
 
-Juges.getInitialProps = async function() {
-  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
-  const entrainements = await ent.json();
-  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
-  const benevoles = await ben.json();
+Juges.getInitialProps = async function(ctx) {
+  const jug = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/juges`);
+  const juges = await jug.json();
+
+  ctx.store.dispatch({ type: JUGESCONTENT, payload: juges });
 
   return {
-    entrainements: entrainements,
-    benevoles: benevoles,
+    juges: juges,
   };
 };
 
-const mapStateToProps = state => ({ activeTab: state.activjugestab });
+const mapStateToProps = state => ({ 
+  activeTab: state.activjugestab,
+  jugesContent: state.jugescontent,
+ });
 
 export default connect(
   mapStateToProps,
