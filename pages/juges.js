@@ -17,6 +17,7 @@ import JugesVids from '../components/JugesVids';
 import { connect } from 'react-redux';
 import { setactivjugestab } from '../redux/actions/navActions';
 import { JUGESCONTENT } from '../redux/actionTypes';
+import withAuth from '../utils/withAuth'
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -119,7 +120,7 @@ const mapStateToProps = state => ({
   jugesContent: state.jugescontent,
  });
 
-export default connect(
+export default withAuth(connect(
   mapStateToProps,
   { setactivjugestab }
-)(Juges);
+)(Juges));
