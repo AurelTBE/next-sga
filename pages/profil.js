@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // Redux
 import { connect } from 'react-redux';
 import { deauthenticate } from '../redux/actions/authActions';
+import withAuth from '../utils/withAuth';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -52,12 +53,11 @@ function Profil({name, role, deauthenticate}) {
 }
 
 const mapStateToProps = state => ({ 
-  isAuthenticated: !!state.authentication.token,
   name: state.authentication.token.user_display_name,
   role: state.authentication.token.user_role,
  });
 
-export default connect(
+export default withAuth()(connect(
   mapStateToProps,
   { deauthenticate }
-)(Profil);
+)(Profil));

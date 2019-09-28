@@ -107,12 +107,14 @@ function Juges({ setactivjugestab, activeTab, jugesContent, visible }) {
 Juges.getInitialProps = async function(ctx) {
   const jug = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/juges`);
   const juges = await jug.json();
+  const jugescont = {
+    docs: juges.juges.docs,
+    videos: juges.juges.videos,
+  }
 
-  ctx.store.dispatch({ type: JUGESCONTENT, payload: juges });
+  ctx.store.dispatch({ type: JUGESCONTENT, payload: jugescont });
 
-  return {
-    juges: juges,
-  };
+  return {};
 };
 
 const mapStateToProps = state => ({ 

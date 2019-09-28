@@ -10,6 +10,10 @@ import { reauthenticate } from '../redux/actions/authActions';
 
 const withAuth = restricted => ChildComponent => {
     class withAuth extends Component {
+        static getInitialProps(ctx) {
+            if(ChildComponent.getInitialProps)
+                return ChildComponent.getInitialProps(ctx);
+        }
         componentDidMount() {
             const isLoggedIn = this.props.authentication.token
             const { router } = this.props;
@@ -24,7 +28,7 @@ const withAuth = restricted => ChildComponent => {
                     this.props.authentication.token ? 
                     (restricted ? 
                         (restricted.includes(this.props.authentication.token.user_role[0]) ? 
-                            <ChildComponent {...props} />
+                            <ChildComponent {...this.props} />
                             :
                             <Layout>
                                 <Typography variant="h5" component="h2" color="primary">Désolé, tu n'as pas accès à cette page. Si tu fais partie de ce groupe, prend contact avec un bénévole pour demander qu'on valide ton compte</Typography>
