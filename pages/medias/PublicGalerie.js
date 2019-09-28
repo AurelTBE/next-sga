@@ -34,27 +34,7 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
       textAlign: 'initial'
     }
-  }));
-  
-  function Caroussel(props) { 
-  // if toggler is updated when lightbox is closed it will open it 
-  // if toggler is updated when lightbox is opened it will close it 
-  const [toggler, setToggler] = useState(false);
-  const photos = [...new Set(props.galerie.photos.map(photo => photo.large))]
-    return ( 
-      <> 
-        <button onClick={ () => setToggler(!toggler) }> 
-        Toggle Lightbox 
-        </button> 
-        <FsLightbox 
-        toggler={ toggler } 
-        sources={ props.images } 
-        type='image'
-        />
-      </> 
-    ); 
-  }
-  
+  }));  
   
 function PublicGalerie(props) {
     const classes = useStyles();
