@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
 function PrivateGalerie(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const { galerieContent, role } = props;
+    const { galerieContent } = props;
     const { galerie, images } = galerieContent;
   
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -81,55 +81,48 @@ function PrivateGalerie(props) {
     }
 
     return (
-        <Layout>
-            <Box
-                display="flex" 
-                color="background.paper"
-                bgcolor={theme.palette.secondary.main}
-                fontFamily="h6.fontFamily"
-                fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
-                p={{ xs: 2, sm: 3, md: 4 }}
-                justifyContent="center"
-                alignItems="center"
-                height={{xs: 60, md: 90}}
-                width={1}
-            >
-                <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
-                {galerie.title}
-                </Typography>
-            </Box>
-            <div className={classes.root}>                
-                {!role.includes("subscriber") ?
-                <>
-                    <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
-                    {galerie.photos.map(image => (
-                        <ButtonBase className={classes.tileBtn} key={image.id}>
-                            <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
-                            <img src={image.small} alt={image.title} />
-                            </GridListTile>
-                        </ButtonBase>
-                    ))}
-                    </GridList>
-                    <FsLightbox 
-                    toggler={ lightboxController.toggler } 
-                    slide={ lightboxController.slide } 
-                    sources={ images } 
-                    type='image'
-                    />
-                </>
-                : 
-                <Typography variant="h5" component="h2" color="primary">Seules les adhérents de la SGA ou leurs parents peuvent accèder à cette page. Ton compte n'a pas encore été validé. Prend contact avec un bénévole pour demander qu'on valide ton compte</Typography>
-                }
-            </div>
-        </Layout>
+      <Layout>
+        <Box
+            display="flex" 
+            color="background.paper"
+            bgcolor={theme.palette.secondary.main}
+            fontFamily="h6.fontFamily"
+            fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+            p={{ xs: 2, sm: 3, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            height={{xs: 60, md: 90}}
+            width={1}
+        >
+            <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
+              {galerie.title}
+            </Typography>
+        </Box>
+        <div className={classes.root}>
+            <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
+            {galerie.photos.map(image => (
+                <ButtonBase className={classes.tileBtn} key={image.id}>
+                    <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
+                    <img src={image.small} alt={image.title} />
+                    </GridListTile>
+                </ButtonBase>
+            ))}
+            </GridList>
+            <FsLightbox 
+            toggler={ lightboxController.toggler } 
+            slide={ lightboxController.slide } 
+            sources={ images } 
+            type='image'
+            /> 
+        </div>
+      </Layout>
     )
 }
 
 const mapStateToProps = state => ({ 
   galerieContent: state.galeriecontent,
-  role: state.authentication.token.user_role
  });
 
- export default withAuth(connect(
+ export default withAuth(["administrator", "cadre", "famille", "licencie"])(connect(
   mapStateToProps
 )(PrivateGalerie))

@@ -80,7 +80,7 @@ function PublicGalerie(props) {
     }
 
     return (
-        <Layout>
+      <Layout>
         <Box
             display="flex" 
             color="background.paper"
@@ -114,7 +114,7 @@ function PublicGalerie(props) {
             type='image'
             /> 
         </div>
-        </Layout>
+      </Layout>
     )
 }
 

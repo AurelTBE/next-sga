@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Juges({ setactivjugestab, activeTab, jugesContent }) {
+function Juges({ setactivjugestab, activeTab, jugesContent, visible }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -120,7 +120,7 @@ const mapStateToProps = state => ({
   jugesContent: state.jugescontent,
  });
 
-export default withAuth(connect(
+export default withAuth(["administrator", "cadre"])(connect(
   mapStateToProps,
   { setactivjugestab }
 )(Juges));
