@@ -75,9 +75,7 @@ function Inscription({ postsignup }) {
 
   const insertData = nonce => {
     axios.post(`http://sga-gymfeminine.fr/bo/api/user/register/?username=${username}&email=${email}&nonce=${nonce}&display_name=${display_name}&user_pass=${password}&insecure=cool`)
-    .then(res => {
-      console.log('User inserted !', res.data)
-    }).catch(error => {
+    .catch(error => {
       console.log(error.response)
     })
   }
@@ -85,9 +83,7 @@ function Inscription({ postsignup }) {
   const getWPnonce = () => {
     axios.get('http://sga-gymfeminine.fr/bo/api/get_nonce/?controller=user&method=register')
     .then(res => {
-      console.log(res.data)
       insertData(res.data.nonce)
-
     })
     .then(
       handleClickOpen()
@@ -98,7 +94,6 @@ function Inscription({ postsignup }) {
   }
   const handleSubmit = e => {
     e.preventDefault();
-    // console.log('login with ', { username, password });
     getWPnonce()
   };
 
