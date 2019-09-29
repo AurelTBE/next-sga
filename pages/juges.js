@@ -35,7 +35,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box>{children}</Box>
     </Typography>
   );
 }
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Juges({ setactivjugestab, activeTab, jugesContent, visible }) {
+function Juges({ setactivjugestab, activeTab, jugesContent }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -93,10 +93,14 @@ function Juges({ setactivjugestab, activeTab, jugesContent, visible }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <JugesDocs docs={jugesContent}  />
+          <Box p={1}>
+            <JugesDocs docs={jugesContent.docs}  />
+          </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <JugesVids vids={jugesContent} />
+          <Box p={1}>
+            <JugesVids agres={jugesContent.vidagres} vids={jugesContent.videos} />
+          </Box>
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -107,9 +111,11 @@ function Juges({ setactivjugestab, activeTab, jugesContent, visible }) {
 Juges.getInitialProps = async function(ctx) {
   const jug = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/juges`);
   const juges = await jug.json();
+  const vidagres = [...new Set(juges.juges.videos.map(vid => vid.agres))];
   const jugescont = {
     docs: juges.juges.docs,
     videos: juges.juges.videos,
+    vidagres: vidagres,
   }
 
   ctx.store.dispatch({ type: JUGESCONTENT, payload: jugescont });

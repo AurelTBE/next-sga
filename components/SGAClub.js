@@ -2,21 +2,52 @@
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-export default function SGAClub(props) {
+export default function SGAClub({club}) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
   <>
     <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
-      SGA Club
-      {console.log(props.club)}
+      {/* Le club */}
+      <Box
+        display="flex" 
+        color="background.paper"
+        bgcolor={theme.palette.secondary.main}
+        fontFamily="h6.fontFamily"
+        fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+        p={{ xs: 2, sm: 3, md: 4 }}
+        justifyContent="center"
+        alignItems="center"
+        height={{xs: 60, md: 120}}
+        width={1}
+      >
+        <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
+          {club.le_club.categorie}
+        </Typography>
+      </Box>
+      {/* La FSCF */}
+      <Box
+        display="flex" 
+        color="background.paper"
+        bgcolor={theme.palette.secondary.main}
+        fontFamily="h6.fontFamily"
+        fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+        p={{ xs: 2, sm: 3, md: 4 }}
+        justifyContent="center"
+        alignItems="center"
+        height={{xs: 60, md: 120}}
+        width={1}
+      >
+        <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
+          {club.fscf.categorie}
+        </Typography>
+      </Box>
     </Grid>
   </>
 )}

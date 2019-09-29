@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 // Components
 import Layout from '../components/Layout'
 import SGAClub from '../components/SGAClub';
-import SGAGym from '../components/SGAGym';
+import SGASections from '../components/SGASections';
 
 // Redux
 import { connect } from 'react-redux';
@@ -35,7 +35,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box>{children}</Box>
     </Typography>
   );
 }
@@ -84,7 +84,7 @@ function SGA({ setactivsgatab, activeTab, sgaContent }) {
           aria-label="Présentation de la section féminine de gym de la SGA"
         >
           <Tab label="Le club" {...a11yProps(0)} />
-          <Tab label="La Gym" {...a11yProps(1)} />
+          <Tab label="Les sections" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -93,10 +93,14 @@ function SGA({ setactivsgatab, activeTab, sgaContent }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <SGAClub club={sgaContent.club} />
+          <Box p={1}>
+            <SGAClub club={sgaContent.club} />
+          </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <SGAGym gym={sgaContent.gym} />
+          <Box p={1}>
+            <SGASections sections={sgaContent.sections} />
+          </Box>
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -109,10 +113,7 @@ SGA.getInitialProps = async function(ctx) {
   const sga = await data.json();
 
   ctx.store.dispatch({ type: SGACONTENT, payload: sga });
-  return {
-    club: sga.club,
-    gym: sga.gym,
-  };
+  return {};
 };
 
 const mapStateToProps = state => ({ 
