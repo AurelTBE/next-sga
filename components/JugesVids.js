@@ -6,14 +6,27 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
+// Modal
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Masonry
-import Masonry from 'react-masonry-css'
+import Masonry from 'react-masonry-css';
+
+// Redux
+import { connect } from 'react-redux';
+import { setactivideo } from '../redux/actions/contActions'
+
 
 // Player
-import ReactPlayer from 'react-player'
+import YouTubePlayer from 'react-player/lib/players/YouTube';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,13 +64,29 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.background.paper,
     fontSize: 60,
     top: "41%",
-    left: "41%",
-  }
+    left: "42%",
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
 }));
 
-export default function JugesVids({agres, vids}) {
+function JugesVids({agres, vids, setactivideo, vidplay}) {
   const classes = useStyles();
   const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  
+  function handleClickOpen(vid) {
+    setactivideo(vid)
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false)
+  }
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const labelProps = {
@@ -98,7 +127,7 @@ export default function JugesVids({agres, vids}) {
           <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
           {vids.map((vid) => (
             vid.agres == ag && 
-            <ButtonBase key={vid.lien_youtube} >
+            <ButtonBase key={vid.lien_youtube} onClick={() => handleClickOpen(vid)}>
               <img src={vid.thumbnail} alt={`${vid.degre} (${vid.saison})`} className={classes.image} />
               <PlayCircleOutlineIcon className={classes.icon} />
               <Box className={classes.caption} width={1}><Typography variant="h5">{`${vid.degre} (${vid.saison})`}</Typography></Box>
@@ -108,7 +137,28 @@ export default function JugesVids({agres, vids}) {
         </div>
       ))}
       {/* <ReactPlayer url={vid.lien_youtube} /> */}
-      {console.log(vids)}
+      
     </Grid>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="responsive-dialog-title"
+      maxWidth={false}
+    >
+      <DialogTitle id="responsive-dialog-title">
+        {vidplay && <Typography variant="h6">{`${vidplay.degre} (${vidplay.saison})`}</Typography>}
+        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        {vidplay && <YouTubePlayer url={vidplay.lien_youtube} controls />}
+      </DialogContent>
+    </Dialog>
   </>
 )}
+
+export default connect(
+  state => state,
+  { setactivideo }
+)(JugesVids); 

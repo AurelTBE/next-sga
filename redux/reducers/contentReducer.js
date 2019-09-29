@@ -1,4 +1,4 @@
-import { HOMECONTENT, SGACONTENT, GFCONTENT, JUGESCONTENT, GALERIECONTENT } from '../actionTypes';
+import { HOMECONTENT, SGACONTENT, GFCONTENT, JUGESCONTENT, GALERIECONTENT, VIDPLAYCONTENT } from '../actionTypes';
 
 export const homeContentReducer = (state={}, action) => {
     switch (action.type) {
@@ -39,6 +39,15 @@ export const jugContentReducer = (state={}, action) => {
 export const galContentReducer = (state={}, action) => {
     switch (action.type) {
         case GALERIECONTENT:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
+export const vidPlayReducer = (state={}, action) => {
+    switch (action.type) {
+        case VIDPLAYCONTENT:
             return action.payload;
         default:
             return state;
