@@ -12,8 +12,8 @@ import { GALERIECONTENT } from '../../redux/actionTypes';
 // FCT
 import fetch from 'isomorphic-unfetch';
 
-function Galerie({galerie}) {
-  switch(galerie.visible) {
+function Galerie({galerieContent}) {
+  switch(galerieContent.galerie.visible) {
     case 'Public':
       return <PublicGalerie />
     case 'Membres':

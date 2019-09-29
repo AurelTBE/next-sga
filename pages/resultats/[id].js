@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function Resultat(props) {
+function Resultat({result}) {
   const classes = useStyles();
 
   return (
@@ -37,18 +37,19 @@ function Resultat(props) {
       <Grid container justify="center" className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
-            {props.result.title}
+            {result.title}
           </Typography>
           <Typography component="div" variant="body2" gutterBottom>
-            Date de la compétition : {props.result.date}
+            Date de la compétition : {result.date}
           </Typography>
           <Typography component="div" variant="body2" gutterBottom>
-            Lieu de la compétition : {props.result.ville}
+            Lieu de la compétition : {result.ville}
           </Typography>
           <Typography component="div" variant="body2" gutterBottom>
-            Groupes ayant participé : {props.result.groupe}
+            Groupes ayant participé : {result.groupe}
           </Typography>
-            <p>{props.result.resultfile ? <PDFview pdf={props.result.resultfile} /> : null}</p>
+          <p>{result.resultfile ? <PDFview pdf={result.resultfile} /> : null}</p>
+          {console.log(result)}
         </Grid>
       </Grid>
     </Layout>
