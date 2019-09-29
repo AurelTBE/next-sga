@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useState} from 'react';
 import { PDFDownloadLink, Document, Page, pdfjs } from "react-pdf";
 
 // Style
@@ -6,41 +6,53 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
+// Media Query
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import withWidth from '@material-ui/core/withWidth';
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-class PDFdoc extends Component {
-    state = {
-        numPages: null,
-      }
+function PDFdoc(props) {
+    const [numPages, setNumPage] = useState('');
     
-    onDocumentLoadSuccess = (document) => {
-        const { numPages } = document;
-        this.setState({
-          numPages,
-        });
+    const onDocumentLoadSuccess = (document) => {
+        setNumPage(document);
     };
-  
-    render(props) {
-        const { numPages } = this.state;
 
-        return (                    
-        <Document
-            file={this.props.pdf}
-            onLoadSuccess={this.onDocumentLoadSuccess}
-        >
-            {Array.from(
-                new Array(numPages),
-                (el, index) => (
-                    <Page
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                    width={800}
-                    />
-                ),
-            )}
-        </Document>
-      );
+    function containerWidth(width) {
+      switch(width) {
+        case 'xl':
+          return 1400;
+        case 'lg':
+          return 1000;
+        case 'md':
+          return 800;
+        case 'sm':
+          return 500;
+        case 'xs':
+          return 300;
+        default:
+          return 600;
+      }
     }
+
+    return (                   
+      <Document
+          file={props.pdf}
+          onLoadSuccess={onDocumentLoadSuccess}
+      >
+        {Array.from(
+            new Array(numPages),
+            (el, index) => (
+                <Page
+                key={`page_${index + 1}`}
+                pageNumber={index + 1}
+                width={containerWidth(props.width)}
+                />
+            ),
+        )}
+      </Document>
+    );
   }
 
   const DLPdf = props => (
@@ -52,14 +64,16 @@ class PDFdoc extends Component {
   )
 
   
-export default function PDFview(props) {
+function PDFview(props) {
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Grid container spacing={1} direction="column" alignItems="center">
-                    <PDFdoc pdf={props.pdf}/>
+                    <PDFdoc pdf={props.pdf} width={props.width} />
                 </Grid>
             </Grid>
         </Grid>
       )
 }
+
+export default withWidth()(PDFview)
