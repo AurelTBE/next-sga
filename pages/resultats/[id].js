@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+// Redux
+import { connect } from 'react-redux';
+import { CURRENTRESULT } from '../../redux/actionTypes';
+
 //FCT
 import fetch from 'isomorphic-unfetch';
 import he from 'he';
@@ -25,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Resultat(props) {
+function Resultat(props) {
   const classes = useStyles();
 
   return (
@@ -52,12 +56,18 @@ export default function Resultat(props) {
 }
 
 
-Resultat.getInitialProps = async function(context) {
-  const { id } = context.query;
+Resultat.getInitialProps = async ctx => {
+  const { id } = ctx.query;
   const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultats/${id}`);
   const result = await res.json();
-
-  return {
-    result: result
-  };
+  ctx.store.dispatch({ type: CURRENTRESULT, payload: result });
+  return {};
 };
+
+const mapStateToProps = state => ({ 
+  result: state.currentresult,
+ });
+
+export default connect(
+  mapStateToProps,
+)(Resultat);

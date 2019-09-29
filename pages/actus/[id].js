@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+// Redux
+import { connect } from 'react-redux';
+import { CURRENTACTU } from '../../redux/actionTypes';
+
 //FCT
 import fetch from 'isomorphic-unfetch';
 import he from 'he';
@@ -23,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Actu(props) {
+function Actu(props) {
   const classes = useStyles();
 
   return (
@@ -49,12 +53,18 @@ export default function Actu(props) {
   )
 }
 
-Actu.getInitialProps = async function(context) {
-  const { id } = context.query;
+Actu.getInitialProps = async ctx => {
+  const { id } = ctx.query;
   const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/posts/${id}`);
   const post = await res.json();
-
-  return {
-    post: post
-  };
+  ctx.store.dispatch({ type: CURRENTACTU, payload: post });
+  return {};
 };
+
+const mapStateToProps = state => ({ 
+  post: state.currentactu,
+ });
+
+export default connect(
+  mapStateToProps,
+)(Actu);

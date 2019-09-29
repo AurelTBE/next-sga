@@ -35,9 +35,7 @@ Galerie.getInitialProps = async ctx => {
 
   ctx.store.dispatch({ type: GALERIECONTENT, payload: galeriecont });
 
-  return {
-    galerie: galerie,
-  }
+  return {}
 };
 
 const mapStateToProps = state => ({ 
