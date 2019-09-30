@@ -42,7 +42,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      {children}
     </Typography>
   );
 }
@@ -109,16 +109,22 @@ function HomeTabs({ setactivhometab, activeTab, actus, events, mediafolders, res
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Actus listactus={actus} />
+          <Box p={3}>
+            <Actus listactus={actus} />
+          </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Agenda events={events} />
+          <Box p={3}>
+            <Agenda events={events} />
+          </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
           <Medias mediafolders={mediafolders} />
         </TabPanel>
         <TabPanel value={activeTab} index={3} dir={theme.direction}>
-          <Resultats listresults={results} />
+          <Box p={3}>
+            <Resultats listresults={results} />
+          </Box>
         </TabPanel>
       </SwipeableViews>
     </div>
