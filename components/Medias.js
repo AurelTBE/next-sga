@@ -12,9 +12,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Masonry
 import Masonry from 'react-masonry-css';
 
-// MUI
-import Grid from '@material-ui/core/Grid';
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -54,27 +51,23 @@ const useStyles = makeStyles(theme => ({
 export default function Media(props) {
   const classes = useStyles();
   const theme = useTheme();
-
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
-  const labelProps = {
-    size: isSmallScreen ? "small" : "large"
-  };
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const breakpointColumnsObj = {
-    default: 3,
-    1400: 3,
-    700: 2,
-    500: 1
+    default: 5,
+    1750: 4,
+    959: 3,
+    500: 2
   };
 
   return (
     <div className={classes.root}>
-      <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn} p={0}>
+      <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
         {props.mediafolders.map(mediafolder => (
           <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
-            <ButtonBase component="a" className={classes.tileBtn}>
+            <ButtonBase component="a">
                 <img src={mediafolder.couverture} alt={mediafolder.title} className={classes.image} />
-                <Box className={classes.caption} width={1}><Typography variant="h6" className={classes.captiontext}>{mediafolder.title}</Typography></Box>
+                <Box className={classes.caption} width={1}><Typography variant={ isSmallScreen ? "subtitle2" : "h6" } className={classes.captiontext}>{mediafolder.title}</Typography></Box>
             </ButtonBase>
           </Link>
         ))}

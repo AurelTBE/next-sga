@@ -15,38 +15,55 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Redux
 import { connect } from 'react-redux';
 
+// Masonry
+import Masonry from 'react-masonry-css';
+
 // FCT
 import FsLightbox from 'fslightbox-react';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-      width: "100%",
-      height: "auto",
-    },
-    tileBtn: {
-      display: 'block',
-      textAlign: 'initial'
-    }
-  }));  
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  masonryGrid: {
+    display: 'flex',
+    marginLeft: 0,
+    width: "100%",
+  },
+  masonryColumn: {
+    paddinLeft: 0,
+  },
+  image: {
+    position: "relative",
+    width: "100%",
+    height: "auto"
+  },
+  caption: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    color: theme.palette.background.paper,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    paddingBottom: 10,
+    paddingTop: 10,
+    width: "100%",
+  },
+  captiontext: {
+    paddingLeft: 10,
+  },
+}));  
   
 function PublicGalerie(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { galerieContent } = props;
-    const { galerie, images } = galerieContent;
-  
+    const { galerie, images } = galerieContent;  
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
-    const labelProps = {
-      size: isSmallScreen ? "small" : "large"
-    };
-  
+
     const [lightboxController, setLightboxController] = useState({ 
       toggler: false, 
       slide: 1 
@@ -58,6 +75,13 @@ function PublicGalerie(props) {
         slide: number, 
       }); 
     }
+
+    const breakpointColumnsObj = {
+      default: 5,
+      1750: 4,
+      959: 3,
+      500: 2
+    };
 
     return (
       <Layout>
@@ -78,15 +102,13 @@ function PublicGalerie(props) {
             </Typography>
         </Box>
         <div className={classes.root}>
-            <GridList cellHeight={labelProps.size==="large" ? 350 : 140} cols={labelProps.size==="large" ? 3 : 2} className={classes.gridList} spacing={0}>
+        <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
             {galerie.photos.map(image => (
-                <ButtonBase className={classes.tileBtn} key={image.id}>
-                    <GridListTile component="a"  onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
-                    <img src={image.small} alt={image.title} />
-                    </GridListTile>
+                <ButtonBase key={image.id} onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
+                  <img src={image.photo} alt={image.title} className={classes.image} />
                 </ButtonBase>
             ))}
-            </GridList>
+          </Masonry>
             <FsLightbox 
             toggler={ lightboxController.toggler } 
             slide={ lightboxController.slide } 
