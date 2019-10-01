@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 
 // Composant
-import ResultCard from "./CardResult"
+import ResultCard from "./cards/CardResult"
 
 const Resultats = props => (
   <>

@@ -10,8 +10,8 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import SGAClub from '../components/SGAClub';
-import SGASections from '../components/SGASections';
+import SGAClub from '../components/sga/SGAClub';
+import SGASections from '../components/sga/SGASections';
 
 // Redux
 import { connect } from 'react-redux';

@@ -10,8 +10,8 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import JugesDocs from '../components/JugesDocs';
-import JugesVids from '../components/JugesVids';
+import JugesDocs from '../components/juges/JugesDocs';
+import JugesVids from '../components/juges/JugesVids';
 
 // Redux
 import { connect } from 'react-redux';

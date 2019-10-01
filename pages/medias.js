@@ -16,6 +16,7 @@ import Entrainements from '../components/Entrainements';
 // Redux
 import { connect } from 'react-redux';
 import { setactivmediatab } from '../redux/actions/navActions';
+import { MEDIATHEQUECONTENT } from '../redux/actionTypes';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -92,10 +93,10 @@ function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Entrainements entrainements={entrainements} />
+          <div>Photos</div>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Benevoles benevoles={benevoles} />
+          <div>Vidéos</div>
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
           <div>Musiques</div>
@@ -106,19 +107,19 @@ function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
   );
 }
 
-Medias.getInitialProps = async function() {
-  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
-  const entrainements = await ent.json();
-  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
-  const benevoles = await ben.json();
+Medias.getInitialProps = async function(ctx) {
+  const media = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
+  const mediafolders = await media.json();
 
-  return {
-    entrainements: entrainements,
-    benevoles: benevoles,
-  };
+  ctx.store.dispatch({ type: MEDIATHEQUECONTENT, payload: mediafolders });
+
+  return {};
 };
 
-const mapStateToProps = state => ({ activeTab: state.activmediatab });
+const mapStateToProps = state => ({ 
+  activeTab: state.activmediatab,
+  mediatheque: state.mediatheque
+ });
 
 export default connect(
   mapStateToProps,

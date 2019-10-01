@@ -8,7 +8,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Composant
-import CardBenevole from '../components/CardBenevole';
+import CardBenevole from './cards/CardBenevole';
 
 
 export default function Benevoles(props) {

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import { homeTabReducer, gfTabReducer, sgaTabReducer, resulTabReducer, mediaTabReducer, jugesTabReducer } from './navReducer';
-import { homeContentReducer, sgaContentReducer, gfContentReducer, jugContentReducer, currentActuReducer, currentResultReducer, galContentReducer, vidPlayReducer } from './contentReducer';
+import { homeContentReducer, sgaContentReducer, gfContentReducer, jugContentReducer, currentActuReducer, currentResultReducer, galContentReducer, vidPlayReducer, mediathequeReducer } from './contentReducer';
 
 const rootReducer = combineReducers({
     authentication: authReducer,
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
     currentresult: currentResultReducer,
     galeriecontent: galContentReducer,
     vidplay: vidPlayReducer,
+    mediatheque: mediathequeReducer,
 });
 
 export default rootReducer;

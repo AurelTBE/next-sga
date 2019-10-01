@@ -9,7 +9,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Composant
-import CardEntrainement from './CardEntrainement';
+import CardEntrainement from './cards/CardEntrainement';
 
 
 export default function Entrainements(props) {

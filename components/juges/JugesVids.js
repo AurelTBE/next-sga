@@ -22,7 +22,7 @@ import Masonry from 'react-masonry-css';
 
 // Redux
 import { connect } from 'react-redux';
-import { setactivideo } from '../redux/actions/contActions'
+import { setactivideo } from '../../redux/actions/contActions'
 
 
 // Player

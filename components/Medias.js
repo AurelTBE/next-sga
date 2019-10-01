@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import Link from 'next/link';
 
@@ -46,6 +47,13 @@ const useStyles = makeStyles(theme => ({
   captiontext: {
     paddingLeft: 10,
   },
+  icon: {
+    position: "absolute",
+    color: theme.palette.background.paper,
+    fontSize: 60,
+    top: "41%",
+    left: "42%",
+  },
 }));
 
 export default function Media(props) {
@@ -63,14 +71,28 @@ export default function Media(props) {
   return (
     <div className={classes.root}>
       <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
-        {props.mediafolders.map(mediafolder => (
-          <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
-            <ButtonBase component="a">
-                <img src={mediafolder.couverture} alt={mediafolder.title} className={classes.image} />
-                <Box className={classes.caption} width={1}><Typography variant={ isSmallScreen ? "subtitle2" : "h6" } className={classes.captiontext}>{mediafolder.title}</Typography></Box>
-            </ButtonBase>
-          </Link>
-        ))}
+        {props.mediafolders.map(mediafolder => {
+          if(mediafolder.media == "Photos") {
+            return (
+              <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
+                <ButtonBase component="a">
+                  <img src={mediafolder.couverture} alt={mediafolder.title} className={classes.image} />
+                  <Box className={classes.caption} width={1}><Typography variant={ isSmallScreen ? "subtitle2" : "h6" } className={classes.captiontext}>{mediafolder.title}</Typography></Box>
+                </ButtonBase>
+              </Link>
+            )}            
+          else if(mediafolder.media == "Vidéos") {
+            return (
+              <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
+                <ButtonBase component="a">
+                  <img src={mediafolder.couverture} alt={mediafolder.title} className={classes.image} />
+                  <Box className={classes.caption} width={1}><Typography variant={ isSmallScreen ? "subtitle2" : "h6" } className={classes.captiontext}>{mediafolder.title}</Typography></Box>
+                  <PlayCircleOutlineIcon className={classes.icon} />
+                </ButtonBase>
+              </Link>
+            )
+          }  
+        })}
       </Masonry>
     </div>
   );

@@ -2,7 +2,7 @@
 import Grid from '@material-ui/core/Grid';
 
 // Composant
-import ActuCard from "./CardActu"
+import ActuCard from "./cards/CardActu"
 
 const Actus = props => (
   <>
