@@ -10,8 +10,9 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import Benevoles from '../components/Benevoles';
-import Entrainements from '../components/Entrainements';
+import MediaPhotos from '../components/mediatheque/MediaPhotos';
+import MediaVideos from '../components/mediatheque/MediaVideos';
+import MediaMusic from '../components/mediatheque/MediaMusic';
 
 // Redux
 import { connect } from 'react-redux';
@@ -58,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
+function Medias({ setactivmediatab, activeTab, mediatheque }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -93,13 +94,13 @@ function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <div>Photos</div>
+          <MediaPhotos />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <div>Vidéos</div>
+          <MediaVideos photos={mediatheque.videos} />
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <div>Musiques</div>
+          <MediaMusic photos={mediatheque.music} />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -110,8 +111,18 @@ function Medias({ setactivmediatab, activeTab, entrainements, benevoles }) {
 Medias.getInitialProps = async function(ctx) {
   const media = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
   const mediafolders = await media.json();
-
-  ctx.store.dispatch({ type: MEDIATHEQUECONTENT, payload: mediafolders });
+  const img = [...new Set(mediafolders.map(media => media.media == "Photos" && media))]
+  const photos = img.filter(Boolean)
+  const vid = [...new Set(mediafolders.map(media => media.media == "Vidéos" && media))]
+  const videos = vid.filter(Boolean)
+  const mus = [...new Set(mediafolders.map(media => media.media == "Musiques" && media))]
+  const music = mus.filter(Boolean)
+  const mediatheque = {
+    photos,
+    videos,
+    music
+  }
+  ctx.store.dispatch({ type: MEDIATHEQUECONTENT, payload: mediatheque });
 
   return {};
 };
