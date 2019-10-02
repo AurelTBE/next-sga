@@ -97,10 +97,10 @@ function Medias({ setactivmediatab, activeTab, mediatheque }) {
           <MediaPhotos />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <MediaVideos photos={mediatheque.videos} />
+          <MediaVideos />
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <MediaMusic photos={mediatheque.music} />
+          <MediaMusic />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -111,14 +111,16 @@ function Medias({ setactivmediatab, activeTab, mediatheque }) {
 Medias.getInitialProps = async function(ctx) {
   const media = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
   const mediafolders = await media.json();
-  const img = [...new Set(mediafolders.map(media => media.media == "Photos" && media))]
-  const photos = img.filter(Boolean)
+  const phot = [...new Set(mediafolders.map(media => media.media == "Photos" && media))]
+  const photos = phot.filter(Boolean)
+  const images = [...new Set(photos.map(photo => photo.couverture))]
   const vid = [...new Set(mediafolders.map(media => media.media == "Vidéos" && media))]
   const videos = vid.filter(Boolean)
   const mus = [...new Set(mediafolders.map(media => media.media == "Musiques" && media))]
   const music = mus.filter(Boolean)
   const mediatheque = {
     photos,
+    images,
     videos,
     music
   }
