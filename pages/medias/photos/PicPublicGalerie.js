@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 // Layout
-import Layout from '../../components/Layout.js';
+import Layout from '../../../components/Layout.js';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -57,17 +57,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));  
   
-function PublicGalerie(props) {
+function PicPublicGalerie(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { galerieContent } = props;
-    const { galerie, images } = galerieContent;  
+    const { galerie } = galerieContent;  
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [lightboxController, setLightboxController] = useState({ 
       toggler: false, 
       slide: 1 
     });
+
+    const images = [...new Set(galerie.photos.map(photo => photo.photo))]
       
     function openLightboxOnSlide(number) { 
       setLightboxController({ 
@@ -126,4 +128,4 @@ const mapStateToProps = state => ({
 
  export default connect(
   mapStateToProps
-)(PublicGalerie);
+)(PicPublicGalerie);

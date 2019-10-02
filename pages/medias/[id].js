@@ -1,8 +1,10 @@
 import React from 'react';
 
 // Components
-import PublicGalerie from './PublicGalerie'
-import PrivateGalerie from './PrivateGalerie'
+import PicPublicGalerie from './photos/PicPublicGalerie'
+import PicPrivateGalerie from './photos/PicPrivateGalerie'
+import VidPublicGalerie from './videos/VidPublicGalerie'
+import VidPrivateGalerie from './videos/VidPrivateGalerie'
 
 // Redux
 import { connect } from 'react-redux';
@@ -13,13 +15,32 @@ import { GALERIECONTENT } from '../../redux/actionTypes';
 import fetch from 'isomorphic-unfetch';
 
 function Galerie({galerieContent}) {
-  switch(galerieContent.galerie.visible) {
-    case 'Public':
-      return <PublicGalerie />
-    case 'Membres':
-      return <PrivateGalerie />
-    default:
-      return null;
+  function photoSwitch(type) {
+    switch(type) {
+      case 'Public':
+        return <PicPublicGalerie pics={galerieContent.galerie.photos} />
+      case 'Membres':
+        return <PicPrivateGalerie pics={galerieContent.galerie.photos} />
+      default:
+        return null;
+    }
+  }
+  
+  function videoSwitch(type) {
+    switch(type) {
+      case 'Public':
+        return <VidPublicGalerie vids={galerieContent.galerie.videos} />
+      case 'Membres':
+        return <VidPrivateGalerie vids={galerieContent.galerie.videos} />
+      default:
+        return null;
+    }
+  }
+
+  if(galerieContent.galerie.photos) {
+    return photoSwitch(galerieContent.galerie.visible)
+  } else if(galerieContent.galerie.videos) {
+    return videoSwitch(galerieContent.galerie.visible)
   }
 }
 
@@ -27,10 +48,8 @@ Galerie.getInitialProps = async ctx => {
   const { id } = ctx.query;
   const gal = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
   const galerie = await gal.json();
-  const images = [...new Set(galerie.photos.map(photo => photo.photo))]
   const galeriecont = {
     galerie: galerie,
-    images: images,
   }
 
   ctx.store.dispatch({ type: GALERIECONTENT, payload: galeriecont });

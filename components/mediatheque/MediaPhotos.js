@@ -1,23 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 
+import Link from 'next/link';
+import { connect } from 'react-redux';
+
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-// Redux
-import { connect } from 'react-redux';
-
 // Masonry
 import Masonry from 'react-masonry-css';
-
-// FCT
-import FsLightbox from 'fslightbox-react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,56 +48,38 @@ const useStyles = makeStyles(theme => ({
   captiontext: {
     paddingLeft: 10,
   },
-}));  
-  
-function MediaPhotos({galinfos, galcovers}) {
-    const classes = useStyles();
-    const theme = useTheme(); 
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
+}));
 
-    const [lightboxController, setLightboxController] = useState({ 
-      toggler: false, 
-      slide: 1 
-    });
-      
-    function openLightboxOnSlide(number) { 
-      setLightboxController({ 
-        toggler: !lightboxController.toggler, 
-        slide: number, 
-      }); 
-    }
+function MediaPhotos({galinfos}) {      
+    const classes = useStyles();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const breakpointColumnsObj = {
-      default: 5,
-      1750: 4,
-      959: 3,
-      500: 2
+        default: 5,
+        1750: 4,
+        959: 3,
+        500: 2
     };
 
     return (
-      <>
         <div className={classes.root}>
         <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
-            {galinfos.map(image => (
-                <ButtonBase key={image.id} onClick={ () => openLightboxOnSlide(galinfos.indexOf(image)+1) }>
-                  <img src={image.couverture} alt={image.title} className={classes.image} />
-                </ButtonBase>
-            ))}
-          </Masonry>
-            <FsLightbox 
-            toggler={ lightboxController.toggler } 
-            slide={ lightboxController.slide } 
-            sources={ galcovers } 
-            type='image'
-            /> 
+            {galinfos.map(mediafolder => 
+                <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
+                    <ButtonBase component="a">
+                        <img src={mediafolder.couverture} alt={mediafolder.title} className={classes.image} />
+                        <Box className={classes.caption} width={1}><Typography variant={ isSmallScreen ? "subtitle2" : "h6" } className={classes.captiontext}>{mediafolder.title}</Typography></Box>
+                    </ButtonBase>
+                </Link>
+            )}
+        </Masonry>
         </div>
-      </>
-    )
+    );
 }
 
 const mapStateToProps = state => ({ 
   galinfos: state.mediatheque.photos,
-  galcovers: state.mediatheque.images,
  });
 
  export default connect(

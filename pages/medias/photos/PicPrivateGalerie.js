@@ -5,14 +5,14 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 // Layout
-import Layout from '../../components/Layout.js';
+import Layout from '../../../components/Layout.js';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Redux
 import { connect } from 'react-redux';
-import withAuth from '../../utils/withAuth'
+import withAuth from '../../../utils/withAuth'
 
 // Masonry
 import Masonry from 'react-masonry-css';
@@ -56,17 +56,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
     
-function PrivateGalerie(props) {
+function PicPrivateGalerie(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { galerieContent } = props;
-    const { galerie, images } = galerieContent;
+    const { galerie } = galerieContent;
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   
     const [lightboxController, setLightboxController] = useState({ 
       toggler: false, 
       slide: 1 
     });
+
+    const images = [...new Set(galerie.photos.map(photo => photo.photo))]
       
     function openLightboxOnSlide(number) { 
       setLightboxController({ 
@@ -125,4 +127,4 @@ const mapStateToProps = state => ({
 
  export default withAuth(["administrator", "cadre", "famille", "licencie"])(connect(
   mapStateToProps
-)(PrivateGalerie))
+)(PicPrivateGalerie))
