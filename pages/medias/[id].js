@@ -5,6 +5,8 @@ import PicPublicGalerie from './photos/PicPublicGalerie'
 import PicPrivateGalerie from './photos/PicPrivateGalerie'
 import VidPublicGalerie from './videos/VidPublicGalerie'
 import VidPrivateGalerie from './videos/VidPrivateGalerie'
+import MusPublicGalerie from './musics/MusPublicGalerie'
+import MusPrivateGalerie from './musics/MusPrivateGalerie'
 
 // Redux
 import { connect } from 'react-redux';
@@ -15,8 +17,8 @@ import { GALERIECONTENT } from '../../redux/actionTypes';
 import fetch from 'isomorphic-unfetch';
 
 function Galerie({galerieContent}) {
-  function photoSwitch(type) {
-    switch(type) {
+  function photoSwitch(visible) {
+    switch(visible) {
       case 'Public':
         return <PicPublicGalerie pics={galerieContent.galerie.photos} />
       case 'Membres':
@@ -26,8 +28,8 @@ function Galerie({galerieContent}) {
     }
   }
   
-  function videoSwitch(type) {
-    switch(type) {
+  function videoSwitch(visible) {
+    switch(visible) {
       case 'Public':
         return <VidPublicGalerie vids={galerieContent.galerie.videos} />
       case 'Membres':
@@ -37,10 +39,23 @@ function Galerie({galerieContent}) {
     }
   }
 
+  function musicSwitch(visible) {
+    switch(visible) {
+      case 'Public':
+        return <MusPublicGalerie musics={galerieContent.galerie.musiques} />
+      case 'Membres':
+        return <MusPrivateGalerie musics={galerieContent.galerie.musiques} />
+      default:
+        return null;
+    }
+  }
+
   if(galerieContent.galerie.photos) {
     return photoSwitch(galerieContent.galerie.visible)
   } else if(galerieContent.galerie.videos) {
     return videoSwitch(galerieContent.galerie.visible)
+  } else if(galerieContent.galerie.musiques) {
+    return musicSwitch(galerieContent.galerie.visible)
   }
 }
 

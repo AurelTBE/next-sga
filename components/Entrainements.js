@@ -14,7 +14,6 @@ import CardEntrainement from './cards/CardEntrainement';
 
 export default function Entrainements(props) {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
   <>
