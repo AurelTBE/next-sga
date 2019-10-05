@@ -14,7 +14,6 @@ import { CURRENTRESULT } from '../../redux/actionTypes';
 
 //FCT
 import fetch from 'isomorphic-unfetch';
-import he from 'he';
 import PDFview from '../../utils/PDFview';
 
 const useStyles = makeStyles(theme => ({

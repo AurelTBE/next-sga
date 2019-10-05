@@ -10,7 +10,6 @@ import { CURRENTACTU } from '../../redux/actionTypes';
 
 //FCT
 import fetch from 'isomorphic-unfetch';
-import he from 'he';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,11 +31,11 @@ function Actu(props) {
 
   return (
     <Layout>
-      {props.post.bigbanner ? <img src={props.post.bigbanner} alt={he.decode(String(props.post.title))} className={classes.media} /> : null}
+      {props.post.bigbanner ? <img src={props.post.bigbanner} alt={props.post.title} className={classes.media} /> : null}
       <Grid container justify="center" className={classes.root}>
         <Grid item xs={10}>
           <Typography component="h2" variant="h2" gutterBottom>
-            {he.decode(String(props.post.title))}
+            {props.post.title}
           </Typography>
           <Typography 
             variant="body1"

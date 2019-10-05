@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Calendar from '../components/Calendar';
+
 const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(3, 2),
@@ -23,13 +25,19 @@ export default function Calendrier() {
     const classes = useStyles();
     return (
         <Layout>
-            <Grid container justify="center" className={classes.root}>
-                <Grid item xs={10}>
-                    <Typography component="h2" variant="h2" gutterBottom>
-                        Calendrier full page
-                    </Typography>
-                </Grid>
-            </Grid>
+          <div className="App">
+            <header>
+              <div id="logo">
+                <span className="icon">date_range</span>
+                <span>
+                  react<b>calendar</b>
+                </span>
+              </div>
+            </header>
+            <main>
+              <Calendar />
+            </main>
+          </div>
         </Layout>
     )
 }
