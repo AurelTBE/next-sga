@@ -13,10 +13,12 @@ import withWidth from '@material-ui/core/withWidth';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function PDFdoc(props) {
-    const [numPages, setNumPage] = useState('');
+    const [numPages, setNumPages] = useState('');
+    const [pages, setPages] = useState('');
     
-    const onDocumentLoadSuccess = (document) => {
-        setNumPage(document);
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages({ numPages });
+        setPages(Array.from(Array(numPages).keys()))
     };
 
     function containerWidth(width) {
@@ -41,16 +43,15 @@ function PDFdoc(props) {
           file={props.pdf}
           onLoadSuccess={onDocumentLoadSuccess}
       >
-        {Array.from(
-            new Array(numPages),
-            (el, index) => (
-                <Page
-                key={`page_${index + 1}`}
-                pageNumber={index + 1}
-                width={containerWidth(props.width)}
-                />
-            ),
-        )}
+        {Array.from(Array(numPages).keys()).map((page, index) => (
+          <Page
+          key={`page_${page + 1}`}
+          pageNumber={page + 1}
+          width={containerWidth(props.width)}
+          />
+        ))          
+        }
+        {console.log(pages)}
       </Document>
     );
   }

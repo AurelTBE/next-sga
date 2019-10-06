@@ -1,4 +1,4 @@
-import { HOMECONTENT, SGACONTENT, GFCONTENT, JUGESCONTENT, GALERIECONTENT, VIDPLAYCONTENT, CURRENTACTU, CURRENTRESULT, MEDIATHEQUECONTENT } from '../actionTypes';
+import { HOMECONTENT, SGACONTENT, GFCONTENT, JUGESCONTENT, GALERIECONTENT, VIDPLAYCONTENT, CURRENTACTU, CURRENTRESULT, MEDIATHEQUECONTENT, CALENDARCONTENT } from '../actionTypes';
 
 export const homeContentReducer = (state={}, action) => {
     switch (action.type) {
@@ -75,6 +75,15 @@ export const vidPlayReducer = (state={}, action) => {
 export const mediathequeReducer = (state={}, action) => {
     switch (action.type) {
         case MEDIATHEQUECONTENT:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
+export const calendarReducer = (state={}, action) => {
+    switch (action.type) {
+        case CALENDARCONTENT:
             return action.payload;
         default:
             return state;

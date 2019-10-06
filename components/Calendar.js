@@ -1,39 +1,79 @@
-
-import React from "react";
+import React, {useState} from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isSameMonth, isSameDay } from 'date-fns';
 import { fr } from 'date-fns/locale'
 
-class Calendar extends React.Component {
-  state = {
-    currentMonth: new Date(),
-    selectedDate: new Date()
-  };
+// UI
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-  renderHeader() {
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3, 2),
+  },
+  media: {
+    maxWidth: "100%",
+  },
+  content: {
+    textAlign: 'left',
+    '& figure': {
+      textAlign: 'center',
+    },
+  },
+}));
+
+function Calendar({calcontent}) {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
     return (
-      <div className="header row flex-middle">
-        <div className="col col-start">
-          <div className="icon" onClick={this.prevMonth}>
-            chevron_left
-          </div>
-        </div>
-        <div className="col col-center">
-          <span>
-            {format(this.state.currentMonth, dateFormat, {locale: fr})}
-          </span>
-        </div>
-        <div className="col col-end" onClick={this.nextMonth}>
-          <div className="icon">chevron_right</div>
-        </div>
-      </div>
+      <Box
+        display="flex" 
+        color="background.paper"
+        bgcolor={theme.palette.secondary.main}
+        fontFamily="h6.fontFamily"
+        fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+        p={{ xs: 2, sm: 3, md: 4 }}
+        justifyContent="center"
+        alignItems="center"
+        height={{xs: 70, md: 90}}
+        width={1}
+      >
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Box justifyContent="flex-start">
+            <ButtonBase onClick={prevMonth}>
+              <ChevronLeftIcon fontSize="large" />
+            </ButtonBase>
+          </Box>
+          <Box justifyContent="center">
+            {format(currentMonth, dateFormat, {locale: fr})}            
+          </Box>
+          <Box justifyContent="flex-end">
+            <ButtonBase onClick={nextMonth}>
+              <ChevronRightIcon fontSize="large" />
+            </ButtonBase>
+          </Box>
+        </Grid>
+      </Box>
     );
   }
 
-  renderDays() {
+  const renderDays = () => {
     const dateFormat = "eeee";
     const days = [];
-    let startDate = startOfWeek(this.state.currentMonth, {weekStartsOn: 1});
+    let startDate = startOfWeek(currentMonth, {weekStartsOn: 1});
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>
@@ -44,8 +84,7 @@ class Calendar extends React.Component {
     return <div className="days row">{days}</div>;
   }
 
-  renderCells() {
-    const { currentMonth, selectedDate } = this.state;
+  const renderCells = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart, {weekStartsOn: 1});
@@ -68,7 +107,7 @@ class Calendar extends React.Component {
                 : isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(cloneDay)}
+            onClick={() => onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -86,31 +125,29 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = day => {
+  const onDateClick = day => {
     alert(day)
   };
 
-  nextMonth = () => {
-    this.setState({
-      currentMonth: addMonths(this.state.currentMonth, 1)
-    });
+  const nextMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, 1))
   };
 
-  prevMonth = () => {
-    this.setState({
-      currentMonth: subMonths(this.state.currentMonth, 1)
-    });
+  const prevMonth = () => {
+    setCurrentMonth(subMonths(currentMonth, 1))
   };
-
-  render() {
-    return (
+    
+  return (
+    <>
+      {renderHeader()}    
       <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+        {console.log(calcontent)}
+        {renderDays()}
+        {renderCells()}
       </div>
-    );
-  }
+    </>
+
+  );
 }
 
 export default Calendar;
