@@ -43,10 +43,10 @@ function PDFdoc(props) {
           file={props.pdf}
           onLoadSuccess={onDocumentLoadSuccess}
       >
-        {Array.from(Array(numPages).keys()).map((page, index) => (
+        {Object.keys(pages).map(page => (
           <Page
-          key={`page_${page + 1}`}
-          pageNumber={page + 1}
+          key={`page_${pages[page] + 1}`}
+          pageNumber={pages[page] + 1}
           width={containerWidth(props.width)}
           />
         ))          

@@ -11,11 +11,12 @@ import Box from '@material-ui/core/Box';
 // Components
 import Layout from '../components/Layout'
 import Benevoles from '../components/Benevoles';
-import Entrainements from '../components/Entrainements';
+import ResultBox from '../components/resultats/ResultBox';
 
 // Redux
 import { connect } from 'react-redux';
 import { setactivresultab } from '../redux/actions/navActions';
+import { RESULTSBOXCONTENT } from '../redux/actionTypes';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
@@ -57,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Resultats({ setactivresultab, activeTab, entrainements, benevoles }) {
+function Resultats({ setactivresultab, activeTab, resultsbox, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -92,13 +93,13 @@ function Resultats({ setactivresultab, activeTab, entrainements, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <Entrainements entrainements={entrainements} />
+          <ResultBox resultsbox={resultsbox} />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          <Benevoles benevoles={benevoles} />
+          Coucou
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <div>Invdiv contenu</div>
+          <div>Indiv contenu</div>
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -106,19 +107,32 @@ function Resultats({ setactivresultab, activeTab, entrainements, benevoles }) {
   );
 }
 
-Resultats.getInitialProps = async function() {
-  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
-  const entrainements = await ent.json();
-  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
-  const benevoles = await ben.json();
+Resultats.getInitialProps = async function(ctx) {
+  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultsbox`);
+  const resultats = await res.json();
+  const sais = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/saisons`);
+  const saisons = await sais.json();
+  const jeun = [...new Set(resultats.map(result => result.groupe == "Jeunesses" && result))]
+  const jeunesses = jeun.filter(Boolean)
+  const ain = [...new Set(resultats.map(result => result.groupe == "Aînées" && result))]
+  const ainees = ain.filter(Boolean)
+  const indi = [...new Set(resultats.map(result => result.groupe == "Indiv" && result))]
+  const indiv = indi.filter(Boolean)
+  const resultsbox = {
+    jeunesses,
+    ainees,
+    indiv,
+    saisons: saisons.saisons,
+  }
+  ctx.store.dispatch({ type: RESULTSBOXCONTENT, payload: resultsbox });
 
-  return {
-    entrainements: entrainements,
-    benevoles: benevoles,
-  };
+  return {};
 };
 
-const mapStateToProps = state => ({ activeTab: state.activresultab });
+const mapStateToProps = state => ({ 
+  activeTab: state.activresultab,
+  resultsbox: state.resultsbox,
+ });
 
 export default connect(
   mapStateToProps,
