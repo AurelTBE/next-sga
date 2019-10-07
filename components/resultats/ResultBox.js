@@ -86,18 +86,18 @@ function ResultBox({results}) {
 
   return (
     <>
-      { Object.keys(results.saisons.Jeunesses).map(saison => (
-        <Card className={labelProps.size==="large" ? null : classes.card}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} lg={6} container direction="column">
-              <CardContent>
-                {results.saisons.Jeunesses[saison].saison}
-              </CardContent>
-            </Grid>
+    {console.log(results)}
+    {results.saisons.Jeunesses.map(saison => (
+      <Card className={labelProps.size==="large" ? null : classes.card}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={6} container direction="column">
+            <CardContent>
+              {saison.saison}
+            </CardContent>
           </Grid>
-        </Card>
-      ))}
-      
+        </Grid>
+      </Card>
+    ))}  
     </>
   );
 }
