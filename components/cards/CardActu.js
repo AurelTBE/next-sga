@@ -18,6 +18,10 @@ const useStyles = makeStyles(theme => ({
   card: {
     height: "100%",
   },
+  header: {
+    color: theme.palette.primary.light,
+    fontSize: 16,
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -53,7 +57,7 @@ export default function ActuCard(props) {
                   <FontAwesomeIcon icon={faDragon} />
                 </Avatar>
               }
-              title={titre}
+              title={<Typography variant="body2" component="h3" className={classes.header}>{titre}</Typography>}
             />
           </ListItem>
           <CardMedia

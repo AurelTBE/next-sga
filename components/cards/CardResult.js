@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import { red } from '@material-ui/core/colors';
@@ -15,6 +16,9 @@ import { faTrophy } from '@fortawesome/free-solid-svg-icons'
 const useStyles = makeStyles(theme => ({
   card: {
     height: "100%",
+  },
+  header: {
+    fontSize: 16,
   },
   media: {
     height: 0,
@@ -47,7 +51,7 @@ export default function ResultCard(props) {
                   <FontAwesomeIcon icon={faTrophy} />
                 </Avatar>
               }
-              title={titre}
+              title={<Typography variant="body2" component="h3" className={classes.header}>{titre}</Typography>}
             />
           </ListItem>
           <CardMedia

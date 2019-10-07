@@ -117,13 +117,13 @@ function Resultat({result}) {
                     </div>
                   )))}
                   {result.resume.resume_indiv && (result.resume.resume_indiv.equipe && (result.resume.resume_indiv.equipe.map(resume => (
-                    <div key={resume.categorie + resume.classement} className={isSmallScreen ? classes.smallresumecontent : classes.resumecontent} >
+                    resume.categorie && (<div key={resume.categorie + resume.classement} className={isSmallScreen ? classes.smallresumecontent : classes.resumecontent} >
                       <Typography component="div" variant="body2" className={isSmallScreen ? classes.metasmall : classes.meta} gutterBottom><FontAwesomeIcon icon={faTrophy} className={classes.resumeiconcol} /> {resume.categorie} : {resume.classement}</Typography>
-                    </div>
+                    </div>)
                   ))))}
                   {result.resume.resume_indiv && (result.resume.resume_indiv.individuelles && (result.resume.resume_indiv.individuelles.map(indiv => (
                     <div key={indiv.categorie + indiv.classement} className={isSmallScreen ? classes.smallresumecontent : classes.resumecontent} >
-                      <Typography component="div" variant="body2" className={isSmallScreen ? classes.metasmall : classes.meta} gutterBottom><FontAwesomeIcon icon={faMedal} className={classes.resumeiconcol} /> {indiv.categorie} : {indiv.classement.map((gym, index) => <> {gym.prenom_de_la_gym} ({gym.place}){index < indiv.classement.length - 1 ? ',' : ''}</>)}</Typography>
+                      <Typography component="div" variant="body2" className={isSmallScreen ? classes.metasmall : classes.meta} gutterBottom><FontAwesomeIcon icon={faMedal} className={classes.resumeiconcol} /> {indiv.categorie} : {indiv.classement.map((gym, index) => <> {gym.prenom_de_la_gym}{gym.place && ` (${gym.place})`}{index < indiv.classement.length - 1 ? ',' : ''}</>)}</Typography>
                     </div>
                   ))))}
                   {result.resume.resume_etoiles_3d && (result.resume.resume_etoiles_3d.map(etoile => (

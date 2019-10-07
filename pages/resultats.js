@@ -10,8 +10,9 @@ import Box from '@material-ui/core/Box';
 
 // Components
 import Layout from '../components/Layout'
-import Benevoles from '../components/Benevoles';
-import ResultBox from '../components/resultats/ResultBox';
+import ResultJeunesses from '../components/resultats/ResultJeunesses';
+import ResultAinees from '../components/resultats/ResultAinees';
+import ResultIndivs from '../components/resultats/ResultIndivs';
 
 // Redux
 import { connect } from 'react-redux';
@@ -20,7 +21,6 @@ import { RESULTSBOXCONTENT } from '../redux/actionTypes';
 
 // Requetes
 import fetch from 'isomorphic-unfetch';
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -93,13 +93,13 @@ function Resultats({ setactivresultab, activeTab, resultsbox, benevoles }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
-          <ResultBox resultsbox={resultsbox} />
+          <ResultJeunesses resultsbox={resultsbox} />
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
-          Coucou
+          <ResultAinees resultsbox={resultsbox} />
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <div>Indiv contenu</div>
+          <ResultIndivs resultsbox={resultsbox} />
         </TabPanel>
       </SwipeableViews>
     </div>
