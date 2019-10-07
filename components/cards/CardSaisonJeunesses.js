@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     margin: theme.spacing(1),
+    marginLeft: 0,
     color: theme.palette.text.primary,
     textDecoration: 'none',
     '&:hover': {
@@ -37,6 +38,7 @@ const useStyles = makeStyles(theme => ({
      },
   },
   linkblock: {
+    marginLeft: 4,
     paddingBottom: 2,
     [theme.breakpoints.down('sm')]: {
         paddingBottom: 10,
