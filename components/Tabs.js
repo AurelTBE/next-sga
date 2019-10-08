@@ -7,6 +7,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 // Redux
 import { connect } from 'react-redux';
@@ -29,6 +31,16 @@ import Agenda from './Agenda';
 import Medias from './Medias';
 import Resultats from './Resultats';
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +78,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function HomeTabs({ setactivhometab, activeTab, actus, events, mediafolders, results }) {
+function HomeTabs(props) {
+  const { setactivhometab, activeTab, actus, events, mediafolders, results } = props;
   const classes = useStyles();
   const theme = useTheme();
   //const isSmallScreen = /xs|sm/.test(width);
@@ -88,21 +101,23 @@ function HomeTabs({ setactivhometab, activeTab, actus, events, mediafolders, res
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" color="default">
-        <Tabs
-          value={activeTab}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="Page d'accueil de la SGA"
-        >
-          <Tab label={labelProps.size==="large" ? "Actualités" : <FontAwesomeIcon icon={faDragon} />} {...a11yProps(0)} />
-          <Tab label={labelProps.size==="large" ? "Agenda" : <FontAwesomeIcon icon={faCalendarAlt} />} {...a11yProps(1)} />
-          <Tab label={labelProps.size==="large" ? "Médiathèque" : <FontAwesomeIcon icon={faImages} />} {...a11yProps(2)} />
-          <Tab label={labelProps.size==="large" ? "Résultats" : <FontAwesomeIcon icon={faTrophy} />} {...a11yProps(3)} />
-        </Tabs>
-      </AppBar>
+      <HideOnScroll {...props}>
+        <AppBar position="sticky" color="default">
+          <Tabs
+            value={activeTab}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="Page d'accueil de la SGA"
+          >
+            <Tab label={labelProps.size==="large" ? "Actualités" : <FontAwesomeIcon icon={faDragon} />} {...a11yProps(0)} />
+            <Tab label={labelProps.size==="large" ? "Agenda" : <FontAwesomeIcon icon={faCalendarAlt} />} {...a11yProps(1)} />
+            <Tab label={labelProps.size==="large" ? "Médiathèque" : <FontAwesomeIcon icon={faImages} />} {...a11yProps(2)} />
+            <Tab label={labelProps.size==="large" ? "Résultats" : <FontAwesomeIcon icon={faTrophy} />} {...a11yProps(3)} />
+          </Tabs>
+        </AppBar>
+      </HideOnScroll>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeTab}

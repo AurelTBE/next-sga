@@ -5,6 +5,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 // Modal
 import Dialog from '@material-ui/core/Dialog';
@@ -36,6 +38,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+  },
+  buttonbar: {
+    margin: theme.spacing(1),
   },
   masonryGrid: {
     display: 'flex',
@@ -104,10 +109,21 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
   return (
   <>
     <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
+      {/* Bouttons */}
+      <Grid container direction="row" justify="center" alignItems="center" className={classes.buttonbar}>
+        <ButtonGroup color="secondary" size={isSmallScreen ? "small" : "large"}>
+          {agres.map(ag => (
+            <Button href={`#${ag}`}>
+              {ag}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </Grid>
       {/* Agrès */}
       {agres.map(ag => (
         <div className={classes.root}>
           <Box
+            id={ag}
             display="flex" 
             color="background.paper"
             bgcolor={theme.palette.secondary.main}

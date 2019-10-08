@@ -113,8 +113,8 @@ GymFem.getInitialProps = async function(ctx) {
   const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
   const benevoles = await ben.json();
   const gymfem = {
-    entrainements: entrainements,
-    benevoles: benevoles,
+    entrainements,
+    benevoles,
   }
 
   ctx.store.dispatch({ type: GFCONTENT, payload: gymfem });

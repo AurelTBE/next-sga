@@ -2,7 +2,10 @@
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -10,16 +13,43 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Composant
 import CardBenevole from './cards/CardBenevole';
 
+const useStyles = makeStyles(theme => ({
+  buttonbar: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+}));
 
 export default function Benevoles(props) {
+  const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
   <>
     <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
+      {/* Boutons */}
+      <Grid container direction="row" justify="center" alignItems="center" className={classes.buttonbar}>
+        <ButtonGroup color="secondary" size={isSmallScreen ? "small" : "large"}>
+          <Button href="#bureau">
+            Bureau
+          </Button>
+          <Button href="#juges">
+            Juges
+          </Button>
+          <Button href="#coachs">
+            {isSmallScreen ? "Coachs" : "Entraineurs"}
+          </Button>
+          <Button href="#autres">
+            {isSmallScreen ? "Autres" : "Autres bénévoles"}
+          </Button>
+        </ButtonGroup>
+      </Grid>
       {/* Bureau */}
       <Box
+        id="bureau"
         display="flex" 
         color="background.paper"
         bgcolor={theme.palette.secondary.main}
@@ -44,6 +74,7 @@ export default function Benevoles(props) {
       ))}
       {/* Juges */}
       <Box
+        id="juges"
         display="flex" 
         color="background.paper"
         bgcolor={theme.palette.secondary.main}
@@ -68,6 +99,7 @@ export default function Benevoles(props) {
       ))}
       {/* Coachs */}
       <Box
+        id="coachs"
         display="flex" 
         color="background.paper"
         bgcolor={theme.palette.secondary.main}
@@ -92,6 +124,7 @@ export default function Benevoles(props) {
       ))}
       {/* Autres bénévoles */}
       <Box
+        id="autres"
         display="flex" 
         color="background.paper"
         bgcolor={theme.palette.secondary.main}

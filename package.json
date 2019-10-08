@@ -25,6 +25,7 @@
     "next-redux-wrapper": "^3.0.0",
     "prop-types": "latest",
     "react": "latest",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "latest",
     "react-pdf": "^4.1.0",
     "react-player": "^1.13.0",
