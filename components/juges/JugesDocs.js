@@ -8,6 +8,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import LivreCard from './LivreCard';
 
 const useStyles = makeStyles(theme => ({
   buttonbar: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 export default function JugesDocs({docs}) {
   const classes = useStyles();
   const theme = useTheme();
+  const {livres, fiche_de_notation, fiche_de_sigles, power_point_de_formation} = docs;
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -60,7 +62,13 @@ export default function JugesDocs({docs}) {
         <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
           Livres
         </Typography>
-      </Box>
+
+      </Box>        
+      {livres.map(livre => (
+        <Grid item xs={12} lg={5} key={livre.fichier}>
+          <LivreCard livre={livre} />
+        </Grid>
+      ))}
       {/* Fiches de notation */}
       <Box
         id="notation"

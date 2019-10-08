@@ -65,12 +65,11 @@ export default function Benevoles(props) {
           {isSmallScreen ? "Bureau" : "Bureau de la section Gym féminine"}
         </Typography>
       </Box>
-      {props.benevoles.map((benevole) => (
-        benevole.infos.fonction.includes("Bureau") ?
+      {props.benevoles.map(benevole => (
+        benevole.infos.fonction.includes("Bureau") &&
         <Grid item xs={12} lg={5} key={benevole.id}>
           <CardBenevole benevole={benevole} />
-        </Grid> :
-        null
+        </Grid>
       ))}
       {/* Juges */}
       <Box
