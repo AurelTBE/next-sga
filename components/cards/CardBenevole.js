@@ -20,7 +20,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const useStyles = makeStyles(theme => ({
   card: {
     padding: 0,
-    display: 'flex',
   },
   title: {
     fontSize: 14,
