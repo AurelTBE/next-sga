@@ -76,7 +76,22 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: theme.palette.background.paper,
+  },
+  dialoguetitle: {
+    color: theme.palette.background.paper,
+    backgroundColor: theme.palette.primary.main,
+  },
+  wrapper: {
+    position: 'relative',
+    paddingTop: '56.25%',
+  },
+  player: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
   },
 }));
 
@@ -95,9 +110,6 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
   }
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const labelProps = {
-    size: isSmallScreen ? "small" : "large"
-  };
 
   const breakpointColumnsObj = {
     default: 5,
@@ -161,15 +173,21 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
       maxWidth={false}
+      fullScreen={isSmallScreen}
     >
-      <DialogTitle id="responsive-dialog-title">
+      <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
         {vidplay && <Typography variant="h6">{`${vidplay.degre} (${vidplay.saison})`}</Typography>}
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        {vidplay && <YouTubePlayer url={vidplay.lien_youtube} controls />}
+      <DialogContent className={isSmallScreen && classes.wrapper} >
+        {vidplay && (
+          isSmallScreen ?
+            <YouTubePlayer url={vidplay.lien_youtube} width="100%" className={classes.player} controls />
+          :
+            <YouTubePlayer url={vidplay.lien_youtube} controls />
+        )}
       </DialogContent>
     </Dialog>
   </>
