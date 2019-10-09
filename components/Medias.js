@@ -49,10 +49,14 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
     color: theme.palette.background.paper,
     fontSize: 60,
-    top: "41%",
-    left: "42%",
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 38,
+    },
   },
 }));
 
