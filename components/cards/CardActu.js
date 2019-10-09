@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
+  excerpt: {
+    whiteSpace: 'pre-line',
+  },
   actions: {
     display: 'flex',
   },
@@ -66,11 +69,7 @@ export default function ActuCard(props) {
             title={titre}
           />
           <CardContent>
-            <Typography 
-              component="div" 
-              dangerouslySetInnerHTML={ {
-                __html: excerpt
-                } } />
+            <Typography className={classes.excerpt}>{excerpt}</Typography>
           </CardContent>
         </CardActionArea>
       </Link>
