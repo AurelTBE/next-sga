@@ -110,13 +110,13 @@ function PicPublicGalerie(props) {
                   <img src={image.photo} alt={image.title} className={classes.image} />
                 </ButtonBase>
             ))}
-          </Masonry>
-            <FsLightbox 
-            toggler={ lightboxController.toggler } 
-            slide={ lightboxController.slide } 
-            sources={ images } 
-            type='image'
-            /> 
+        </Masonry>
+        <FsLightbox 
+          toggler={ lightboxController.toggler } 
+          slide={ lightboxController.slide } 
+          sources={ images } 
+          type='image'
+        /> 
         </div>
       </Layout>
     )

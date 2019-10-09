@@ -14,6 +14,7 @@ import fetch from 'isomorphic-unfetch';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     paddingBottom: 40,
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: 0,
+    }
   },
 }));
 
@@ -32,19 +36,22 @@ function Actu({post}) {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {title, article, article_pdf, image_de_fin} = post;
+  const {title, article, article_pdf, image_de_fin, thumbnail} = post;
 
   return (
     <Layout>
       <Grid container justify="center" className={classes.root}>
-        <Grid item xs={10}>
-          <Grid container justify="center" className={classes.title}>
-            <Box border={2} borderColor="primary.main" p={{ xs: 2 }}>
-              <Typography component="h2" variant={isSmallScreen ? "h4" : "h2"} color="primary">
-                {title}
-              </Typography>
-            </Box>
-          </Grid>
+        <Grid container justify="center" className={classes.title}>
+          <Box border={2} borderColor="primary.main" p={{ xs: 2 }}>
+            <Typography component="h2" variant={isSmallScreen ? "h4" : "h2"} color="primary">
+              {title}
+            </Typography>
+          </Box>
+        </Grid>
+        <Hidden smUp>
+          {thumbnail && <img src={thumbnail} alt={title} className={classes.media} />}
+        </Hidden>
+        <Grid item xs={12} sm={10}>
           <Typography 
             variant="body1"
             component="div" 
@@ -52,7 +59,13 @@ function Actu({post}) {
             dangerouslySetInnerHTML={ {
               __html: article
           } } />
-          {image_de_fin && <img src={image_de_fin} alt={title} className={classes.media} />}
+          {image_de_fin && (
+            <Grid container justify="center">
+              <Grid item xs={12} sm={10} md={8} lg={6}>
+                <img src={image_de_fin} alt={title} className={classes.media} />
+              </Grid>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Layout>
