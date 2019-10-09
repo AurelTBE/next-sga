@@ -9,6 +9,7 @@ export const SGATAB = 'SGATAB';
 export const RESULTAB = 'RESULTAB';
 export const MEDIATAB = 'MEDIATAB';
 export const JUGESTAB = 'JUGESTAB';
+export const AUDIOPLAY = 'AUDIOPLAY';
 // Content
 export const HOMECONTENT = 'HOMECONTENT';
 export const SGACONTENT = 'SGACONTENT';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 // Layout
@@ -13,16 +14,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { connect } from 'react-redux';
 import withAuth from '../../../utils/withAuth'
 
-import AudioPlayer from '../../../utils/AudioPlayer.js';
+// Player Component
+import PlayerAudio from '../../../utils/PlayerAudio.js';
+
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
+
 }));  
   
 function MusPrivateGalerie({galerieContent, musics}) {
@@ -49,9 +46,15 @@ function MusPrivateGalerie({galerieContent, musics}) {
               {galerie.title}
             </Typography>
         </Box>
-        <div className={classes.root}>
-          {musics.map(music => <AudioPlayer music={music} />)}
-        </div>
+        <Box p={2}>
+          <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+            {musics.map(music => (
+              <Grid item xs={12} lg={4} key={music.musique}>
+                <PlayerAudio music={music} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Layout>
     )
 }

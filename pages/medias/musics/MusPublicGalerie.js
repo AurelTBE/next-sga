@@ -12,8 +12,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Redux
 import { connect } from 'react-redux';
 
-// FCT
-import AudioPlayer from '../../../utils/AudioPlayer.js';
+// Player Component
+import PlayerAudio from '../../../utils/PlayerAudio.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,9 +75,15 @@ function MusPublicGalerie({galerieContent, musics}) {
               {galerie.title}
             </Typography>
         </Box>
-        <div className={classes.root}>
-          {musics.map(music => <AudioPlayer music={music} />)}
-        </div>
+        <Box p={2}>
+          <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+            {musics.map(music => (
+              <Grid item xs={12} lg={4} key={music.musique}>
+                <PlayerAudio music={music} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Layout>
     )
 }
