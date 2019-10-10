@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => {
         textAlign: "center",
         paddingBottom: theme.spacing(2),
     },
+    music: {
+        color: theme.palette.primary.main,
+    },
+    nomusic: {
+        color: "#bdbdbd",
+    },
   };
 });
  
@@ -35,15 +41,15 @@ export default function PlayerAudio({music}) {
     return (
         <Paper className={classes.paper}>
             <Grid item className={classes.title}>
-                <Box border={2} borderColor="primary.main" p={{ xs: 2 }}>
-                    <Typography variant={isSmallScreen ? "h6" : "h5"} component="h3" color="primary">
+                <Box border={2} borderColor={music.musique ? "primary.main" : "#bdbdbd"} p={{ xs: 2 }}>
+                    <Typography variant={isSmallScreen ? "h6" : "h5"} component="h3" className={music.musique ? classes.music : classes.nomusic}>
                         {music.titre}
                     </Typography>
                 </Box>
             </Grid>
             <AudioPlayer
                 elevation={0}
-                variation="primary"
+                variation={music.musique ? "primary" : "default"}
                 download={true}
                 loop={true}
                 spacing={2}
