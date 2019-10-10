@@ -3,21 +3,16 @@ import { PDFDownloadLink, Document, Page, pdfjs } from "react-pdf";
 
 // Style
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 // Media Query
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import withWidth from '@material-ui/core/withWidth';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function PDFdoc(props) {
-    const [numPages, setNumPages] = useState('');
     const [pages, setPages] = useState('');
     
     const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages({ numPages });
         setPages(Array.from(Array(numPages).keys()))
     };
 
