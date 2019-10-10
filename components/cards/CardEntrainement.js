@@ -14,7 +14,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faCalendarAlt } from '@fortawesome/free-regular-svg-icons'
-import { faMapMarkedAlt, faBirthdayCake, faEuroSign, faHourglassHalf, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBirthdayCake, faEuroSign, faHourglassHalf, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 // Media Query
