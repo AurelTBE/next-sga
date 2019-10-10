@@ -21,7 +21,6 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 // Modal
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -54,35 +53,12 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.secondary.main,
      },
   },
-  linkblock: {
-    marginLeft: 4,
-    paddingBottom: 2,
-    [theme.breakpoints.down('sm')]: {
-        paddingBottom: 10,
-      },
-  },
-  linkicon: {
-    color: theme.palette.secondary.main,
-  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  actions: {
-    display: 'flex',
-  },
   avatar: {
     backgroundColor: red[500],
-  },
-  actuBtn: {
-    display: 'block',
-    textAlign: 'initial'
-  },
-  logo: {
-        maxWidth: "100%"
-  },
-  link: {
-    textDecoration: 'none',
   },
   contentsize: {
     fontSize: 22,
@@ -95,6 +71,12 @@ const useStyles = makeStyles(theme => ({
   },
   iconSmall: {
     fontSize: 20,
+  },
+  red: {
+    color: theme.palette.primary.main,
+  },
+  yellow: {
+    color: theme.palette.secondary.main,
   },
   sectiontitle: {
     paddingBottom: theme.spacing(2),
@@ -124,12 +106,6 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-  },
-  red: {
-    color: theme.palette.primary.main,
-  },
-  yellow: {
-    color: theme.palette.secondary.main,
   },
 }));
 

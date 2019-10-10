@@ -4,25 +4,15 @@ import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-import { red } from '@material-ui/core/colors';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Link from "next/link";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDragon, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 // Modal
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -39,49 +29,9 @@ import YouTubePlayer from 'react-player/lib/players/YouTube';
 import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    [theme.breakpoints.down('sm')]: {
-        height: "100%",
-      },
-  },
-  header: {
-      color: theme.palette.primary.light,
-  },
-  link: {
-    margin: theme.spacing(1),
-    marginLeft: 0,
-    color: theme.palette.text.primary,
-    textDecoration: 'none',
-    '&:hover': {
-        color: theme.palette.secondary.main,
-     },
-  },
-  linkblock: {
-    marginLeft: 4,
-    paddingBottom: 2,
-    [theme.breakpoints.down('sm')]: {
-        paddingBottom: 10,
-      },
-  },
-  linkicon: {
-    color: theme.palette.secondary.main,
-  },
   media: {
     maxWidth: "100%",
     height: "auto",
-  },
-  actions: {
-    display: 'flex',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  actuBtn: {
-    display: 'block',
-    textAlign: 'initial'
-  },
-  logo: {
-    maxWidth: "100%"
   },
   titlesize: {
     fontSize: 30,
@@ -104,6 +54,12 @@ const useStyles = makeStyles(theme => ({
   },
   iconSmall: {
     fontSize: 20,
+  },
+  red: {
+    color: theme.palette.primary.main,
+  },
+  yellow: {
+    color: theme.palette.secondary.main,
   },
   paddingbottom: {
     paddingBottom: theme.spacing(2),
@@ -136,12 +92,6 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-  },
-  red: {
-    color: theme.palette.primary.main,
-  },
-  yellow: {
-    color: theme.palette.secondary.main,
   },
 }));
 
@@ -209,7 +159,7 @@ function CardClub({sga, setactivideo, vidplay}) {
               videos.map(video => (
                 <ButtonBase onClick={() => handleClickOpen(video)} key={video.titre_de_la_video}>
                   <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                      <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
+                    <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
                   </Typography>
                 </ButtonBase>
               ))
