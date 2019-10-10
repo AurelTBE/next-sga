@@ -73,7 +73,7 @@ export default function CardSaisonIndivs({saison, results}) {
 
   return (
     <Card className={classes.card}>
-        <Grid container spacing={2}>
+      <Grid container spacing={2}>
         <Hidden mdUp>
             <ListItem>
             <CardHeader
@@ -106,7 +106,7 @@ export default function CardSaisonIndivs({saison, results}) {
                 </div>
         ))}
         </CardContent>
-        </Grid>
+      </Grid>
     </Card>
   );
 }

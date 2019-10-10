@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -35,6 +36,7 @@ import { setactivideo } from '../../redux/actions/contActions'
 
 // Player
 import YouTubePlayer from 'react-player/lib/players/YouTube';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,8 +67,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    maxWidth: "100%",
+    height: "auto",
   },
   actions: {
     display: 'flex',
@@ -79,10 +81,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'initial'
   },
   logo: {
-        maxWidth: "100%"
+    maxWidth: "100%"
   },
-  link: {
-    textDecoration: 'none',
+  titlesize: {
+    fontSize: 30,
+    [theme.breakpoints.down('sm')]: {
+        fontSize: 26,
+        textAlign: "center"
+      }
   },
   contentsize: {
     fontSize: 22,
@@ -90,17 +96,23 @@ const useStyles = makeStyles(theme => ({
         fontSize: 18,
       }
   },
+  mobilecontent: {
+    padding: theme.spacing(2),
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
   iconSmall: {
     fontSize: 20,
   },
-  sectiontitle: {
+  paddingbottom: {
     paddingBottom: theme.spacing(2),
   },
-  contentspacing: {
-    paddingLeft: theme.spacing(2),
+  subcontent: {
+    [theme.breakpoints.up('sm')]: {
+      margin: theme.spacing(2, 3),
+    },
+    padding: theme.spacing(3),
   },
   closeButton: {
     position: 'absolute',
@@ -153,50 +165,58 @@ function CardClub({sga, setactivideo, vidplay}) {
 
   return (
     <>
-      <Card className={classes.card}>
-        <Grid container spacing={2}>
-          <Hidden mdUp>
-            <ListItem>
-              <CardHeader
-                avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                    <FontAwesomeIcon icon={faDragon} />
-                </Avatar>
-                }
-                title={<Typography variant="h6" component="h3" className={classes.header} >{categorie}</Typography>}
-              />
-            </ListItem>
-          </Hidden>
-          <Grid item xs={12} md={6} lg={4} container direction="column">
-            <CardMedia
-            className={classes.media}
-            image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
-            title={categorie}
-            />
-          </Grid>
-          <CardContent>
-            <Hidden smDown>
-              <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
-              {categorie}
-              </Typography>
-            </Hidden>
-            <Grid item className={classes.contentspacing}>
-              {historique}
-            </Grid>
-            <Grid item className={classes.contentspacing}>
-              {videos && (
-                videos.map(video => (
-                  <ButtonBase onClick={() => handleClickOpen(video)} key={video.titre_de_la_video}>
-                    <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                        <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
-                    </Typography>
-                  </ButtonBase>
-                ))
-              )}
-            </Grid>
-          </CardContent>
+      <Grid container>
+        <Grid item xs={12} md={6} lg={4} container direction="column">
+          <img src={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"} alt={categorie} className={classes.media} />
         </Grid>
-      </Card>
+        <Grid item item xs={12} md={6} lg={8}>
+          <Hidden smDown>
+            <Paper className={classes.subcontent}>
+              <Grid container className={classes.title} justify={"flex-start"}>
+                <Box border={2} borderColor="primary.main" p={{ xs: 2 }}>
+                  <Typography component="h3" variant={"h4"} className={classes.titlesize} color="primary">
+                    Historique
+                  </Typography>
+                </Box>
+              </Grid>
+              <Typography 
+                variant="body1"
+                component="div" 
+                dangerouslySetInnerHTML={ {
+                  __html: historique
+              } } />
+            </Paper>
+          </Hidden>
+          <Hidden mdUp>
+            <div className={classes.mobilecontent}>
+              <Grid container className={classes.title} justify={"center"}>
+                <Box border={2} borderColor="primary.main" p={{ xs: 2 }}>
+                  <Typography component="h3" variant={"h4"} className={classes.titlesize} color="primary">
+                    Historique
+                  </Typography>
+                </Box>
+              </Grid>
+              <Typography 
+                variant="body1"
+                component="div" 
+                dangerouslySetInnerHTML={ {
+                  __html: historique
+              } } />
+            </div>
+          </Hidden>
+          <Grid container justify="center" className={classes.paddingbottom}>
+            {videos && (
+              videos.map(video => (
+                <ButtonBase onClick={() => handleClickOpen(video)} key={video.titre_de_la_video}>
+                  <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
+                      <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
+                  </Typography>
+                </ButtonBase>
+              ))
+            )}
+          </Grid>
+        </Grid>
+      </Grid>
       <Dialog
           open={open}
           onClose={handleClose}

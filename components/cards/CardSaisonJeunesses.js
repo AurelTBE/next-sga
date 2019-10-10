@@ -73,7 +73,7 @@ export default function CardSaisonJeunesses({saison, results}) {
 
   return (
     <Card className={classes.card}>
-        <Grid container spacing={2}>
+      <Grid container spacing={2}>
         <Hidden mdUp>
             <ListItem>
             <CardHeader
@@ -100,13 +100,13 @@ export default function CardSaisonJeunesses({saison, results}) {
             </Typography>
         </Hidden>
         {results.jeunesses.map(result => (
-            result.saison == saison.saison && 
-                <div key={saison.saison + result.title} className={classes.linkblock}>
-                    <Link as={`/resultats/${result.slug}`} href="/resultats/[id]"><a className={classes.link}><FontAwesomeIcon icon={faArrowCircleRight} className={classes.linkicon} /> {result.title}</a></Link>
-                </div>
+          result.saison == saison.saison && 
+            <div key={saison.saison + result.title} className={classes.linkblock}>
+                <Link as={`/resultats/${result.slug}`} href="/resultats/[id]"><a className={classes.link}><FontAwesomeIcon icon={faArrowCircleRight} className={classes.linkicon} /> {result.title}</a></Link>
+            </div>
         ))}
         </CardContent>
-        </Grid>
+      </Grid>
     </Card>
   );
 }

@@ -168,11 +168,11 @@ function CardSections({autresection, setactivideo}) {
             </ListItem>
         </Hidden>
         <Grid item xs={12} md={6} lg={4} container direction="column">
-            <CardMedia
-            className={classes.media}
-            image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
-            title={section}
-            />
+          <CardMedia
+          className={classes.media}
+          image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
+          title={section}
+          />
         </Grid>
         <CardContent>
             <Hidden smDown>
@@ -198,27 +198,27 @@ function CardSections({autresection, setactivideo}) {
         </Grid>
     </Card>
     <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-        maxWidth={false}
-        fullScreen={isSmallScreen}
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="responsive-dialog-title"
+      maxWidth={false}
+      fullScreen={isSmallScreen}
     >
-        <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
+      <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
         {video && <Typography>{section}</Typography>}
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <CloseIcon />
         </IconButton>
-        </DialogTitle>
-        <DialogContent className={classes.wrapper} >
+      </DialogTitle>
+      <DialogContent className={classes.wrapper} >
         {video && (
-            isSmallScreen ?
-            <YouTubePlayer url={video} width="100%" className={classes.player} controls />
-            :
-            <YouTubePlayer url={video} controls />
+          isSmallScreen ?
+          <YouTubePlayer url={video} width="100%" className={classes.player} controls />
+          :
+          <YouTubePlayer url={video} controls />
         )}
-        </DialogContent>
-  </Dialog>
+      </DialogContent>
+    </Dialog>
   </>
   );
 }
