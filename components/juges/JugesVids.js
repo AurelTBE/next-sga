@@ -82,8 +82,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.main,
   },
   wrapper: {
-    position: 'relative',
-    paddingTop: '56.25%',
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative',
+      paddingTop: '56.25%',
+    },
   },
   player: {
     position: 'absolute',
@@ -175,12 +177,12 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
       fullScreen={isSmallScreen}
     >
       <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
-        {vidplay && <Typography variant="h6">{`${vidplay.degre} (${vidplay.saison})`}</Typography>}
+        {vidplay && <Typography>{`${vidplay.degre} (${vidplay.saison})`}</Typography>}
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={isSmallScreen && classes.wrapper} >
+      <DialogContent className={classes.wrapper} >
         {vidplay && (
           isSmallScreen ?
             <YouTubePlayer url={vidplay.lien_youtube} width="100%" className={classes.player} controls />

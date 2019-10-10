@@ -133,10 +133,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function CardSections({autresection, setactivideo}) {
+function CardClub({sga, setactivideo, vidplay}) {
   const classes = useStyles();
   const theme = useTheme();
-  const {section, photo, site_internet, video} = autresection;
+  const {categorie, photo, historique, videos, membres_ca} = sga;
 
   const [open, setOpen] = React.useState(false);
   
@@ -153,77 +153,77 @@ function CardSections({autresection, setactivideo}) {
 
   return (
     <>
-    <Card className={classes.card}>
+      <Card className={classes.card}>
         <Grid container spacing={2}>
-        <Hidden mdUp>
+          <Hidden mdUp>
             <ListItem>
-            <CardHeader
+              <CardHeader
                 avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
                     <FontAwesomeIcon icon={faDragon} />
                 </Avatar>
                 }
-                title={<Typography variant="h6" component="h3" className={classes.header} >{section}</Typography>}
-            />
+                title={<Typography variant="h6" component="h3" className={classes.header} >{categorie}</Typography>}
+              />
             </ListItem>
-        </Hidden>
-        <Grid item xs={12} md={6} lg={4} container direction="column">
+          </Hidden>
+          <Grid item xs={12} md={6} lg={4} container direction="column">
             <CardMedia
             className={classes.media}
             image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
-            title={section}
+            title={categorie}
             />
-        </Grid>
-        <CardContent>
+          </Grid>
+          <CardContent>
             <Hidden smDown>
-                <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
-                {section}
-                </Typography>
+              <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
+              {categorie}
+              </Typography>
             </Hidden>
             <Grid item className={classes.contentspacing}>
-                <a href={site_internet} target="_blank" className={classes.link}>
-                    <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                        <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.iconSmall, classes.yellow)} /> site internet            
-                    </Typography>
-                </a>
-                {video &&
-                    <ButtonBase onClick={() => handleClickOpen(video)}>
-                        <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                            <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> vidéo            
-                        </Typography>
-                    </ButtonBase>
-                }
+              {historique}
             </Grid>
-        </CardContent>
+            <Grid item className={classes.contentspacing}>
+              {videos && (
+                videos.map(video => (
+                  <ButtonBase onClick={() => handleClickOpen(video)} key={video.titre_de_la_video}>
+                    <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
+                        <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
+                    </Typography>
+                  </ButtonBase>
+                ))
+              )}
+            </Grid>
+          </CardContent>
         </Grid>
-    </Card>
-    <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-        maxWidth={false}
-        fullScreen={isSmallScreen}
-    >
+      </Card>
+      <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+          maxWidth={false}
+          fullScreen={isSmallScreen}
+      >
         <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
-        {video && <Typography>{section}</Typography>}
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+          {vidplay && <Typography>{vidplay.titre_de_la_video}</Typography>}
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <CloseIcon />
-        </IconButton>
+          </IconButton>
         </DialogTitle>
         <DialogContent className={classes.wrapper} >
-        {video && (
+          {vidplay && (
             isSmallScreen ?
-            <YouTubePlayer url={video} width="100%" className={classes.player} controls />
+            <YouTubePlayer url={vidplay.lien_youtube} width="100%" className={classes.player} controls />
             :
-            <YouTubePlayer url={video} controls />
-        )}
+            <YouTubePlayer url={vidplay.lien_youtube} controls />
+          )}
         </DialogContent>
-  </Dialog>
-  </>
+      </Dialog>
+    </>
   );
 }
 
 export default connect(
     state => state,
     { setactivideo }
-  )(CardSections)
+  )(CardClub)
