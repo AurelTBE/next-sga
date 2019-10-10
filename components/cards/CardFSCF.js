@@ -97,10 +97,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function CardClub({sga, setactivideo, vidplay}) {
+function CardFSCF({fscf, setactivideo, vidplay}) {
   const classes = useStyles();
   const theme = useTheme();
-  const {categorie, photo, historique, videos, membres_ca} = sga;
+  const {categorie, photo, historique, site_internet, videos} = fscf;
 
   const [open, setOpen] = React.useState(false);
   
@@ -200,4 +200,4 @@ function CardClub({sga, setactivideo, vidplay}) {
 export default connect(
     state => state,
     { setactivideo }
-  )(CardClub)
+  )(CardFSCF)

@@ -9,7 +9,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import { red } from '@material-ui/core/colors';
 import Link from "next/link";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
       color: theme.palette.primary.light,
+  },
+  cardhead: {
+    paddingLeft: theme.spacing(1),
+    paddingBottom: 0,
   },
   link: {
     margin: theme.spacing(1),
@@ -54,15 +57,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: theme.palette.primary.main,
   },
-  actuBtn: {
-    display: 'block',
-    textAlign: 'initial'
-  },
-  logo: {
-        maxWidth: "100%"
-  }
 }));
 
 export default function CardSaisonIndivs({saison, results}) {
@@ -75,16 +71,17 @@ export default function CardSaisonIndivs({saison, results}) {
     <Card className={classes.card}>
       <Grid container spacing={2}>
         <Hidden mdUp>
-            <ListItem>
+          <ListItem>
             <CardHeader
-                avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                    <FontAwesomeIcon icon={faTrophy} />
-                </Avatar>
-                }
-                title={<Typography variant="h6" component="h3" className={classes.header} >Saison {saison.saison}</Typography>}
+              avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar}>
+                  <FontAwesomeIcon icon={faTrophy} />
+              </Avatar>
+              }
+              title={<Typography variant="h6" component="h3" className={classes.header} >Saison {saison.saison}</Typography>}
+              className={classes.cardhead}
             />
-            </ListItem>
+          </ListItem>
         </Hidden>
         <Grid item xs={12} md={6} lg={4} container direction="column">
             <CardMedia

@@ -10,9 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import { red } from '@material-ui/core/colors';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Link from "next/link";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDragon, faGlobe } from '@fortawesome/free-solid-svg-icons'
@@ -44,6 +42,10 @@ const useStyles = makeStyles(theme => ({
   header: {
       color: theme.palette.primary.light,
   },
+  cardhead: {
+    paddingLeft: theme.spacing(1),
+    paddingBottom: 0,
+  },
   link: {
     margin: theme.spacing(1),
     marginLeft: 0,
@@ -58,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '56.25%', // 16:9
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: theme.palette.primary.main,
   },
   contentsize: {
     fontSize: 22,
@@ -128,73 +130,74 @@ function CardSections({autresection, setactivideo}) {
 
   return (
     <>
-    <Card className={classes.card}>
-      <Grid container spacing={2}>
-        <Hidden mdUp>
-          <ListItem>
-            <CardHeader
+      <Card className={classes.card}>
+        <Grid container spacing={2}>
+          <Hidden mdUp>
+            <ListItem>
+              <CardHeader
                 avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
                     <FontAwesomeIcon icon={faDragon} />
                 </Avatar>
                 }
                 title={<Typography variant="h6" component="h3" className={classes.header} >{section}</Typography>}
-            />
-          </ListItem>
-        </Hidden>
-        <Grid item xs={12} md={6} lg={4} container direction="column">
-          <CardMedia
-          className={classes.media}
-          image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
-          title={section}
-          />
-        </Grid>
-        <CardContent>
-          <Hidden smDown>
-            <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
-              {section}
-            </Typography>
+                className={classes.cardhead}
+              />
+            </ListItem>
           </Hidden>
-          <Grid item className={classes.contentspacing}>
-            <a href={site_internet} target="_blank" className={classes.link}>
-              <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
-                <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site internet            
-              </Grid>
-            </a>
-            {video &&
-              <ButtonBase onClick={() => handleClickOpen(video)}>
-                <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
-                  <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.red)} /> Vidéo            
-                </Grid>
-              </ButtonBase>
-            }
+          <Grid item xs={12} md={6} lg={4} container direction="column">
+            <CardMedia
+            className={classes.media}
+            image={photo ? photo : "/static/LOGO-CERTIFICATION.jpg"}
+            title={section}
+            />
           </Grid>
-        </CardContent>
-      </Grid>
-    </Card>
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
-      maxWidth={false}
-      fullScreen={isSmallScreen}
-    >
-      <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
-        {video && <Typography>{section}</Typography>}
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent className={classes.wrapper} >
-        {video && (
-          isSmallScreen ?
-          <YouTubePlayer url={video} width="100%" className={classes.player} controls />
-          :
-          <YouTubePlayer url={video} controls />
-        )}
-      </DialogContent>
-    </Dialog>
-  </>
+          <CardContent>
+            <Hidden smDown>
+              <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
+                {section}
+              </Typography>
+            </Hidden>
+            <Grid item className={classes.contentspacing}>
+              <a href={site_internet} target="_blank" className={classes.link}>
+                <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                  <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site internet            
+                </Grid>
+              </a>
+              {video &&
+                <ButtonBase onClick={() => handleClickOpen(video)}>
+                  <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                    <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.red)} /> Vidéo            
+                  </Grid>
+                </ButtonBase>
+              }
+            </Grid>
+          </CardContent>
+        </Grid>
+      </Card>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        maxWidth={false}
+        fullScreen={isSmallScreen}
+      >
+        <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
+          {video && <Typography>{section}</Typography>}
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent className={classes.wrapper} >
+          {video && (
+            isSmallScreen ?
+            <YouTubePlayer url={video} width="100%" className={classes.player} controls />
+            :
+            <YouTubePlayer url={video} controls />
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

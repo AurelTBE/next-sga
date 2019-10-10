@@ -1,7 +1,6 @@
 import Layout from '../../components/Layout.js';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
@@ -11,6 +10,7 @@ import { CURRENTACTU } from '../../redux/actionTypes';
 
 //FCT
 import fetch from 'isomorphic-unfetch';
+import PDFview from '../../utils/PDFview';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -35,6 +35,10 @@ const useStyles = makeStyles(theme => ({
       fontSize: 22,
     }
   },
+  pdf: {
+    width: "100%",
+    maxWidth: "100%",
+  },
 }));
 
 function Actu({post}) {
@@ -53,25 +57,33 @@ function Actu({post}) {
             </Typography>
           </Box>
         </Grid>
-        <Hidden smUp>
-          {thumbnail && <img src={thumbnail} alt={title} className={classes.media} />}
-        </Hidden>
-        <Grid item xs={12} sm={10}>
-          <Typography 
-            variant="body1"
-            component="div" 
-            className={classes.textsize}
-            dangerouslySetInnerHTML={ {
-              __html: article
-          } } />
-          {image_de_fin && (
-            <Grid container justify="center">
-              <Grid item xs={12} sm={10} md={8} lg={6}>
-                <img src={image_de_fin} alt={title} className={classes.media} />
-              </Grid>
+        {article_pdf ? 
+          <Box className={classes.pdf}>
+            <PDFview pdf={article_pdf} />
+          </Box>
+        :
+          <>
+            <Hidden smUp>
+              {thumbnail && <img src={thumbnail} alt={title} className={classes.media} />}
+            </Hidden>
+            <Grid item xs={12} sm={10}>
+              <Typography 
+                variant="body1"
+                component="div" 
+                className={classes.textsize}
+                dangerouslySetInnerHTML={ {
+                  __html: article
+              } } />
+              {image_de_fin && (
+                <Grid container justify="center">
+                  <Grid item xs={12} sm={10} md={8} lg={6}>
+                    <img src={image_de_fin} alt={title} className={classes.media} />
+                  </Grid>
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
+          </>
+        }
       </Grid>
     </Layout>
   )

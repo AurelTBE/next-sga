@@ -6,7 +6,10 @@ import { useTheme } from '@material-ui/core/styles';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+// Comp
 import CardClub from '../cards/CardClub';
+import CardFSCF from '../cards/CardFSCF';
 
 export default function SGAClub({club}) {
   const theme = useTheme();
@@ -52,6 +55,10 @@ export default function SGAClub({club}) {
           {club.fscf.categorie}
         </Typography>
       </Box>
+      <Grid item xs={12} sm={6} md={12}>
+        <CardFSCF fscf={club.fscf} />
+      </Grid>
+      {console.log(club.fscf)}
     </Grid>
   </>
 )}

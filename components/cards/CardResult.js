@@ -7,7 +7,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
-import { red } from '@material-ui/core/colors';
 import Link from "next/link";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,11 +27,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: theme.palette.primary.main,
   },
-  logo: {
-        maxWidth: "100%"
-    }
 }));
 
 export default function ResultCard(props) {
