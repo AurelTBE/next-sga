@@ -68,6 +68,19 @@ const useStyles = makeStyles(theme => ({
       fontSize: 16,
     }
   },
+  paddingmobile: {
+    paddingLeft: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: 0,
+    },
+  },
+  subtitle: {
+    fontSize: 18,
+  },
+  mobilesubtitle: {
+    fontSize: 18,
+    color: theme.palette.primary.light,
+  },
   subsize: {
     [theme.breakpoints.down('sm')]: {
       fontSize: 14,
@@ -150,15 +163,20 @@ export default function CardEntrainement(props) {
             title={entrainement.title}
           />
         </Grid>
-        <CardContent>
+        <CardContent className={classes.paddingmobile}>
           <Hidden smDown>
             <Typography variant="h4" component="h3" color="primary" gutterBottom>
               {entrainement.title}
             </Typography>
           </Hidden>
-          <Typography variant="subtitle1" className={classes.mainsize}>
-            <FontAwesomeIcon icon={faCalendarAlt} className={clsx(classes.leftIcon, classes.red)} />Saison {entrainement.saison}
+          <Grid container direction="row" justify={isSmallScreen ? "center" : "flex-start"} alignItems="center">
+          <Typography variant="subtitle1" className={isSmallScreen ? classes.mobilesubtitle : classes.subtitle}>
+            <Hidden smDown>
+              <FontAwesomeIcon icon={faCalendarAlt} className={clsx(classes.leftIcon, classes.red)} />
+            </Hidden>
+            Saison {entrainement.saison}
           </Typography>
+          </Grid>
           <Typography variant="subtitle1" className={classes.mainsize}>
             <FontAwesomeIcon icon={faBirthdayCake} className={clsx(classes.leftIcon, classes.red)} />Années de naissance : {entrainement.annees_de_naissance}
           </Typography>
@@ -217,9 +235,11 @@ export default function CardEntrainement(props) {
                     </Grid>
                   </Grid>
           }
-          <Typography variant="subtitle1" className={classes.mainsize}>
-            <FontAwesomeIcon icon={faEuroSign} className={clsx(classes.leftIcon, classes.red)} />Cotisation annuelle : {entrainement.cotisation}€
-          </Typography>
+          {entrainement.title !== "Individuelles" && 
+            <Typography variant="subtitle1" className={classes.mainsize}>
+              <FontAwesomeIcon icon={faEuroSign} className={clsx(classes.leftIcon, classes.red)} />Cotisation annuelle : {entrainement.cotisation}€
+            </Typography>
+          }
         </CardContent>
       </Grid>
     </Card>
