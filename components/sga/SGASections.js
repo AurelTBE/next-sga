@@ -6,10 +6,12 @@ import { useTheme } from '@material-ui/core/styles';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CardSections from '../cards/CardSections';
 
 export default function SGASections({sections}) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const {autres_sections} = sections
 
   return (
   <>
@@ -47,7 +49,12 @@ export default function SGASections({sections}) {
         <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
           {sections.autres_sections.categorie}
         </Typography>
-      </Box>
+      </Box>        
+        {autres_sections.sections.map(section => (
+          <Grid item xs={12} sm={6} md={12} key={section.section}>
+            <CardSections autresection={section} />
+          </Grid>
+        ))}
     </Grid>
   </>
 )}

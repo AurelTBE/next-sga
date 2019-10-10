@@ -26,7 +26,6 @@ import Masonry from 'react-masonry-css';
 import { connect } from 'react-redux';
 import { setactivideo } from '../../redux/actions/contActions'
 
-
 // Player
 import YouTubePlayer from 'react-player/lib/players/YouTube';
 
