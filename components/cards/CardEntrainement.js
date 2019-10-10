@@ -130,7 +130,7 @@ export default function CardEntrainement(props) {
 
   function handleExpandClick() {
     setExpanded(!expanded);
-  }
+  } {/* Pour implémenter les coachs dans un panel extensible */}
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const labelProps = {
