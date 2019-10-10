@@ -40,20 +40,19 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center"
       }
   },
+  mobilecontent: {
+    padding: theme.spacing(2),
+  },
   contentsize: {
     fontSize: 22,
+    paddingBottom: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
         fontSize: 18,
       }
   },
-  mobilecontent: {
-    padding: theme.spacing(2),
-  },
   leftIcon: {
     marginRight: theme.spacing(1),
-  },
-  iconSmall: {
-    fontSize: 20,
+    fontSize: 30,
   },
   red: {
     color: theme.palette.primary.main,
@@ -158,9 +157,9 @@ function CardClub({sga, setactivideo, vidplay}) {
             {videos && (
               videos.map(video => (
                 <ButtonBase onClick={() => handleClickOpen(video)} key={video.titre_de_la_video}>
-                  <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                    <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> {video.titre_de_la_video}            
-                  </Typography>
+                  <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                    <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.red)} /> {video.titre_de_la_video}            
+                  </Grid>
                 </ButtonBase>
               ))
             )}

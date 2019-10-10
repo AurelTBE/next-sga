@@ -30,6 +30,11 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: 0,
     }
   },
+  textsize: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: 22,
+    }
+  },
 }));
 
 function Actu({post}) {
@@ -55,7 +60,7 @@ function Actu({post}) {
           <Typography 
             variant="body1"
             component="div" 
-            gutterBottom
+            className={classes.textsize}
             dangerouslySetInnerHTML={ {
               __html: article
           } } />

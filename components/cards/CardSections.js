@@ -62,15 +62,14 @@ const useStyles = makeStyles(theme => ({
   },
   contentsize: {
     fontSize: 22,
+    paddingBottom: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
         fontSize: 18,
       }
   },
   leftIcon: {
     marginRight: theme.spacing(1),
-  },
-  iconSmall: {
-    fontSize: 20,
+    fontSize: 30,
   },
   red: {
     color: theme.palette.primary.main,
@@ -130,9 +129,9 @@ function CardSections({autresection, setactivideo}) {
   return (
     <>
     <Card className={classes.card}>
-        <Grid container spacing={2}>
+      <Grid container spacing={2}>
         <Hidden mdUp>
-            <ListItem>
+          <ListItem>
             <CardHeader
                 avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -141,7 +140,7 @@ function CardSections({autresection, setactivideo}) {
                 }
                 title={<Typography variant="h6" component="h3" className={classes.header} >{section}</Typography>}
             />
-            </ListItem>
+          </ListItem>
         </Hidden>
         <Grid item xs={12} md={6} lg={4} container direction="column">
           <CardMedia
@@ -151,27 +150,27 @@ function CardSections({autresection, setactivideo}) {
           />
         </Grid>
         <CardContent>
-            <Hidden smDown>
-                <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
-                {section}
-                </Typography>
-            </Hidden>
-            <Grid item className={classes.contentspacing}>
-                <a href={site_internet} target="_blank" className={classes.link}>
-                    <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                        <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.iconSmall, classes.yellow)} /> site internet            
-                    </Typography>
-                </a>
-                {video &&
-                    <ButtonBase onClick={() => handleClickOpen(video)}>
-                        <Typography variant={isSmallScreen ? 'h6' : 'body2'} color="textSecondary" className={classes.contentsize}>
-                            <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.iconSmall, classes.red)} /> vidéo            
-                        </Typography>
-                    </ButtonBase>
-                }
-            </Grid>
+          <Hidden smDown>
+            <Typography variant={isSmallScreen ? "h6" : "h4"} component="h3" color="primary" className={classes.sectiontitle} gutterBottom>
+              {section}
+            </Typography>
+          </Hidden>
+          <Grid item className={classes.contentspacing}>
+            <a href={site_internet} target="_blank" className={classes.link}>
+              <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site internet            
+              </Grid>
+            </a>
+            {video &&
+              <ButtonBase onClick={() => handleClickOpen(video)}>
+                <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                  <FontAwesomeIcon icon={faYoutube} className={clsx(classes.leftIcon, classes.red)} /> Vidéo            
+                </Grid>
+              </ButtonBase>
+            }
+          </Grid>
         </CardContent>
-        </Grid>
+      </Grid>
     </Card>
     <Dialog
       open={open}
@@ -183,7 +182,7 @@ function CardSections({autresection, setactivideo}) {
       <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>
         {video && <Typography>{section}</Typography>}
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-            <CloseIcon />
+          <CloseIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent className={classes.wrapper} >
