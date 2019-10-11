@@ -44,7 +44,7 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
-export default function NotationCard({fichesigle}) {
+export default function SiglesCard({fichesigle}) {
   const classes = useStyles();
 
   const {niveau, fiche, image} = fichesigle;

@@ -58,7 +58,6 @@ export default function SGAClub({club}) {
       <Grid item xs={12} sm={6} md={12}>
         <CardFSCF fscf={club.fscf} />
       </Grid>
-      {console.log(club.fscf)}
     </Grid>
   </>
 )}

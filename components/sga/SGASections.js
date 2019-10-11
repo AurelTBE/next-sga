@@ -6,6 +6,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CardGF from '../cards/CardGF';
 import CardSections from '../cards/CardSections';
 
 export default function SGASections({sections}) {
@@ -33,6 +34,9 @@ export default function SGASections({sections}) {
           {sections.gymfem.categorie}
         </Typography>
       </Box>
+      <Grid item xs={12} sm={6} md={12}>
+        <CardGF gymfem={sections.gymfem} />
+      </Grid>
       {/* Autres sections */}
       <Box
         display="flex" 
