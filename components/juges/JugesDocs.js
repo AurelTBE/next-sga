@@ -9,6 +9,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import LivreCard from './LivreCard';
+import NotationCard from './NotationCard';
+import SiglesCard from './SiglesCard';
 
 const useStyles = makeStyles(theme => ({
   buttonbar: {
@@ -62,7 +64,6 @@ export default function JugesDocs({docs}) {
         <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
           Livres
         </Typography>
-
       </Box>        
       {livres.map(livre => (
         <Grid item xs={12} lg={5} key={livre.fichier}>
@@ -87,6 +88,11 @@ export default function JugesDocs({docs}) {
           Fiches de notation
         </Typography>
       </Box>
+      {fiche_de_notation.map(fiche => (
+        <Grid item xs={12} lg={5} key={fiche.fichier}>
+          <NotationCard fichenotation={fiche} />
+        </Grid>
+      ))}
       {/* Fiches de sigles */}
       <Box
         id="sigles"
@@ -105,6 +111,11 @@ export default function JugesDocs({docs}) {
           Fiches de sigles
         </Typography>
       </Box>
+      {fiche_de_sigles.map(fiche => (
+        <Grid item xs={12} lg={5} key={fiche.fichier}>
+          <SiglesCard fichesigle={fiche} />
+        </Grid>
+      ))}
       {/* PowerPoint de formation */}
       <Box
         id="powerpoint"
@@ -123,7 +134,6 @@ export default function JugesDocs({docs}) {
           {isSmallScreen ? "PowerPoint" : "PowerPoint de formation"}
         </Typography>
       </Box>
-      {console.log(docs)}
     </Grid>
   </>
 )}

@@ -127,7 +127,7 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
       <Grid container direction="row" justify="center" alignItems="center" className={classes.buttonbar}>
         <ButtonGroup color="secondary" size={isSmallScreen ? "small" : "large"}>
           {agres.map(ag => (
-            <Button href={`#${ag}`}>
+            <Button href={`#${ag}`} key={ag}>
               {ag}
             </Button>
           ))}
@@ -135,7 +135,7 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
       </Grid>
       {/* Agrès */}
       {agres.map(ag => (
-        <div className={classes.root}>
+        <div className={classes.root} key={ag}>
           <Box
             id={ag}
             display="flex" 
@@ -148,7 +148,6 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
             alignItems="center"
             height={{xs: 60, md: 120}}
             width={1}
-            key={ag}
           >
             <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
               {ag}
@@ -165,9 +164,7 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
           ))}
           </Masonry>
         </div>
-      ))}
-      {/* <ReactPlayer url={vid.lien_youtube} /> */}
-      
+      ))}      
     </Grid>
     <Dialog
       open={open}

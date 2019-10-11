@@ -1,45 +1,44 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles (theme => ({
   media: {
     height: 140,
   },
-});
+  titlesize: {
+    fontSize: 30,
+    fontWeight: 300,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 20,
+    }
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  yellow: {
+    color: theme.palette.secondary.main,
+  },
+}));
 
 export default function LivreCard({livre}) {
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
+      <CardActionArea href={livre.fichier} target="_blank" download>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {livre.titre_du_livre} {livre.saison}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+          <Typography variant="h5" component="h2" className={classes.titlesize}>
+            <FontAwesomeIcon icon={faFilePdf} className={clsx(classes.leftIcon, classes.yellow)} />{livre.titre_du_livre} {livre.saison}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button href={livre.fichier} size="small" color="primary" target="_blank" download>
-          Télécharger
-        </Button>
-      </CardActions>
     </Card>
   );
 }
