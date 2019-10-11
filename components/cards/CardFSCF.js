@@ -27,6 +27,7 @@ import { setactivideo } from '../../redux/actions/contActions'
 // Player
 import YouTubePlayer from 'react-player/lib/players/YouTube';
 import { Paper } from '@material-ui/core';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   cardpadding: {
@@ -157,6 +158,13 @@ function CardFSCF({fscf, setactivideo, vidplay}) {
             </div>
           </Hidden>
           <Grid container justify="center" className={classes.paddingbottom}>
+            {site_internet &&
+              <ButtonBase href={site_internet} target="_blank">
+                <Grid container direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
+                  <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site de la FSCF            
+                </Grid>
+              </ButtonBase>
+            }
             {videos && (
               <Grid container direction="column" justify="flex-start" alignItems="center">
                 {videos.map(video => (
