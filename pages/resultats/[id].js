@@ -2,9 +2,8 @@ import Layout from '../../components/Layout.js';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import Hidden from '@material-ui/core/Hidden';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,6 +45,10 @@ const useStyles = makeStyles(theme => ({
   resume: {
     paddingBottom: 50,
     paddingTop: 20,
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: 20,
+      paddingTop: 10,
+    },
   },
   resumetext: {
     fontSize: 34,
@@ -252,15 +255,17 @@ function Resultat({result}) {
                 }
               </>
             )}</>
-            {console.log(result)}
+          </Grid>
+          <Grid container justify="center">
+            <Grid item xs={12} sm={10} md={8} lg={6}>
+              {result.thumbnail && <img src={result.thumbnail} alt={result.title} className={classes.media} />}
+            </Grid>
           </Grid>
         </Grid>
       </Box>
     </Layout>
   )
 }
-
-// .palmares && <PDFview pdf={result.equipes.palmares} />
 
 Resultat.getInitialProps = async ctx => {
   const { id } = ctx.query;
