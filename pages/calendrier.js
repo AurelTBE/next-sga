@@ -10,6 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Comp
 import Layout from '../components/Layout'
 import Calendar from '../utils/Calendar';
+import Cal2 from '../utils/Cal2';
 
 // Redux
 import { connect } from 'react-redux';
