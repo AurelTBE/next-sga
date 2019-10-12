@@ -110,6 +110,12 @@ function Calendar({calcontent}) {
             onClick={() => onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
+            {
+              calcontent.map(event => 
+                isSameDay(day, new Date(event.datedebut.date)) &&
+                  <span key={event.title + event.datedebut.date}>{event.title}</span>
+              )
+            }
             <span className="bg">{formattedDate}</span>
           </div>
         );
