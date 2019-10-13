@@ -87,7 +87,6 @@ function Calendrier({calcontent, calfiles}) {
                       <CardCal calendrier={cal} />
                     </Grid>
                   ))}
-                  {console.log(calfiles)}
                   </Grid>
                 </Box>
               </Grid>

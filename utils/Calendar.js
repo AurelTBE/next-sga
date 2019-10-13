@@ -232,7 +232,6 @@ function Calendar({calcontent}) {
     <>
       {renderHeader()}    
       <div className="calendar">
-        {console.log(selectedEvent)}
         {renderDays()}
         {renderCells()}
       </div>
@@ -254,6 +253,7 @@ function Calendar({calcontent}) {
         <DialogContent className={classes.wrapper} >
           {selectedEvent && 
             <Box>
+              <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} style={{color: eventColor(selectedEvent.type)}}>{selectedEvent.type}</Typography> 
               {isSameDay(new Date(selectedEvent.datedebut.date), new Date(selectedEvent.datefin.date)) ? 
                 <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary">Date : {format(new Date(selectedEvent.datedebut.date), "dd/MM/yy")}</Typography>
               :
