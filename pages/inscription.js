@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt } from '@fortawesome/free-solid-svg-icons';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -60,6 +61,7 @@ function Inscription({ postsignup }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [informations, setInformations] = useState('');
 
   const [open, setOpen] = React.useState(false);
 
@@ -74,7 +76,10 @@ function Inscription({ postsignup }) {
   }
 
   const insertData = nonce => {
-    axios.post(`http://sga-gymfeminine.fr/bo/api/user/register/?username=${username}&email=${email}&nonce=${nonce}&display_name=${display_name}&user_pass=${password}&insecure=cool`)
+    axios.post(`http://sga-gymfeminine.fr/bo/api/user/register/?username=${username}&email=${email}&nonce=${nonce}&display_name=${display_name}&description=${informations}&user_pass=${password}&insecure=cool`)
+    .then(function (response) {
+      response.data.status !== "error" && handleClickOpen()
+    })
     .catch(error => {
       console.log(error.response)
     })
@@ -85,9 +90,6 @@ function Inscription({ postsignup }) {
     .then(res => {
       insertData(res.data.nonce)
     })
-    .then(
-      handleClickOpen()
-    )
     .catch(error => {
       console.log(error.response)
     })
@@ -99,7 +101,7 @@ function Inscription({ postsignup }) {
 
   return (
     <Layout>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -158,6 +160,25 @@ function Inscription({ postsignup }) {
               onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
             />
+            <Box mt={2}>
+              Afin de nous aider à t'identifier, pour te donner les accès aux rubriques du site qui te seront utile, explique nous en quelques mots qui tu es, et ton lien avec le club.
+            </Box>
+            <Box mt={1}>
+              Exemple : "Je suis X, adhérente, je m'entraine dans le groupe X..." ou "Je suis la maman de X qui est adhérente..."
+            </Box>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              multiline
+              rowsMax="4"
+              id="informations"
+              label="Informations"
+              name="informations"
+              value={informations}
+              onChange={e => setInformations(e.target.value)}
+            />
             <Button
               type="submit"
               fullWidth
@@ -179,15 +200,12 @@ function Inscription({ postsignup }) {
         <DialogContent>
           <DialogContentText>
             Ton compte vient d'être créé. Tu n'a pas encore accès à toutes les zones du site, car nous devons d'abord vérifier que tu es bien adhérent au club, parent d'un adhérent ou bénévole. 
-            Tu peux continuer ta navigation en cliquant sur retour et attendre que l'on te donne les accès, ou nous envoyer un email pour demander à un bénévole du club de te rattacher à un groupe.
+            Tu peux continuer ta navigation en attendant que l'on te donne les accès.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Envoyer une demande
-          </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
-            Retour
+            Continuer
           </Button>
         </DialogActions>
       </Dialog>
