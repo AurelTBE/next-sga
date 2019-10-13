@@ -2,6 +2,7 @@ import React from 'react'
 // MUI
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // Media Query
@@ -9,12 +10,14 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Comp
 import Layout from '../components/Layout'
+import CardCal from '../components/cards/CardCal';
 import Calendar from '../utils/Calendar';
 import Cal2 from '../utils/Cal2';
 
 // Redux
 import { connect } from 'react-redux';
 import { CALENDARCONTENT } from '../redux/actionTypes';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function Calendrier({calcontent}) {
+function Calendrier({calcontent, calfiles}) {
     const classes = useStyles();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -49,8 +52,44 @@ function Calendrier({calcontent}) {
               justify="center"
               alignItems="center"
             >
-              <Grid item xs={12} md={10} className={classes.calendar}>
+              <Grid item xs={12} className={classes.calendar}>
+                {/* Composant calendrier */}
                 <Calendar calcontent={calcontent} />
+                {/* Calendriers à télécharger */}
+                <Box
+                  id="livres"
+                  display="flex" 
+                  color="background.paper"
+                  bgcolor={theme.palette.secondary.main}
+                  fontFamily="h6.fontFamily"
+                  fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+                  p={{ xs: 2, sm: 3, md: 4 }}
+                  justifyContent="center"
+                  alignItems="center"
+                  height={{xs: 60, md: 120}}
+                  width={1}
+                >
+                  <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
+                    {isSmallScreen ? "Calendriers" : "Calendriers à télécharger"}
+                  </Typography>
+                </Box>
+                <Box p={2}>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    spacing={2}
+                    
+                  >        
+                  {calfiles.map(cal => (
+                    <Grid item xs={12} lg={4} key={cal.fichier}>
+                      <CardCal calendrier={cal} />
+                    </Grid>
+                  ))}
+                  {console.log(calfiles)}
+                  </Grid>
+                </Box>
               </Grid>
             </Grid>
           </div>
@@ -59,12 +98,16 @@ function Calendrier({calcontent}) {
 }
 
 Calendrier.getInitialProps = async function(ctx) {
-  const cal = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/calendar`);
-  const calevents = await cal.json();
+  const calev = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/calendar`);
+  const calevents = await calev.json();
+  const calf = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/cal`);
+  const calfiles = await calf.json();
 
   ctx.store.dispatch({ type: CALENDARCONTENT, payload: calevents });
 
-  return {};
+  return {
+    calfiles,
+  };
 };
 
 const mapStateToProps = state => ({ 
