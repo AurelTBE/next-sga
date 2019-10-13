@@ -69,7 +69,7 @@ function Calendrier({calcontent, calfiles}) {
                   height={{xs: 60, md: 120}}
                   width={1}
                 >
-                  <Typography component="h3" variant={isSmallScreen ? "h4" : "h2"}>
+                  <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"}>
                     {isSmallScreen ? "Calendriers" : "Calendriers à télécharger"}
                   </Typography>
                 </Box>

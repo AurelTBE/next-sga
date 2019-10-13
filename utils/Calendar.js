@@ -1,15 +1,31 @@
 import React, {useState} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isSameMonth, isSameDay } from 'date-fns';
+import clsx from 'clsx';
+import { positions } from '@material-ui/system';
+import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
 import { fr } from 'date-fns/locale'
-import eachDayOfInterval from 'date-fns/eachDayOfInterval'
-import isWithinInterval from 'date-fns/isWithinInterval'
+
 // UI
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
+import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkedAlt, faUsers, faDragon } from '@fortawesome/free-solid-svg-icons';
+
+// Media Query
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+// Modal
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +40,36 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center',
     },
   },
+  link: {
+    textDecoration: 'none',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.background.paper,
+  },
+  dialoguetitle: {
+    color: theme.palette.background.paper,
+  },
+  cellheight: {
+    height: "8em",
+    [theme.breakpoints.down('sm')]: {
+      height: "5em",
+    },
+  },
+  wrapper: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative',
+      paddingTop: '56.25%',
+    },
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 }));
 
 function Calendar({calcontent}) {
@@ -31,7 +77,39 @@ function Calendar({calcontent}) {
   const theme = useTheme();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState('');
 
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [open, setOpen] = React.useState(false);
+
+  function handleClickOpen(event) {
+    setSelectedEvent(event)
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false)
+  }
+
+  function eventColor(type) {
+    switch(type) {
+      case 'Compétition':
+        return "#E91E63";
+      case 'Formation':
+        return "#00BCD4";
+      case 'Stage':
+        return "#AA00FF";
+      case 'Réunion':
+        return "#2962FF";
+      case 'Fête':
+        return "#FF9800";
+      case 'Divers':
+        return "#1DE9B6";
+      default:
+        return "primary.paper";
+    }
+  }
+  
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
     return (
@@ -59,7 +137,9 @@ function Calendar({calcontent}) {
             </ButtonBase>
           </Box>
           <Box justifyContent="center">
-            {format(currentMonth, dateFormat, {locale: fr})}            
+            <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"}>
+              {format(currentMonth, dateFormat, {locale: fr})}            
+            </Typography>
           </Box>
           <Box justifyContent="flex-end">
             <ButtonBase onClick={nextMonth}>
@@ -91,25 +171,6 @@ function Calendar({calcontent}) {
     const startDate = startOfWeek(monthStart, {weekStartsOn: 1});
     const endDate = endOfWeek(monthEnd);
 
-    function eventColor(type) {
-      switch(type) {
-        case 'Compétition':
-          return "#E91E63";
-        case 'Formation':
-          return "#00BCD4";
-        case 'Stage':
-          return "#AA00FF";
-        case 'Réunion':
-          return "#2962FF";
-        case 'Fête':
-          return "#FF9800";
-        case 'Divers':
-          return "#1DE9B6";
-        default:
-          return "primary.paper";
-      }
-    }
-
     const dateFormat = "d";
     const rows = [];
     let days = [];
@@ -119,29 +180,28 @@ function Calendar({calcontent}) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat, {locale: fr});
         const cloneDay = day;
-        var interv = isWithinInterval(cloneDay, {
-          start: new Date(calcontent[7].datedebut.date),
-          end: new Date(calcontent[7].datefin.date)
-        })
         days.push(
           <div
-            className={`col cell ${
+            className={clsx(classes.cellheight, `col cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
                 : isSameDay(day, selectedDate) ? "selected" : ""
-            }`}
+            }`)}
             key={day}
           >
-            <Box display="flex" justifyContent="flex-end">{formattedDate}</Box>
-            {console.log(new Date(calcontent[7].datefin.date))}
+            <Box display="flex" justifyContent="flex-end" mr={0.5}>{formattedDate}</Box>
             {
               calcontent.map(event => 
-                ((isSameDay(day, new Date(event.datedebut.date)) || isSameDay(day, new Date(event.datefin.date))) &&
-                  <Box color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => onDateClick(cloneDay)}>{event.title}{console.log(new Date(event.datefin.date))}</Box>
-                )
+                ((isSameDay(day, new Date(event.datedebut.date)) || isSameDay(day, new Date(event.datefin.date)) || (isBefore(day, new Date(event.datefin.date)) && isAfter(day, new Date(event.datedebut.date)))) &&
+                  (isSmallScreen ? 
+                    <Box pl={1}><FontAwesomeIcon icon={faDragon} color={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)}/></Box>
+                  : 
+                    <>
+                      <Box p={1} color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)} top>{event.title}</Box>
+                    </>
+                ))
               )
             }
-            <span className="bg">{formattedDate}</span>
           </div>
         );
         day = addDays(day, 1);
@@ -167,21 +227,61 @@ function Calendar({calcontent}) {
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1))
   };
-
-  var result = eachDayOfInterval({
-    start: new Date(calcontent[7].datedebut.date),
-    end: new Date(calcontent[7].datefin.date)
-  })
     
   return (
     <>
       {renderHeader()}    
       <div className="calendar">
-        {console.log(calcontent)}
-        {console.log(result)}
+        {console.log(selectedEvent)}
         {renderDays()}
         {renderCells()}
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        maxWidth={false}
+        fullScreen={isSmallScreen}
+      >
+        <Box bgcolor={eventColor(selectedEvent.type)}>
+          <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>  
+            <Typography>{selectedEvent.title}</Typography>
+            <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+        </Box>
+        <DialogContent className={classes.wrapper} >
+          {selectedEvent && 
+            <Box>
+              {isSameDay(new Date(selectedEvent.datedebut.date), new Date(selectedEvent.datefin.date)) ? 
+                <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary">Date : {format(new Date(selectedEvent.datedebut.date), "dd/MM/yy")}</Typography>
+              :
+                <>
+                  <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary">Début : {format(new Date(selectedEvent.datedebut.date), "dd/MM/yy")}</Typography>
+                  <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary">Fin : {format(new Date(selectedEvent.datefin.date), "dd/MM/yy")}</Typography> 
+                </>
+              }
+              {selectedEvent.localisation.ville ? 
+                <a href={`https://www.google.com/maps/dir/?api=1&destination=${selectedEvent.localisation.adresse.lat},${selectedEvent.localisation.adresse.lng}`} target="_blank" className={classes.link}>
+                  <Typography variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary" className={classes.ico}>
+                  <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                  <span className={classes.city}>{selectedEvent.localisation.ville},</span> <span className={classes.linebreak}>{selectedEvent.localisation.lieu}</span>
+                  </Typography>
+                </a>
+              : null}
+              {selectedEvent.groupe ? 
+                <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary" className={classes.ico}>
+                  <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                  {selectedEvent.groupe.map((grp, index) => {
+                        return <span className={classes.linebreak} key={selectedEvent.id+grp}>{grp}{index < selectedEvent.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                  })}
+                </Typography> 
+              : null}
+            </Box>
+          }
+        </DialogContent>
+      </Dialog>
     </>
 
   );

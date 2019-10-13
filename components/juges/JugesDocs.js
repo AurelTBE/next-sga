@@ -89,7 +89,7 @@ export default function JugesDocs({docs}) {
         </Typography>
       </Box>
       {fiche_de_notation.map(fiche => (
-        <Grid item xs={12} lg={5} key={fiche.fichier}>
+        <Grid item xs={12} lg={5} key={`not-${fiche.niveau}`}>
           <NotationCard fichenotation={fiche} />
         </Grid>
       ))}
@@ -112,7 +112,7 @@ export default function JugesDocs({docs}) {
         </Typography>
       </Box>
       {fiche_de_sigles.map(fiche => (
-        <Grid item xs={12} lg={5} key={fiche.fichier}>
+        <Grid item xs={12} lg={5} key={`sigle-${fiche.niveau}`}>
           <SiglesCard fichesigle={fiche} />
         </Grid>
       ))}

@@ -153,16 +153,18 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
               {ag}
             </Typography>
           </Box>
-          <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
-          {vids.map((vid) => (
-            vid.agres == ag && 
-            <ButtonBase key={vid.lien_youtube} onClick={() => handleClickOpen(vid)}>
-              <img src={vid.thumbnail} alt={`${vid.degre} (${vid.saison})`} className={classes.image} />
-              <PlayCircleOutlineIcon className={classes.icon} />
-              <Box className={classes.caption} width={1}><Typography variant="h5">{`${vid.degre} (${vid.saison})`}</Typography></Box>
-            </ButtonBase> 
-          ))}
-          </Masonry>
+          <Box mb={3}>
+            <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
+              {vids.map((vid) => (
+                vid.agres == ag && 
+                <ButtonBase key={vid.lien_youtube} onClick={() => handleClickOpen(vid)}>
+                  <img src={vid.thumbnail} alt={`${vid.degre} (${vid.saison})`} className={classes.image} />
+                  <PlayCircleOutlineIcon className={classes.icon} />
+                  <Box className={classes.caption} width={1}><Typography variant="h5">{`${vid.degre} (${vid.saison})`}</Typography></Box>
+                </ButtonBase> 
+              ))}
+            </Masonry>
+          </Box>
         </div>
       ))}      
     </Grid>
