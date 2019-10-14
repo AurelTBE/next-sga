@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { positions } from '@material-ui/system';
 import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
 import { fr } from 'date-fns/locale'
 
@@ -39,6 +38,25 @@ const useStyles = makeStyles(theme => ({
     '& figure': {
       textAlign: 'center',
     },
+  },
+  bgdate: {
+      position: "absolute",
+      zIndex: 1,
+      right: 0,
+      top: -30,
+      color: theme.palette.primary.main,
+      opacity: 0.3,
+      fontSize: 130,
+      fontWeight: 400,
+      [theme.breakpoints.down('sm')]: {
+        top: 20,
+        fontSize: 38,
+        fontWeight: 300,
+      },
+  },
+  daycontent: {
+    position: "relative",
+    zIndex: 100,
   },
   link: {
     textDecoration: 'none',
@@ -190,14 +208,15 @@ function Calendar({calcontent}) {
             key={day}
           >
             <Box display="flex" justifyContent="flex-end" mr={0.5}>{formattedDate}</Box>
+            {isSameDay(day, selectedDate) && <Box component="span" className={classes.bgdate}>{formattedDate}</Box>}
             {
               calcontent.map(event => 
                 ((isSameDay(day, new Date(event.datedebut.date)) || isSameDay(day, new Date(event.datefin.date)) || (isBefore(day, new Date(event.datefin.date)) && isAfter(day, new Date(event.datedebut.date)))) &&
                   (isSmallScreen ? 
-                    <Box pl={1}><FontAwesomeIcon icon={faDragon} color={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)}/></Box>
+                    <Box pl={1} className={classes.daycontent}><FontAwesomeIcon icon={faDragon} color={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)}/></Box>
                   : 
                     <>
-                      <Box p={1} color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)} top>{event.title}</Box>
+                      <Box p={1} color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)} className={classes.daycontent}>{event.title}</Box>
                     </>
                 ))
               )
