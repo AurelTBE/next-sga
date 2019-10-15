@@ -52,7 +52,7 @@ export default function Organisation(props) {
 }
 
 Organisation.getInitialProps = async function() {
-    const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/wp/v2/benevoles`);
+    const res = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/wp/v2/benevoles`);
     const benevoles = await res.json();
   
     return {

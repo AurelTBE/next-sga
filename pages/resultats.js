@@ -108,9 +108,9 @@ function Resultats({ setactivresultab, activeTab, resultsbox, benevoles }) {
 }
 
 Resultats.getInitialProps = async function(ctx) {
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultsbox`);
+  const res = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultsbox`);
   const resultats = await res.json();
-  const sais = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/saisons`);
+  const sais = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/saisons`);
   const saisons = await sais.json();
   const jeun = [...new Set(resultats.map(result => result.groupe == "Jeunesses" && result))]
   const jeunesses = jeun.filter(Boolean)

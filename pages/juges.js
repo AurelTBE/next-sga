@@ -109,7 +109,7 @@ function Juges({ setactivjugestab, activeTab, jugesContent }) {
 }
 
 Juges.getInitialProps = async function(ctx) {
-  const jug = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/juges`);
+  const jug = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/juges`);
   const juges = await jug.json();
   const vidagres = [...new Set(juges.juges.videos.map(vid => vid.agres))];
   const jugescont = {

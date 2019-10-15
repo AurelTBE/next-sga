@@ -109,7 +109,7 @@ function SGA({ setactivsgatab, activeTab, sgaContent }) {
 }
 
 SGA.getInitialProps = async function(ctx) {
-  const data = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/sga`);
+  const data = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/sga`);
   const sga = await data.json();
 
   ctx.store.dispatch({ type: SGACONTENT, payload: sga });

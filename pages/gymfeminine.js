@@ -108,9 +108,9 @@ function GymFem({ setactivgftab, activeTab, gfContent }) {
 }
 
 GymFem.getInitialProps = async function(ctx) {
-  const ent = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
+  const ent = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/entrainements`);
   const entrainements = await ent.json();
-  const ben = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
+  const ben = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/benevoles`);
   const benevoles = await ben.json();
   const gymfem = {
     entrainements,

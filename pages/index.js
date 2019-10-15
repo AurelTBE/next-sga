@@ -15,7 +15,7 @@ const Index = ({homeContent}) => (
 const mapStateToProps = state => ({ homeContent: state.homecontent });
 
 Index.getInitialProps = async function(ctx) {
-  const path = "http://sga-gymfeminine.fr/bo/wp-json"
+  const path = "https://sga-gymfeminine.fr/bo/wp-json"
 
   const act = await fetch(`${path}/sga/v1/listeposts`);
   const actus = await act.json();

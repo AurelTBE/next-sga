@@ -269,7 +269,7 @@ function Resultat({result}) {
 
 Resultat.getInitialProps = async ctx => {
   const { id } = ctx.query;
-  const res = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultats/${id}`);
+  const res = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/resultats/${id}`);
   const result = await res.json();
   ctx.store.dispatch({ type: CURRENTRESULT, payload: result });
   return {};

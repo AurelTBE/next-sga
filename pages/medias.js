@@ -109,7 +109,7 @@ function Medias({ setactivmediatab, activeTab, mediatheque }) {
 }
 
 Medias.getInitialProps = async function(ctx) {
-  const media = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
+  const media = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
   const mediafolders = await media.json();
   const phot = [...new Set(mediafolders.map(media => media.media == "Photos" && media))]
   const photos = phot.filter(Boolean)

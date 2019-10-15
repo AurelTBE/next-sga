@@ -6,7 +6,7 @@ import Router from 'next/router';
 
 // Connexion
 export const authenticate = user => dispatch =>
-    axios.post(`http://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
+    axios.post(`https://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
     .then(response => {
         dispatch({ type: AUTHENTICATE, payload: response.data });
         setCookie('token', response.data);
@@ -16,7 +16,7 @@ export const authenticate = user => dispatch =>
 
 // Premiere connexion post signup
 export const postsignup = user => dispatch =>
-axios.post(`http://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
+axios.post(`https://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
 .then(response => {
     dispatch({ type: AUTHENTICATE, payload: response.data });
     setCookie('token', response.data);

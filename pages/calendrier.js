@@ -96,9 +96,9 @@ function Calendrier({calcontent, calfiles}) {
 }
 
 Calendrier.getInitialProps = async function(ctx) {
-  const calev = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/calendar`);
+  const calev = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/calendar`);
   const calevents = await calev.json();
-  const calf = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/cal`);
+  const calf = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/cal`);
   const calfiles = await calf.json();
 
   ctx.store.dispatch({ type: CALENDARCONTENT, payload: calevents });

@@ -61,7 +61,7 @@ function Galerie({galerieContent}) {
 
 Galerie.getInitialProps = async ctx => {
   const { id } = ctx.query;
-  const gal = await fetch(`http://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
+  const gal = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/galeries/${id}`);
   const galerie = await gal.json();
   const galeriecont = {
     galerie: galerie,

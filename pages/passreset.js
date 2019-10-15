@@ -54,7 +54,7 @@ function PassReset() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post(`http://sga-gymfeminine.fr/bo/api/user/retrieve_password/?user_login=${username}&insecure=cool`)
+    axios.post(`https://sga-gymfeminine.fr/bo/api/user/retrieve_password/?user_login=${username}&insecure=cool`)
     .then(res => {
       console.log('Password reset', res.data)
     }).catch(error => {
