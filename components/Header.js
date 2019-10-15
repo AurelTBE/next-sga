@@ -208,6 +208,7 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
         open={state.left}
         onClose={toggleDrawer('left', false)}
         onOpen={toggleDrawer('left', true)}
+        swipeAreaWidth={60}
       >
         {sideList('left')}
       </SwipeableDrawer>
