@@ -55,7 +55,7 @@ export default function BottomBar() {
   justify="center"
   alignItems="center"
 >
-          <FontAwesomeIcon icon={faBirthdayCake} className={classes.iconLeft} /><Typography>Joyeux anniversaire Lulu</Typography><FontAwesomeIcon icon={faHeart} className={classes.iconRight} />
+          <FontAwesomeIcon icon={faBirthdayCake} className={classes.iconLeft} /><Typography>Joyeux anniversaire ma chérie</Typography><FontAwesomeIcon icon={faHeart} className={classes.iconRight} />
         </Grid>
         </Toolbar>
       </AppBar>
