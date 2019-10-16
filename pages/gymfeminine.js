@@ -13,6 +13,9 @@ import Layout from '../components/Layout'
 import Benevoles from '../components/Benevoles';
 import Entrainements from '../components/Entrainements';
 
+// Get & use scroll position
+import useScrollPosition from "../utils/useScrollPosition";
+
 // Redux
 import { connect } from 'react-redux';
 import { setactivgftab } from '../redux/actions/navActions';
@@ -61,13 +64,16 @@ const useStyles = makeStyles(theme => ({
 function GymFem({ setactivgftab, activeTab, gfContent }) {
   const classes = useStyles();
   const theme = useTheme();
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setactivgftab(newValue);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   function handleChangeIndex(index) {
     setactivgftab(index);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   return (

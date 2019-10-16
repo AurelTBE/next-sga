@@ -14,6 +14,9 @@ import MediaPhotos from '../components/mediatheque/MediaPhotos';
 import MediaVideos from '../components/mediatheque/MediaVideos';
 import MediaMusic from '../components/mediatheque/MediaMusic';
 
+// Get & use scroll position
+import useScrollPosition from "../utils/useScrollPosition";
+
 // Redux
 import { connect } from 'react-redux';
 import { setactivmediatab } from '../redux/actions/navActions';
@@ -62,13 +65,16 @@ const useStyles = makeStyles(theme => ({
 function Medias({ setactivmediatab, activeTab, mediatheque }) {
   const classes = useStyles();
   const theme = useTheme();
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setactivmediatab(newValue);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   function handleChangeIndex(index) {
     setactivmediatab(index);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   return (

@@ -14,6 +14,9 @@ import ResultJeunesses from '../components/resultats/ResultJeunesses';
 import ResultAinees from '../components/resultats/ResultAinees';
 import ResultIndivs from '../components/resultats/ResultIndivs';
 
+// Get & use scroll position
+import useScrollPosition from "../utils/useScrollPosition";
+
 // Redux
 import { connect } from 'react-redux';
 import { setactivresultab } from '../redux/actions/navActions';
@@ -61,13 +64,16 @@ const useStyles = makeStyles(theme => ({
 function Resultats({ setactivresultab, activeTab, resultsbox, benevoles }) {
   const classes = useStyles();
   const theme = useTheme();
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setactivresultab(newValue);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   function handleChangeIndex(index) {
     setactivresultab(index);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   return (

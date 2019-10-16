@@ -13,6 +13,9 @@ import Layout from '../components/Layout'
 import JugesDocs from '../components/juges/JugesDocs';
 import JugesVids from '../components/juges/JugesVids';
 
+// Get & use scroll position
+import useScrollPosition from "../utils/useScrollPosition";
+
 // Redux
 import { connect } from 'react-redux';
 import { setactivjugestab } from '../redux/actions/navActions';
@@ -62,13 +65,16 @@ const useStyles = makeStyles(theme => ({
 function Juges({ setactivjugestab, activeTab, jugesContent }) {
   const classes = useStyles();
   const theme = useTheme();
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setactivjugestab(newValue);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   function handleChangeIndex(index) {
     setactivjugestab(index);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   return (

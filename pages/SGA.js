@@ -13,6 +13,9 @@ import Layout from '../components/Layout'
 import SGAClub from '../components/sga/SGAClub';
 import SGASections from '../components/sga/SGASections';
 
+// Get & use scroll position
+import useScrollPosition from "../utils/useScrollPosition";
+
 // Redux
 import { connect } from 'react-redux';
 import { setactivsgatab } from '../redux/actions/navActions';
@@ -62,13 +65,16 @@ const useStyles = makeStyles(theme => ({
 function SGA({ setactivsgatab, activeTab, sgaContent }) {
   const classes = useStyles();
   const theme = useTheme();
+  const scrollPos = useScrollPosition();
 
   function handleChange(event, newValue) {
     setactivsgatab(newValue);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   function handleChangeIndex(index) {
     setactivsgatab(index);
+    scrollPos >= 64 ? window.scrollTo(0, 56) : null;
   }
 
   return (
