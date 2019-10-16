@@ -24,6 +24,7 @@ import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setac
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
+import { faFacebookSquare, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 
 
@@ -52,7 +53,18 @@ const useStyles = makeStyles(theme => ({
   },
   menu: {
     paddingTop: '12px'
-  }
+  },
+  fb: {
+    fontSize: 30,
+    color: "#3b5998",
+  },
+  yt: {
+    fontSize: 30,
+    color: "#ff0000",
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setactivmediatab, setactivjugestab }) {
@@ -169,6 +181,17 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItem>
+        <ListItem>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <IconButton className={classes.button} aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank"><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></IconButton>
+          <IconButton className={classes.button} aria-label="Youtube" href="https://www.youtube.com/channel/UC4K5UAx4Vo0qFTyLEAzJlUw/featured" target="_blank"><FontAwesomeIcon icon={faYoutube} className={classes.yt} /></IconButton>
+          </Grid>
+        </ListItem>       
       </List>
     </div>
   );
