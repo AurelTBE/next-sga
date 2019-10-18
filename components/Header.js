@@ -189,7 +189,6 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           alignItems="center"
         >
           <IconButton className={classes.button} aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank"><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></IconButton>
-          <IconButton className={classes.button} aria-label="Youtube" href="https://www.youtube.com/channel/UC4K5UAx4Vo0qFTyLEAzJlUw/featured" target="_blank"><FontAwesomeIcon icon={faYoutube} className={classes.yt} /></IconButton>
           </Grid>
         </ListItem>       
       </List>

@@ -45,7 +45,7 @@ function Actu({post}) {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {title, article, article_pdf, image_de_fin, thumbnail} = post;
+  const {title, article, image_de_fin, thumbnail} = post;
 
   return (
     <Layout>
@@ -57,9 +57,9 @@ function Actu({post}) {
             </Typography>
           </Box>
         </Grid>
-        {article_pdf ? 
+        {article.article_pdf ? 
           <Box className={classes.pdf}>
-            <PDFview pdf={article_pdf} />
+            <PDFview pdf={article.article_pdf} />
           </Box>
         :
           <>
@@ -72,7 +72,7 @@ function Actu({post}) {
                 component="div" 
                 className={classes.textsize}
                 dangerouslySetInnerHTML={ {
-                  __html: article
+                  __html: article.article
               } } />
               {image_de_fin && (
                 <Grid container justify="center">
@@ -82,6 +82,7 @@ function Actu({post}) {
                 </Grid>
               )}
             </Grid>
+            {console.log(post)}
           </>
         }
       </Grid>
