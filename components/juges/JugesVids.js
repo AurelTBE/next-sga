@@ -157,7 +157,7 @@ function JugesVids({agres, vids, setactivideo, vidplay}) {
             <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
               {vids.map((vid) => (
                 vid.agres == ag && 
-                <ButtonBase key={vid.lien_youtube} onClick={() => handleClickOpen(vid)}>
+                <ButtonBase key={vid.lien_youtube} onClick={() => handleClickOpen(vid)} style={{marginBottom: 4}}>
                   <img src={vid.thumbnail} alt={`${vid.degre} (${vid.saison})`} className={classes.image} />
                   <PlayCircleOutlineIcon className={classes.icon} />
                   <Box className={classes.caption} width={1}><Typography variant="h5">{`${vid.degre} (${vid.saison})`}</Typography></Box>
