@@ -50,12 +50,12 @@ export default function BottomBar() {
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
         <Grid
-  container
-  direction="row"
-  justify="center"
-  alignItems="center"
->
-          <FontAwesomeIcon icon={faBirthdayCake} className={classes.iconLeft} /><Typography>Joyeux anniversaire ma chérie</Typography><FontAwesomeIcon icon={faHeart} className={classes.iconRight} />
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography>Test MAJ</Typography>
         </Grid>
         </Toolbar>
       </AppBar>
