@@ -13,9 +13,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "background_color": "#FFFFFF",
   "display": "fullscreen",
+  "scope": "/",
   "description": "Version hors ligne du site de la SGA",
   "theme_color": "#d32f2f"
 }
