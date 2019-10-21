@@ -13,6 +13,7 @@ const nextConfig = {
   generateInDevMode: true,
   workboxOpts: {
     swDest: 'static/service-worker.js',
+    maximumFileSizeToCacheInBytes: 7 * 1024 * 1024,
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
