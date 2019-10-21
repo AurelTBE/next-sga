@@ -22,9 +22,9 @@ import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setac
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag } from '@fortawesome/free-solid-svg-icons';
+import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag, faFileSignature } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
-import { faFacebookSquare, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 
 
 
@@ -45,7 +45,8 @@ const useStyles = makeStyles(theme => ({
     width: 250,
   },
   logo: {
-    width: '50%',
+    width: '70%',
+    height: 'auto',
     padding: '10px'
   },
   icons: {
@@ -133,7 +134,9 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
         alignItems="center"
         onClick={() => handleNav('/')}
       >
-        <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo} />
+        <IconButton className={classes.logo}>
+          <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" />
+        </IconButton>
       </Grid>
       <List className={classes.menu}>
         <ListItem button onClick={() => handleNav('/SGA')}>
@@ -160,7 +163,7 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           role ? (
             role.includes("administrator") || role.includes("Juge") ?
               <ListItem button onClick={() => handleNav('/juges')}>
-                <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
+                <ListItemIcon><FontAwesomeIcon icon={faFileSignature} className={classes.icons} /></ListItemIcon>            
                 <ListItemText primary="Juges" />
               </ListItem>
             : 
@@ -182,13 +185,13 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           <ListItemText primary="Contact" />
         </ListItem>
         <ListItem>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <IconButton className={classes.button} aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank"><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></IconButton>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <IconButton className={classes.button} aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank"><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></IconButton>
           </Grid>
         </ListItem>       
       </List>
