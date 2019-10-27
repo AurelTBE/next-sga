@@ -9,12 +9,14 @@ import Link from "next/link";
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 // Redux Authentication
 import { connect } from 'react-redux';
 import { authenticate } from '../redux/actions/authActions';
+
+import { RingLoader } from 'react-spinners';
 
 import Layout from '../components/Layout'
 
@@ -44,19 +46,25 @@ const useStyles = makeStyles(theme => ({
   maincolor: {
     color: theme.palette.primary.main,
   },
+  loader: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
-function Connexion({ authenticate }) {
+function Connexion({ authenticate, autherror }) {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     // console.log('login with ', { username, password });
     const user = { username, password };
-    authenticate(user);
+    authenticate(user)
   };
 
   return (
@@ -115,7 +123,8 @@ function Connexion({ authenticate }) {
               color="primary"
               className={classes.submit}
             >
-              Connexion
+              {loading ? 
+              "Connexion" : "Se connecter"}
             </Button>
             <Grid container justify="center">
               <Grid item>
@@ -134,8 +143,10 @@ function Connexion({ authenticate }) {
 }
 
 Connexion.getInitialProps = ctx => {};
-
+const mapStateToProps = state => ({ 
+  autherror: state.autherror,
+ });
 export default connect(
-  state => state,
+  mapStateToProps,
   { authenticate }
 )(Connexion);

@@ -1,5 +1,5 @@
 import Layout from '../components/Layout'
-import React from 'react'
+import React, {useState} from 'react'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
 
 function Profil({name, role, deauthenticate}) {
     const classes = useStyles();
+    const [loading, setLoading] = useState(false);
+    const handleLogout = () => {
+      setLoading(true);
+      deauthenticate()
+    }
     return (
         <Layout>
             <Grid container justify="center" className={classes.root}>
@@ -42,9 +47,9 @@ function Profil({name, role, deauthenticate}) {
                       variant="contained"
                       color="primary"
                       className={classes.submit}
-                      onClick={deauthenticate}
+                      onClick={handleLogout}
                     >
-                      Déconnexion
+                      {loading ? "Déconnexion" : "Se déconnecter"}
                     </Button>
                 </Grid>
             </Grid>

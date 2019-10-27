@@ -8,6 +8,14 @@ import { makeStore } from '../redux';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actions/authActions';
+import Router from 'next/router'
+import NProgress from 'nprogress'
+
+Router.events.on('routeChangeStart', url => {
+  NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 class MyApp extends App {
   componentDidMount() {

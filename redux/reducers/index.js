@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
+import { authReducer, authError} from './authReducer';
 import { homeTabReducer, gfTabReducer, sgaTabReducer, resulTabReducer, mediaTabReducer, jugesTabReducer, audioPlayReducer } from './navReducer';
 import { homeContentReducer, sgaContentReducer, gfContentReducer, jugContentReducer, currentActuReducer, currentResultReducer, galContentReducer, vidPlayReducer, mediathequeReducer, calendarReducer, resultsBoxReducer } from './contentReducer';
 
@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
     mediatheque: mediathequeReducer,
     calendarevents: calendarReducer,
     resultsbox: resultsBoxReducer,
+    autherror: authError,
 });
 
 export default rootReducer;

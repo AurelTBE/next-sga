@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt } from '@fortawesome/free-solid-svg-icons';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import Layout from '../components/Layout'
@@ -19,7 +19,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useTheme } from '@material-ui/core/styles';
 
 // Authenticate after signup
 import { connect } from 'react-redux';
@@ -62,6 +61,7 @@ function Inscription({ postsignup }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [informations, setInformations] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const [open, setOpen] = React.useState(false);
 
@@ -96,6 +96,7 @@ function Inscription({ postsignup }) {
   }
   const handleSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     getWPnonce()
   };
 
@@ -186,7 +187,7 @@ function Inscription({ postsignup }) {
               color="primary"
               className={classes.submit}
             >
-              Inscription
+              {loading ? "Inscription" : "S'inscrire"}
             </Button>
           </form>
         </div>

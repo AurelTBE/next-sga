@@ -1,4 +1,4 @@
-import { AUTHENTICATE, DEAUTHENTICATE } from '../actionTypes';
+import { AUTHENTICATE, AUTHERROR, DEAUTHENTICATE } from '../actionTypes';
 import axios from 'axios';
 import cookie from 'js-cookie';
 import cookieParser from 'cookie-parser'
@@ -12,7 +12,7 @@ export const authenticate = user => dispatch =>
         setCookie('token', response.data);
         Router.back();
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch({ type: AUTHERROR, payload: err}))
 
 // Premiere connexion post signup
 export const postsignup = user => dispatch =>
