@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Grid from '@material-ui/core/Grid';
@@ -26,8 +27,6 @@ import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag, faFile
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 
-
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -38,16 +37,20 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
-  },
   list: {
-    width: 250,
+    width: 220,
+  },
+  logocont: {
+    paddingTop: theme.spacing(2),
+  },
+  logobtn: {
+    borderRadius: "50%",
+    width: theme.spacing(12),
+    height: theme.spacing(12),
   },
   logo: {
-    width: '70%',
-    height: 'auto',
-    padding: '10px'
+    width: theme.spacing(12),
+    height: theme.spacing(12),
   },
   icons: {
     fontSize: '20px'
@@ -56,15 +59,8 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '12px'
   },
   fb: {
-    fontSize: 30,
+    fontSize: '20px',
     color: "#3b5998",
-  },
-  yt: {
-    fontSize: 30,
-    color: "#ff0000",
-  },
-  button: {
-    margin: theme.spacing(1),
   },
 }));
 
@@ -116,14 +112,13 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
   const sideList = side => (
     <div
       className={classes.list}
-      role="presentation"
+      role="menu"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
@@ -133,10 +128,11 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
         justify="center"
         alignItems="center"
         onClick={() => handleNav('/')}
+        className={classes.logocont}
       >
-        <IconButton className={classes.logo}>
-          <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" />
-        </IconButton>
+        <ButtonBase className={classes.logobtn}>
+          <img src="/static/logo-sga.svg" alt="Saint Georges d'Argenteuil" className={classes.logo}/>
+        </ButtonBase>
       </Grid>
       <List className={classes.menu}>
         <ListItem button onClick={() => handleNav('/SGA')}>
@@ -184,15 +180,9 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItem>
-        <ListItem>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <IconButton className={classes.button} aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank"><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></IconButton>
-          </Grid>
+        <ListItem button component="a" aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank">
+          <ListItemIcon><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></ListItemIcon>
+          <ListItemText primary="Facebook" />
         </ListItem>       
       </List>
     </div>
