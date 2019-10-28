@@ -22,6 +22,14 @@ const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(3, 2),
     },
+    title: {
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 28,
+      }
+    },
+    cal: {
+      paddingBottom: theme.spacing(2),
+    },
     media: {
       maxWidth: "100%",
     },
@@ -53,7 +61,9 @@ function Calendrier({calcontent, calfiles}) {
             >
               <Grid item xs={12} className={classes.calendar}>
                 {/* Composant calendrier */}
-                <Calendar calcontent={calcontent} />
+                <Box className={classes.cal}>
+                  <Calendar calcontent={calcontent}/>
+                </Box>
                 {/* Calendriers à télécharger */}
                 <Box
                   id="livres"
@@ -68,7 +78,7 @@ function Calendrier({calcontent, calfiles}) {
                   height={{xs: 60, md: 120}}
                   width={1}
                 >
-                  <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"}>
+                  <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"} className={classes.title}>
                     {isSmallScreen ? "Calendriers" : "Calendriers à télécharger"}
                   </Typography>
                 </Box>

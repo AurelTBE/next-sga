@@ -30,6 +30,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
   },
+  monthtitle: {
+    textTransform: "capitalize",
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 22,
+    }
+  },
   media: {
     maxWidth: "100%",
   },
@@ -155,7 +161,7 @@ function Calendar({calcontent}) {
             </ButtonBase>
           </Box>
           <Box justifyContent="center">
-            <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"}>
+            <Typography component="h3" variant={isSmallScreen ? "h4" : "h3"} className={classes.monthtitle}>
               {format(currentMonth, dateFormat, {locale: fr})}            
             </Typography>
           </Box>
