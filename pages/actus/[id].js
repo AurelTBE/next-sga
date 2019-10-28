@@ -63,10 +63,14 @@ function Actu({post}) {
           </Box>
         :
           <>
-            <Hidden smUp>
-              {thumbnail && <img src={thumbnail} alt={title} className={classes.media} />}
-            </Hidden>
             <Grid item xs={12} sm={10}>
+              <Hidden smUp>
+                <Grid container justify="center">
+                  <Grid item xs={12} sm={10}>
+                    {thumbnail && <img src={thumbnail} alt={title} className={classes.media} />}
+                  </Grid>
+                </Grid>
+              </Hidden>
               <Typography 
                 variant="body1"
                 component="div" 
