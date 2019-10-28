@@ -82,7 +82,6 @@ function Actu({post}) {
                 </Grid>
               )}
             </Grid>
-            {console.log(post)}
           </>
         }
       </Grid>

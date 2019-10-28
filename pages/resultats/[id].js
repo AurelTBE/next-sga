@@ -158,7 +158,13 @@ function Resultat({result}) {
                           {equipe.nom_de_lequipe} - Palmarès
                         </Typography>
                       </Box>
-                      <PDFview pdf={equipe.palmares} />
+                      {getFileExtension(equipe.palmares) == "pdf" ? 
+                        <Box className={classes.pdf}>
+                          <PDFview pdf={equipe.palmares} />
+                        </Box>
+                        :
+                        <img src={equipe.palmares} alt={`${equipe.nom_de_lequipe} - palmarès`} className={classes.image} />
+                      }
                     </>
                   }
                   {equipe.tableau_de_resultats_des_gyms && 
