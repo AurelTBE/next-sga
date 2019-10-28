@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from "next/link";
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +16,14 @@ import Container from '@material-ui/core/Container';
 
 // Redux Authentication
 import { connect } from 'react-redux';
-import { authenticate } from '../redux/actions/authActions';
+import { authenticate, resetloggerror } from '../redux/actions/authActions';
+
+// Signup message
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { RingLoader } from 'react-spinners';
 
@@ -51,21 +60,55 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Connexion({ authenticate, autherror }) {
+function Connexion(props) {
+  const { authenticate, resetloggerror, autherror } = props;
   const classes = useStyles();
   const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameEmpt, setUsernameEmpt] = useState(false);
+  const [passwordEmpt, setPasswordEmpt] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  function handleOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    resetloggerror()
+    setOpen(false)
+  }
+
 
   const handleSubmit = e => {
     e.preventDefault();
-    setLoading(true);
-    // console.log('login with ', { username, password });
     const user = { username, password };
-    authenticate(user)
+    if(!username && !password) {
+      !username && setUsernameEmpt(true)
+      !password && setPasswordEmpt(true)
+    } else if(!username) {
+      setUsernameEmpt(true)
+      setPasswordEmpt(false)
+    } else if(!password) {
+      setUsernameEmpt(false)
+      setPasswordEmpt(true)
+    }
+    else {
+      setUsernameEmpt(false)
+      setPasswordEmpt(false)
+      setLoading(true)
+      authenticate(user)
+    }
   };
+
+  useEffect(() => {
+    (autherror && autherror.name) && (
+      setLoading(false),
+      setOpen(true)
+    )
+  })
 
   return (
     <Layout>
@@ -79,6 +122,7 @@ function Connexion({ authenticate, autherror }) {
             Connexion
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <FormControl fullWidth error>
             <TextField
               variant="outlined"
               margin="normal"
@@ -92,6 +136,9 @@ function Connexion({ authenticate, autherror }) {
               onChange={e => setUsername(e.target.value)}
               autoFocus
             />
+            {usernameEmpt && <FormHelperText id="component-error-text">Merci de saisir votre pseudo</FormHelperText>}
+            </FormControl>
+            <FormControl fullWidth error>
             <TextField
               variant="outlined"
               margin="normal"
@@ -105,16 +152,18 @@ function Connexion({ authenticate, autherror }) {
               onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
             />
+            {passwordEmpt && <FormHelperText id="component-error-text">Merci de saisir votre mot de passe</FormHelperText>}
+            </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Se souvenir de moi"
             />
             <Grid item xs>
-                <Link href="/passreset" passHref>
+              <Link href="/passreset" passHref>
                 <Typography variant="body2" component="a" color="primary">
                   Mot de passe oublié ?
-                  </Typography>
-                </Link>
+                </Typography>
+              </Link>
             </Grid>
             <Button
               type="submit"
@@ -137,6 +186,23 @@ function Connexion({ authenticate, autherror }) {
             </Grid>
           </form>
         </div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">Informations incorrectes</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Pseudo et/ou mot de passe incorrect(s)
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary" autoFocus>
+              Réessayer
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </Layout>
   );
@@ -148,5 +214,5 @@ const mapStateToProps = state => ({
  });
 export default connect(
   mapStateToProps,
-  { authenticate }
+  { authenticate, resetloggerror }
 )(Connexion);

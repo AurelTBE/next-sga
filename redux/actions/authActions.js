@@ -14,6 +14,12 @@ export const authenticate = user => dispatch =>
     })
     .catch(err => dispatch({ type: AUTHERROR, payload: err}))
 
+export const resetloggerror = () => {
+    return dispatch => {
+        dispatch({ type: AUTHERROR, payload: null });
+    };
+};
+
 // Premiere connexion post signup
 export const postsignup = user => dispatch =>
 axios.post(`https://sga-gymfeminine.fr/bo/wp-json/jwt-auth/v1/token`, user)
