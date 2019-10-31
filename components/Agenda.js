@@ -221,7 +221,7 @@ export default function CardBenevole(props) {
             <DialogContentText>
               {selectedEvent &&
                 <List>
-                  <ListItem button component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}`} onClick={handleClose}>
+                  <ListItem button component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}&ctz=Europe/Paris`} onClick={handleClose}>
                     <ListItemIcon><FontAwesomeIcon icon={faGoogle} className={classes.calicons} /></ListItemIcon>
                     <ListItemText primary="Google" />
                   </ListItem>
