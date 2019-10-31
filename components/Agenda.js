@@ -8,8 +8,27 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
-import Link from "next/link";
 import * as moment from 'moment';
+
+// Addtocal message
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { faGoogle, faYahoo, faApple } from '@fortawesome/free-brands-svg-icons'
+import { Outlook } from 'mdi-material-ui'
+import dynamic from 'next/dynamic'
+const ICalendarLink  = dynamic(() => import('react-icalendar-link'), {
+  ssr: false
+});
+import { NoSsr } from '@material-ui/core';
 
 // Media Query
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -39,12 +58,40 @@ const useStyles = makeStyles(theme => ({
   fct: {
     marginBottom: 0,
   },
+  list: {
+    padding: 0,
+  },
+  calicons: {
+    margin: theme.spacing(1),
+  },
+  outlookcalicon: {
+    fontSize: 17,
+    margin: theme.spacing(1),
+  },
+  icsdl: {
+    display: "inline-block",
+    textDecoration: "none",
+    color: theme.palette.text.secondary
+  }
 }));
 
 export default function CardBenevole(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState('');
+  const [open, setOpen] = useState(false);
+
+  function handleClickOpen(event) {
+    setSelectedEvent(event)
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false)
+  }
+
+  moment.locale('fr')
 
   useEffect(() => {
     const eve = []
@@ -52,8 +99,11 @@ export default function CardBenevole(props) {
       eve.push({
         id: event.id,
         title: event.title,
-        datedebut: moment(event.datedebut.date),
-        datefin: moment(event.datefin.date),
+        datedebut: moment(event.datedebut.date).format("YYYYMMDDTHHmmssZ"),
+        datefin: moment(event.datefin.date).format("YYYYMMDDTHHmmssZ"),
+        googdebut: moment(event.datedebut.date).format("YYYYMMDDTHHmmss"),
+        googfin: moment(event.datefin.date).format("YYYYMMDDTHHmmss"),
+        duration: moment(event.datefin.date).diff(moment(event.datedebut.date), 'hours'),
         type: event.type,
         groupe: event.groupe,
         ville: event.localisation.ville,
@@ -71,8 +121,6 @@ export default function CardBenevole(props) {
   const labelProps = {
     size: isSmallScreen ? "small" : "large"
   };
-
-  moment.locale('fr')
 
   function eventColor(type) {
     switch(type) {
@@ -101,19 +149,22 @@ export default function CardBenevole(props) {
             <CardContent>
               <Grid container spacing={2}>
                 <Grid item xs={4} md={2}>
-                  <Box
-                    display="flex" 
-                    color="background.paper"
-                    bgcolor={eventColor(event.type)}
-                    fontFamily="h6.fontFamily"
-                    fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
-                    p={{ xs: 2, sm: 3, md: 4 }}
-                    justifyContent="center"
-                    alignItems="center"
-                    height={{xs: 100, md: 120}}
-                  >
-                    <Box align="center">{labelProps.size==="large" ? moment(event.datedebut).format('DD MMMM') : moment(event.datedebut).format('DD MMM')}</Box>
-                  </Box>
+                  <ButtonBase onClick={() => handleClickOpen(event)} style={{width: "100%"}}>
+                    <Box
+                      display="flex" 
+                      color="background.paper"
+                      bgcolor={eventColor(event.type)}
+                      fontFamily="h6.fontFamily"
+                      fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+                      p={{ xs: 2, sm: 3, md: 4 }}
+                      justifyContent="center"
+                      alignItems="center"
+                      height={{xs: 100, md: 120}}
+                      width={1}
+                    >
+                      <Box align="center">{labelProps.size==="large" ? moment(event.datedebut).format('DD MMMM') : moment(event.datedebut).format('DD MMM')}</Box>
+                    </Box>
+                  </ButtonBase>
                   <Box
                     display="flex" 
                     color={eventColor(event.type)}
@@ -147,7 +198,7 @@ export default function CardBenevole(props) {
                         <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
                           <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                           {event.groupe.map((grp, index) => {
-                                return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                            return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
                           })}
                         </Typography> 
                       : null}
@@ -159,6 +210,64 @@ export default function CardBenevole(props) {
           </Card>
         </Grid>
       ))}
+      <NoSsr>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">Ajouter à mon agenda</DialogTitle>
+          <DialogContent className={classes.list}>
+            <DialogContentText>
+              {selectedEvent &&
+                <List>
+                  <ListItem button component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}`} onClick={handleClose}>
+                    <ListItemIcon><FontAwesomeIcon icon={faGoogle} className={classes.calicons} /></ListItemIcon>
+                    <ListItemText primary="Google" />
+                  </ListItem>
+                  <ListItem button>
+                    <ICalendarLink 
+                      event={{
+                        title: selectedEvent.title,
+                        description: selectedEvent.infos && selectedEvent.infos,
+                        startTime: selectedEvent.datedebut,
+                        endTime: selectedEvent.datefin,
+                        location: selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville,
+                      }}
+                    >
+                      <ListItemIcon onClick={() => handleClose()}><FontAwesomeIcon icon={faApple} className={classes.calicons} /></ListItemIcon>
+                      <ListItemText primary="Apple Calendar" className={classes.icsdl} onClick={() => handleClose()}/>
+                    </ICalendarLink>
+                  </ListItem>
+                  <ListItem button>
+                    <ICalendarLink 
+                      event={{
+                        title: selectedEvent.title,
+                        description: selectedEvent.infos && selectedEvent.infos,
+                        startTime: selectedEvent.datedebut,
+                        endTime: selectedEvent.datefin,
+                        location: selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville,
+                      }}
+                    >
+                      <ListItemIcon onClick={() => handleClose()}><Outlook className={classes.outlookcalicon} /></ListItemIcon>
+                      <ListItemText primary="Outlook" className={classes.icsdl} onClick={() => handleClose()}/>
+                    </ICalendarLink>
+                  </ListItem>
+                  <ListItem button component="a" aria-label="Yahoo-Calendar" target="_blank" href={`http://calendar.yahoo.com/?v=60&TITLE=${selectedEvent.title}&ST=${selectedEvent.datedebut}&ET=${selectedEvent.datefin}&in_loc=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&DESC=${selectedEvent.infos ? selectedEvent.infos : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
+                    <ListItemIcon><FontAwesomeIcon icon={faYahoo} className={classes.calicons} /></ListItemIcon>
+                    <ListItemText primary="Yahoo" />
+                  </ListItem>
+                </List>
+              }
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary" autoFocus>
+                Annuler
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </NoSsr>
     </Grid>
   );
 }

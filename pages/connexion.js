@@ -18,7 +18,7 @@ import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { authenticate, resetloggerror } from '../redux/actions/authActions';
 
-// Signup message
+// Connexion message
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -71,10 +71,6 @@ function Connexion(props) {
   const [passwordEmpt, setPasswordEmpt] = useState(false);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
-  function handleOpen() {
-    setOpen(true);
-  }
 
   function handleClose() {
     resetloggerror()
