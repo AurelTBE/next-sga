@@ -23,6 +23,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { faGoogle, faYahoo, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
 import { Outlook } from 'mdi-material-ui'
 import dynamic from 'next/dynamic'
 const ICalendarLink  = dynamic(() => import('react-icalendar-link'), {
@@ -257,7 +258,20 @@ export default function CardBenevole(props) {
                     <ListItemIcon><FontAwesomeIcon icon={faYahoo} className={classes.calicons} /></ListItemIcon>
                     <ListItemText primary="Yahoo" />
                   </ListItem>
-                  {console.log(selectedEvent.datedebut)}
+                  <ListItem button>
+                    <ICalendarLink 
+                      event={{
+                        title: selectedEvent.title,
+                        description: selectedEvent.infos && selectedEvent.infos,
+                        startTime: selectedEvent.datedebut,
+                        endTime: selectedEvent.datefin,
+                        location: selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville,
+                      }}
+                    >
+                      <ListItemIcon onClick={() => handleClose()}><FontAwesomeIcon icon={faCalendarPlus} className={classes.calicons} /></ListItemIcon>
+                      <ListItemText primary="Autres calendriers" className={classes.icsdl} onClick={() => handleClose()}/>
+                    </ICalendarLink>
+                  </ListItem>
                 </List>
               }
             </DialogContentText>
