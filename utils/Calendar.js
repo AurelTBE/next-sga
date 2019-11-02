@@ -7,8 +7,6 @@ import { fr } from 'date-fns/locale'
 // UI
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -25,6 +23,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
+// Add To Cal
+import AddToCal from '../utils/AddToCal'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -303,6 +304,7 @@ function Calendar({calcontent}) {
                   })}
                 </Typography> 
               : null}
+              <AddToCal />
             </Box>
           }
         </DialogContent>

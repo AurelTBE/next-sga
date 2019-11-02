@@ -99,8 +99,8 @@ export default function CardBenevole(props) {
       eve.push({
         id: event.id,
         title: event.title,
-        datedebut: moment(event.datedebut.date).format("YYYYMMDDTHHmmssZ"),
-        datefin: moment(event.datefin.date).format("YYYYMMDDTHHmmssZ"),
+        datedebut: moment(event.datedebut.date).format("YYYY-MM-DDTHH:mm:ssZ"),
+        datefin: moment(event.datefin.date).format("YYYY-MM-DDTHH:mm:ssZ"),
         googdebut: moment(event.datedebut.date).format("YYYYMMDDTHHmmss"),
         googfin: moment(event.datefin.date).format("YYYYMMDDTHHmmss"),
         duration: moment(event.datefin.date).diff(moment(event.datedebut.date), 'hours'),
@@ -257,6 +257,7 @@ export default function CardBenevole(props) {
                     <ListItemIcon><FontAwesomeIcon icon={faYahoo} className={classes.calicons} /></ListItemIcon>
                     <ListItemText primary="Yahoo" />
                   </ListItem>
+                  {console.log(selectedEvent.datedebut)}
                 </List>
               }
             </DialogContentText>
