@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,6 +9,21 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faYahoo, faApple } from '@fortawesome/free-brands-svg-icons'
+import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+import { Outlook } from 'mdi-material-ui'
+
+const useStyles = makeStyles(theme => ({
+  calicons: {
+    fontSize: 16,
+  },
+  outlookcalicon: {
+    fontSize: 17,
+  },
+}));
+
 
 const StyledMenu = withStyles({
   paper: {
@@ -40,7 +56,9 @@ const StyledMenuItem = withStyles(theme => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+export default function AddToCal() {
+  const classes = useStyles();
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -60,7 +78,7 @@ export default function CustomizedMenus() {
         color="primary"
         onClick={handleClick}
       >
-        Open Menu
+        Ajouter au calendrier
       </Button>
       <StyledMenu
         id="customized-menu"
@@ -71,21 +89,33 @@ export default function CustomizedMenus() {
       >
         <StyledMenuItem>
           <ListItemIcon>
-            <SendIcon fontSize="small" />
+            <FontAwesomeIcon icon={faGoogle} />
           </ListItemIcon>
-          <ListItemText primary="Sent mail" />
+          <ListItemText primary="Google" />
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <DraftsIcon fontSize="small" />
+            <FontAwesomeIcon icon={faApple} />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemText primary="Apple Calendar" />
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemIcon>
-            <InboxIcon fontSize="small" />
+            <Outlook className={classes.outlookcalicon} />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Outlook" />
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItemIcon>
+            <FontAwesomeIcon icon={faYahoo} />
+          </ListItemIcon>
+          <ListItemText primary="Yahoo" />
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItemIcon>
+            <FontAwesomeIcon icon={faCalendarPlus} />
+          </ListItemIcon>
+          <ListItemText primary="Autres calendriers" />
         </StyledMenuItem>
       </StyledMenu>
     </div>
