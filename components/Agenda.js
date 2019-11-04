@@ -189,9 +189,9 @@ export default function CardBenevole(props) {
                       </Box>
                       {event.ville ? 
                         <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" className={classes.link}>
-                          <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
-                          <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
-                          <span className={classes.city}>{event.ville},</span> <span className={classes.linebreak}>{event.lieu}</span>
+                          <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="secondary" className={classes.ico}>
+                            <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                            <span className={classes.city}>{event.ville}{event.lieu && ", "}</span><span className={classes.linebreak}>{event.lieu}</span>
                           </Typography>
                         </a>
                       : null}

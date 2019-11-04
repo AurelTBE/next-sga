@@ -6,9 +6,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
+
+import dynamic from 'next/dynamic'
+const ICalendarLink  = dynamic(() => import('react-icalendar-link'), {
+  ssr: false
+});
+import { NoSsr } from '@material-ui/core';
+import { format } from 'date-fns';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faYahoo, faApple } from '@fortawesome/free-brands-svg-icons'
@@ -16,12 +20,23 @@ import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
 import { Outlook } from 'mdi-material-ui'
 
 const useStyles = makeStyles(theme => ({
+  btn: {
+    margin: theme.spacing(2, 0),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    }
+  },
   calicons: {
     fontSize: 16,
   },
   outlookcalicon: {
     fontSize: 17,
   },
+  icsdl: {
+    display: "inline-block",
+    textDecoration: "none",
+    color: theme.palette.text.primary
+  }
 }));
 
 
@@ -56,11 +71,23 @@ const StyledMenuItem = withStyles(theme => ({
   },
 }))(MenuItem);
 
-export default function AddToCal() {
+export default function AddToCal({event}) {
   const classes = useStyles();
-  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const even = {
+    title: event.title,
+    description: event.infos && event.infos,
+    startTime: event.datedebut.date,
+    endTime: event.datefin.date,
+    location: event.localisation.adresse ? event.localisation.adresse.address : event.localisation.ville,
+  }
+
+  const altformat = {
+    debut: format(new Date(even.startTime), "yyyyMMdd")+'T'+format(new Date(even.startTime), "HHmmss"),
+    fin: format(new Date(even.endTime), "yyyyMMdd")+'T'+format(new Date(even.endTime), "HHmmss"),
+  }
+  
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,53 +98,69 @@ export default function AddToCal() {
 
   return (
     <div>
-      <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        Ajouter au calendrier
-      </Button>
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <FontAwesomeIcon icon={faGoogle} />
-          </ListItemIcon>
-          <ListItemText primary="Google" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <FontAwesomeIcon icon={faApple} />
-          </ListItemIcon>
-          <ListItemText primary="Apple Calendar" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <Outlook className={classes.outlookcalicon} />
-          </ListItemIcon>
-          <ListItemText primary="Outlook" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <FontAwesomeIcon icon={faYahoo} />
-          </ListItemIcon>
-          <ListItemText primary="Yahoo" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <FontAwesomeIcon icon={faCalendarPlus} />
-          </ListItemIcon>
-          <ListItemText primary="Autres calendriers" />
-        </StyledMenuItem>
-      </StyledMenu>
+      <NoSsr>
+        <Button
+          aria-controls="customized-menu"
+          aria-haspopup="true"
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+          className={classes.btn}
+        >
+          Ajouter au calendrier
+        </Button>
+        <StyledMenu
+          id="customized-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <StyledMenuItem component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${even.title}${even.description && `&details=${even.description}`}&location=${even.location}&dates=${altformat.debut}%2F${altformat.fin}&ctz=Europe/Paris`} onClick={handleClose}>
+            <ListItemIcon>
+              <FontAwesomeIcon icon={faGoogle} />
+            </ListItemIcon>
+            <ListItemText primary="Google" />
+          </StyledMenuItem>
+          <StyledMenuItem>
+            <ICalendarLink 
+              event={even}
+            >
+              <ListItemIcon onClick={() => handleClose()}>
+                <FontAwesomeIcon icon={faApple} />
+              </ListItemIcon>
+              <ListItemText primary="Apple Calendar" className={classes.icsdl} onClick={() => handleClose()}/>
+            </ICalendarLink>
+          </StyledMenuItem>
+          <StyledMenuItem>
+            <ICalendarLink 
+              event={even}
+            >
+              <ListItemIcon onClick={() => handleClose()}>
+                <Outlook className={classes.outlookcalicon} />
+              </ListItemIcon>
+              <ListItemText primary="Outlook" className={classes.icsdl} onClick={() => handleClose()}/>
+            </ICalendarLink>
+          </StyledMenuItem>
+          <StyledMenuItem component="a" aria-label="Yahoo-Calendar" target="_blank" href={`http://calendar.yahoo.com/?v=60&TITLE=${even.title}&ST=${altformat.debut}&ET=${altformat.fin}&in_loc=${even.location}&DESC=${even.description ? even.description : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
+            <ListItemIcon onClick={() => handleClose()}>
+              <FontAwesomeIcon icon={faYahoo} />
+            </ListItemIcon>
+            <ListItemText primary="Yahoo" className={classes.icsdl} onClick={() => handleClose()}/>
+          </StyledMenuItem>
+          <StyledMenuItem>
+            <ICalendarLink 
+              event={even}
+            >
+              <ListItemIcon onClick={() => handleClose()}>
+                <FontAwesomeIcon icon={faCalendarPlus} />
+              </ListItemIcon>
+              <ListItemText primary="Autres calendriers" className={classes.icsdl} onClick={() => handleClose()}/>
+            </ICalendarLink>
+          </StyledMenuItem>
+        </StyledMenu>
+        {console.log(altformat.debut)}
+      </NoSsr>
     </div>
   );
 }

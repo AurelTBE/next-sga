@@ -83,18 +83,15 @@ const useStyles = makeStyles(theme => ({
       height: "5em",
     },
   },
-  wrapper: {
-    [theme.breakpoints.down('sm')]: {
-      position: 'relative',
-      paddingTop: '56.25%',
-    },
-  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
   iconSmall: {
     fontSize: 20,
   },
+  linebreak: {
+    display: "inline-block",
+  }
 }));
 
 function Calendar({calcontent}) {
@@ -242,10 +239,6 @@ function Calendar({calcontent}) {
     return <div className="body">{rows}</div>;
   }
 
-  const onDateClick = day => {
-    alert(day)
-  };
-
   const nextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1))
   };
@@ -266,7 +259,6 @@ function Calendar({calcontent}) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
         maxWidth={false}
-        fullScreen={isSmallScreen}
       >
         <Box bgcolor={eventColor(selectedEvent.type)}>
           <DialogTitle id="responsive-dialog-title" className={classes.dialoguetitle}>  
@@ -276,7 +268,7 @@ function Calendar({calcontent}) {
             </IconButton>
           </DialogTitle>
         </Box>
-        <DialogContent className={classes.wrapper} >
+        <DialogContent>
           {selectedEvent && 
             <Box>
               <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} style={{color: eventColor(selectedEvent.type)}}>{selectedEvent.type}</Typography> 
@@ -290,9 +282,9 @@ function Calendar({calcontent}) {
               }
               {selectedEvent.localisation.ville ? 
                 <a href={`https://www.google.com/maps/dir/?api=1&destination=${selectedEvent.localisation.adresse.lat},${selectedEvent.localisation.adresse.lng}`} target="_blank" className={classes.link}>
-                  <Typography variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary" className={classes.ico}>
-                  <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
-                  <span className={classes.city}>{selectedEvent.localisation.ville},</span> <span className={classes.linebreak}>{selectedEvent.localisation.lieu}</span>
+                  <Typography variant={isSmallScreen ? 'body2' : 'h6'} color="secondary" className={classes.ico}>
+                    <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
+                    <span className={classes.city}>{selectedEvent.localisation.ville},</span> <span className={classes.linebreak}>{selectedEvent.localisation.lieu}</span>
                   </Typography>
                 </a>
               : null}
@@ -304,7 +296,7 @@ function Calendar({calcontent}) {
                   })}
                 </Typography> 
               : null}
-              <AddToCal />
+              <AddToCal event={selectedEvent}/>
             </Box>
           }
         </DialogContent>
