@@ -77,7 +77,7 @@ export default function AddToCal({event}) {
 
   const even = {
     title: event.title,
-    description: `${event.infos && event.infos}${event.participants && `\n Participants :${event.participants.map(part => (
+    description: `${event.infos && `${event.infos} `}${event.participants && `\nParticipants :${event.participants.map(part => (
       ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
       ))}`}`,
     startTime: event.datedebut.date,
