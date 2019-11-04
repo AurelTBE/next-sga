@@ -4,6 +4,7 @@ import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import useScrollPosition from "../utils/useScrollPosition";
+import { NoSsr } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -22,12 +23,12 @@ export default function FloatingActionButtons() {
   }
 
   return (
-    <>
+    <NoSsr>
       <Zoom in={scrollPos >= 64}>
         <Fab color="primary" aria-label="add" className={classes.fab} onClick={() => handleClickTop()}>
           <UpIcon />
         </Fab>
       </Zoom>
-    </>
+    </NoSsr>
   );
 }

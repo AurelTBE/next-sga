@@ -110,7 +110,9 @@ export default function CardBenevole(props) {
         adresse: event.localisation.adresse,
         participants: event.participants,
         article: event.article,
-        infos: event.infos,
+        infos: `${event.infos}${event.participants && `\n Participants :${event.participants.map(part => (
+          ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
+          ))}`}`,
       })
     ]))
     setEvents(eve)
@@ -185,22 +187,20 @@ export default function CardBenevole(props) {
                           {event.title}
                         </Typography>
                       </Box>
-                      {event.ville ? 
+                      {event.ville &&
                         <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" className={classes.link}>
                           <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="secondary" className={classes.ico}>
                             <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} />
                             <span className={classes.city}>{event.ville}{event.lieu && ", "}</span><span className={classes.linebreak}>{event.lieu}</span>
                           </Typography>
-                        </a>
-                      : null}
-                      {event.groupe ? 
+                        </a>}
+                      {event.groupe && 
                         <Typography component="div" variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
                           <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                           {event.groupe.map((grp, index) => {
-                            return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                            return <span className={classes.linebreak} key={event.id+grp}>{grp}{index < event.groupe.length - 1 && ',\u00A0'}</span>
                           })}
-                        </Typography> 
-                      : null}
+                        </Typography>}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -217,7 +217,7 @@ export default function CardBenevole(props) {
         >
           <DialogTitle id="responsive-dialog-title">Ajouter à mon agenda</DialogTitle>
           <DialogContent className={classes.list}>
-            <DialogContentText>
+            <DialogContentText component="div">
               {selectedEvent &&
                 <List>
                   <ListItem button component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}&ctz=Europe/Paris`} onClick={handleClose}>

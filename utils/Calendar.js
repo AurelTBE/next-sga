@@ -217,11 +217,9 @@ function Calendar({calcontent}) {
               calcontent.map(event => 
                 ((isSameDay(day, new Date(event.datedebut.date)) || isSameDay(day, new Date(event.datefin.date)) || (isBefore(day, new Date(event.datefin.date)) && isAfter(day, new Date(event.datedebut.date)))) &&
                   (isSmallScreen ? 
-                    <Box pl={1} className={classes.daycontent}><FontAwesomeIcon icon={faDragon} color={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)}/></Box>
+                    <Box pl={1} className={classes.daycontent} key={event.title + event.datedebut.date}><FontAwesomeIcon icon={faDragon} color={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)}/></Box>
                   : 
-                    <>
-                      <Box p={1} color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)} className={classes.daycontent}>{event.title}</Box>
-                    </>
+                    <Box p={1} color="background.paper" bgcolor={eventColor(event.type)} key={event.title + event.datedebut.date} onClick={() => handleClickOpen(event)} className={classes.daycontent}>{event.title}</Box>
                 ))
               )
             }
@@ -292,7 +290,7 @@ function Calendar({calcontent}) {
                 <Typography component="div" variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary" className={classes.ico}>
                   <FontAwesomeIcon icon={faUsers} className={clsx(classes.leftIcon, classes.iconSmall)} />
                   {selectedEvent.groupe.map((grp, index) => {
-                        return <span className={classes.linebreak} key={selectedEvent.id+grp}>{grp}{index < selectedEvent.groupe.length - 1 ? ',\u00A0' : ''}</span>
+                    return <span className={classes.linebreak} key={selectedEvent.id+grp}>{grp}{index < selectedEvent.groupe.length - 1 ? ',\u00A0' : ''}</span>
                   })}
                 </Typography> 
               : null}

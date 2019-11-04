@@ -77,7 +77,9 @@ export default function AddToCal({event}) {
 
   const even = {
     title: event.title,
-    description: event.infos && event.infos,
+    description: `${event.infos && event.infos}${event.participants && `\n Participants :${event.participants.map(part => (
+      ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
+      ))}`}`,
     startTime: event.datedebut.date,
     endTime: event.datefin.date,
     location: event.localisation.adresse ? event.localisation.adresse.address : event.localisation.ville,
@@ -159,7 +161,6 @@ export default function AddToCal({event}) {
             </ICalendarLink>
           </StyledMenuItem>
         </StyledMenu>
-        {console.log(altformat.debut)}
       </NoSsr>
     </div>
   );
