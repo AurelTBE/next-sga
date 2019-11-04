@@ -23,7 +23,7 @@ import { setactivhometab, setactivsgatab, setactivgftab, setactivresultab, setac
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag, faFileSignature } from '@fortawesome/free-solid-svg-icons';
+import { faDragon, faTrophy, faArchive, faEnvelope, faUserCircle, faFlag, faFileSignature, faTools } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 
@@ -183,7 +183,18 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
         <ListItem button component="a" aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank">
           <ListItemIcon><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></ListItemIcon>
           <ListItemText primary="Facebook" />
-        </ListItem>       
+        </ListItem>
+        {
+          role ? (
+            role.includes("administrator") &&
+              <ListItem button component="a" aria-label="Administration" target="_blank" href={`https://sga-gymfeminine.fr/bo/wp-admin/`}>
+                <ListItemIcon><FontAwesomeIcon icon={faTools} className={classes.icons} /></ListItemIcon>            
+                <ListItemText primary="Administration" />
+              </ListItem>
+            ) 
+            : 
+          null
+        }
       </List>
     </div>
   );
