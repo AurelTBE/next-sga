@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
-import * as moment from 'moment';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale'
 
 // Addtocal message
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -92,19 +93,16 @@ export default function CardBenevole(props) {
     setOpen(false)
   }
 
-  moment.locale('fr')
-
   useEffect(() => {
     const eve = []
     props.events.map(event => ([
       eve.push({
         id: event.id,
         title: event.title,
-        datedebut: moment(event.datedebut.date).format("YYYY-MM-DDTHH:mm:ssZ"),
-        datefin: moment(event.datefin.date).format("YYYY-MM-DDTHH:mm:ssZ"),
-        googdebut: moment(event.datedebut.date).format("YYYYMMDDTHHmmss"),
-        googfin: moment(event.datefin.date).format("YYYYMMDDTHHmmss"),
-        duration: moment(event.datefin.date).diff(moment(event.datedebut.date), 'hours'),
+        datedebut: new Date(event.datedebut.date),
+        datefin: new Date(event.datefin.date),
+        googdebut: format(new Date(event.datedebut.date), "yyyyMMdd")+'T'+format(new Date(event.datedebut.date), "HHmmss"),
+        googfin: format(new Date(event.datefin.date), "yyyyMMdd")+'T'+format(new Date(event.datefin.date), "HHmmss"),
         type: event.type,
         groupe: event.groupe,
         ville: event.localisation.ville,
@@ -163,7 +161,7 @@ export default function CardBenevole(props) {
                       height={{xs: 100, md: 120}}
                       width={1}
                     >
-                      <Box align="center">{labelProps.size==="large" ? moment(event.datedebut).format('DD MMMM') : moment(event.datedebut).format('DD MMM')}</Box>
+                      <Box align="center">{labelProps.size==="large" ? format(event.datedebut, 'dd MMMM', {locale: fr}) : format(event.datedebut, 'dd MMM', {locale: fr})}</Box>
                     </Box>
                   </ButtonBase>
                   <Box
