@@ -110,9 +110,9 @@ export default function CardBenevole(props) {
         adresse: event.localisation.adresse,
         participants: event.participants,
         article: event.article,
-        infos: `${event.infos && `${event.infos} `}${event.participants && `\nParticipants :${event.participants.map(part => (
+        infos: (event.infos && `${event.infos}\n`)+event.participants && `Participants :${event.participants.map(part => (
           ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
-          ))}`}`,
+          ))}`,
       })
     ]))
     setEvents(eve)
