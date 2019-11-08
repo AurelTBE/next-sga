@@ -13,7 +13,6 @@ const nextConfig = {
   generateInDevMode: true,
   workboxOpts: {
     swDest: 'static/service-worker.js',
-    importScripts: ['OneSignal.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {

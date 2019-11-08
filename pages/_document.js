@@ -36,6 +36,7 @@ class MyDocument extends Document {
             href="/static/calendar.css"
           />
           <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+          <script src="/static/OneSignal.js" async=""></script>
         </Head>
         <body>
           <Main />
