@@ -1,5 +1,4 @@
 console.log("Coucou de push listener")
-registration.pushManager.subscribe({userVisibleOnly: true})
 
 self.addEventListener('push', (event) => {
     const title = 'Get Started With Workbox';
