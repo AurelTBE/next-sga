@@ -1,0 +1,1 @@
+console.log("Coucou Static folder custom SW")
