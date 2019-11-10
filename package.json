@@ -16,6 +16,7 @@
     "babel-plugin-styled-components": "^1.10.6",
     "clsx": "latest",
     "cookie-parser": "^1.4.4",
+    "copy-webpack-plugin": "^5.0.5",
     "date-fns": "^2.4.1",
     "express": "^4.17.1",
     "isomorphic-unfetch": "^3.0.0",

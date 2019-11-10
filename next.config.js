@@ -1,6 +1,14 @@
 const withOffline = require('next-offline')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const nextConfig = {
+  webpack: (config) => {
+    // this will output your push listener file to .next folder
+    // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
+    config.plugins.push(new CopyWebpackPlugin(['/static/push.js']));
+  
+    return config
+  },
   module: {
     rules: [
       { test: /\.css$/, use: 'css-loader' },
@@ -12,7 +20,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   workboxOpts: {
     swDest: 'static/service-worker.js',
-    importScripts: ['static/push.js'],
+    importScripts: ['/static/push.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
