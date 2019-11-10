@@ -1,5 +1,5 @@
 const withOffline = require('next-offline')
- 
+
 const nextConfig = {
   module: {
     rules: [
@@ -10,9 +10,9 @@ const nextConfig = {
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
-  generateInDevMode: true,
   workboxOpts: {
     swDest: 'static/service-worker.js',
+    importScripts: ['static/push.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
