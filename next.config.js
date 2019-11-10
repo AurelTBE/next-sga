@@ -12,7 +12,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   generateSw: false,
   workboxOpts: {
-    swSrc: './src/sw.js',
+    swSrc: 'static/sw.js',
     swDest: 'static/service-worker.js',
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
