@@ -5,7 +5,7 @@ module.exports = {
   plugins: [
     // Other plugins...
     new InjectManifest({
-      swSrc: './src/sw.js',
+      swSrc: './src/service-worker.js',
       swDest: 'static/service-worker.js',
       maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     })
