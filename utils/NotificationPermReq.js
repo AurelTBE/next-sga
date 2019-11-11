@@ -62,7 +62,7 @@ export default function FabIntegrationSnackbar() {
             ContentProps={{
             'aria-describedby': 'snackbar-fab-message-id',
             }}
-            message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant de la publication de résultats ou d'actualités ?</span>}
+            message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant des résultats et actualités ?</span>}
             action={
             <>
             <Button color="inherit" size="small" onClick={() => askPermission()}>
