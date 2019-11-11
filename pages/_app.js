@@ -10,6 +10,9 @@ import withRedux from 'next-redux-wrapper';
 import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actions/authActions';
 import Router from 'next/router'
 import NProgress from 'nprogress'
+import { firebaseCloudMessaging } from '../utils/webPush'
+import firebase from 'firebase';
+import { initializeFirebase } from '../utils/push-notifications';
 
 Router.events.on('routeChangeStart', url => {
   NProgress.start()
@@ -24,6 +27,7 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    firebaseCloudMessaging.init()
   }
 
   render() {

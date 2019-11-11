@@ -37,7 +37,7 @@ const nextConfig = {
     // this will output your push listener file to .next folder
     // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
     config.plugins.push(new CopyWebpackPlugin(['static/push.js']));
-  
+    config.plugins.push(new CopyWebpackPlugin(['static/firebase-messaging-sw.js']));
     return config
   },
 }

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import { askForPermissioToReceiveNotifications } from '../utils/push-notifications';
 
 // Redux
 import { connect } from 'react-redux';
@@ -76,7 +77,7 @@ function NotificationPermReq({setnotifperm, notifperm}) {
             message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant des résultats et actualités ?</span>}
             action={
                 <>
-                    <Button color="inherit" size="small" onClick={() => askPermission()}>
+                    <Button color="inherit" size="small" onClick={() => askForPermissioToReceiveNotifications()}>
                         OK
                     </Button>
                     <Button color="inherit" size="small" onClick={() => handleClose()}>
