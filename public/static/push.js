@@ -9,7 +9,7 @@ self.addEventListener('push', function(event) {
     const title = 'SGA News';
     const options = {
       body: 'Du nouveau sur la SGA',
-      icon: 'android-chrome-192x192.png',
+      icon: '/static/android-chrome-192x192.png',
       badge: 'images/badge.png'
     };
   
@@ -23,6 +23,6 @@ self.addEventListener('push', function(event) {
     event.notification.close();
   
     event.waitUntil(
-      clients.openWindow('https://sgagymfem.com')
+      clients.openWindow('https://www.sgagymfem.com')
     );
   });
