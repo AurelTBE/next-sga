@@ -64,10 +64,10 @@ function NotificationPermReq({setnotifperm, notifperm}) {
             message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant des résultats et actualités ?</span>}
             action={
                 <>
-                    <Button color="inherit" size="small" onClick={() => askPermission()}>
+                    <Button color="inherit" size="small" onClick={askPermission}>
                         OK
                     </Button>
-                    <Button color="inherit" size="small" onClick={() => handleClose()}>
+                    <Button color="inherit" size="small" onClick={handleClose}>
                         Plus tard
                     </Button>
                 </>
