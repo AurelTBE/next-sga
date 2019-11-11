@@ -55,8 +55,7 @@ export default function FabIntegrationSnackbar() {
 
   return (
     <>
-        {(('serviceWorker' in navigator) && ('PushManager' in window)) &&
-            <Snackbar
+        <Snackbar
             open={isOpen}
             autoHideDuration={4000}
             ContentProps={{
@@ -64,18 +63,17 @@ export default function FabIntegrationSnackbar() {
             }}
             message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant des résultats et actualités ?</span>}
             action={
-            <>
-            <Button color="inherit" size="small" onClick={() => askPermission()}>
-                OK
-            </Button>
-            <Button color="inherit" size="small" onClick={() => setIsOpen(false)}>
-                Plus tard
-            </Button>
-            </>
+                <>
+                    <Button color="inherit" size="small" onClick={() => askPermission()}>
+                        OK
+                    </Button>
+                    <Button color="inherit" size="small" onClick={() => setIsOpen(false)}>
+                        Plus tard
+                    </Button>
+                </>
             }
             className={classes.snackbar}
         />
-        }
     </>
   );
 }
