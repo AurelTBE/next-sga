@@ -13,7 +13,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   workboxOpts: {
     swDest: 'static/service-worker.js',
-    importScripts: ['static/OneSignalSDKUpdaterWorker.js', 'static/OneSignalSDKWorker.js'],
+    importScripts: ['static/push.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
