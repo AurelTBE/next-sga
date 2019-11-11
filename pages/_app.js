@@ -10,7 +10,6 @@ import withRedux from 'next-redux-wrapper';
 import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actions/authActions';
 import Router from 'next/router'
 import NProgress from 'nprogress'
-import { firebaseCloudMessaging } from '../utils/webPush'
 import firebase from 'firebase';
 import { initializeFirebase } from '../utils/push-notifications';
 
@@ -27,7 +26,18 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    firebaseCloudMessaging.init()
+    initializeFirebase()
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function (registration) {
+          console.log('SW registered: ', registration)
+        }).then((registration) => {
+          firebase.messaging().useServiceWorker(registration);
+        }).catch(function (registrationError) {
+          console.log('SW registration failed: ', registrationError)
+        })
+      })
+    }
   }
 
   render() {
