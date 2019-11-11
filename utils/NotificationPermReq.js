@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import { askForPermissioToReceiveNotifications } from '../utils/push-notifications';
 
 // Redux
 import { connect } from 'react-redux';
@@ -13,14 +12,6 @@ const useStyles = makeStyles(theme => ({
     body: {
       backgroundColor: theme.palette.background.paper,
     },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
   },
   snackbar: {
     [theme.breakpoints.down('xs')]: {
@@ -47,7 +38,6 @@ function NotificationPermReq({setnotifperm, notifperm}) {
       const permissionResult = Notification.requestPermission(function(result) {
         resolve(result);
       });
-  
       if (permissionResult) {
         permissionResult.then(resolve, reject);
       }
