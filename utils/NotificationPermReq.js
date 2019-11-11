@@ -49,6 +49,7 @@ export default function FabIntegrationSnackbar() {
       if (permissionResult !== 'granted') {
         throw new Error('We weren\'t granted permission.');
       }
+      setIsOpen(false)
     });
   }
 
