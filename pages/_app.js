@@ -11,6 +11,7 @@ import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actio
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import firebase from 'firebase';
+import { firebaseCloudMessaging } from '../utils/webPush'
 import { initializeFirebase } from '../utils/push-notifications';
 
 Router.events.on('routeChangeStart', url => {
@@ -26,15 +27,7 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function (registration) {
-          console.log('Custom SW + PSH registered: ', registration)
-        }).catch(function (registrationError) {
-          console.log('SW registration failed: ', registrationError)
-        })
-      })
-    }
+    firebaseCloudMessaging.init()
   }
 
   render() {
