@@ -9,7 +9,7 @@ self.addEventListener('push', function(event) {
     const title = 'SGA News';
     const options = {
       body: 'Du nouveau sur la SGA',
-      icon: 'images/icon.png',
+      icon: 'android-chrome-192x192.png',
       badge: 'images/badge.png'
     };
   
