@@ -4,6 +4,11 @@ export const initializeFirebase = () => {
   firebase.initializeApp({
     messagingSenderId: "31630139447"
   });
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then((registration) => {
+      firebase.messaging().useServiceWorker(registration);
+    });
 }
 
 export const askForPermissioToReceiveNotifications = async () => {
