@@ -28,7 +28,7 @@ class MyApp extends App {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function (registration) {
           console.log('Custom SW registered: ', registration)
-          registration.pushManager.subscribe({userVisibleOnly: true});
+          registration.pushManager.subscribe({userVisibleOnly: true})
         }).catch(function (registrationError) {
           console.log('Custom SW registration failed: ', registrationError)
         })

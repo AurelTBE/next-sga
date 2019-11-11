@@ -2,27 +2,20 @@
 
 console.log("Coucou de push listener")
 
-self.addEventListener('push', function(event) {
-    console.log('[Service Worker] Push Received.');
-    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
-  
-    const title = 'SGA News';
-    const options = {
-      body: 'Du nouveau sur la SGA',
-      icon: 'android-chrome-192x192.png',
-      badge: 'images/badge.png'
-    };
-  
-    const notificationPromise = self.registration.showNotification(title, options);
-    event.waitUntil(notificationPromise);
-  });
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
 
-  self.addEventListener('notificationclick', function(event) {
-    console.log('[Service Worker] Notification click Received.');
-  
-    event.notification.close();
-  
-    event.waitUntil(
-      clients.openWindow('https://sgagymfem.com')
-    );
-  });
+workbox.routing.registerRoute(
+  new RegExp('https://sgagymfem.com'),
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+self.addEventListener('push', (event) => {
+  const title = 'Get Started With Workbox';
+  const options = {
+    body: event.data.text()
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+workbox.precaching.precacheAndRoute(self.__precacheManifest);
