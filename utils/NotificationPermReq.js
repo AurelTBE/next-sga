@@ -63,7 +63,7 @@ export default function FabIntegrationSnackbar() {
             message={<span id="snackbar-fab-message-id">Voulez-vous recevoir notifications pour être au courant de la publication de résultats ou d'actualités ?</span>}
             action={
             <>
-            <Button color="inherit" size="small" onClick={() => askPermission}>
+            <Button color="inherit" size="small" onClick={() => askPermission()}>
                 OK
             </Button>
             <Button color="inherit" size="small" onClick={() => setIsOpen(false)}>
