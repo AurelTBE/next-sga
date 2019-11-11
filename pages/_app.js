@@ -24,6 +24,17 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    const OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "ac9e5920-a02b-4739-a64f-34814ecd7f48",
+        autoResubscribe: true,
+        notifyButton: {
+          enable: true,
+        },
+      }),
+      OneSignal.showNativePrompt()
+    })
   }
 
   render() {
