@@ -11,10 +11,9 @@ const nextConfig = {
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
-  dontAutoRegisterSw: true,
   workboxOpts: {
     swDest: 'static/service-worker.js',
-    importScripts: ['static/push.js', 'static/firebase-messaging-sw.js'],
+    importScripts: ['static/push.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
@@ -38,7 +37,6 @@ const nextConfig = {
     // this will output your push listener file to .next folder
     // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
     config.plugins.push(new CopyWebpackPlugin(['static/push.js']));
-    config.plugins.push(new CopyWebpackPlugin(['static/firebase-messaging-sw.js']));
     return config
   },
 }
