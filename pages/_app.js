@@ -24,6 +24,15 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function (registration) {
+          console.log('Custom SW registered: ', registration)
+        }).catch(function (registrationError) {
+          console.log('Custom SW registration failed: ', registrationError)
+        })
+      })
+    }
   }
 
   render() {
