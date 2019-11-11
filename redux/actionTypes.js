@@ -11,6 +11,7 @@ export const RESULTAB = 'RESULTAB';
 export const MEDIATAB = 'MEDIATAB';
 export const JUGESTAB = 'JUGESTAB';
 export const AUDIOPLAY = 'AUDIOPLAY';
+export const NOTIFPERM = 'NOTIFPERM';
 // Content
 export const HOMECONTENT = 'HOMECONTENT';
 export const SGACONTENT = 'SGACONTENT';

@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 
+// Redux
+import { connect } from 'react-redux';
+import { setnotifperm } from '../redux/actions/navActions';
+
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -24,15 +28,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FabIntegrationSnackbar() {
+function NotificationPermReq({setnotifperm, notifperm}) {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsOpen(true)
-    }, 5000);
-    return () => clearTimeout(timer);
+    if (notifperm) {
+        const timer = setTimeout(() => {
+            setIsOpen(true)
+        }, 6000);
+        return () => clearTimeout(timer)
+    }
   }, []);
 
   function askPermission() {
@@ -49,8 +55,14 @@ export default function FabIntegrationSnackbar() {
       if (permissionResult !== 'granted') {
         throw new Error('We weren\'t granted permission.');
       }
+      setnotifperm(false)
       setIsOpen(false)
     });
+  }
+
+  function handleClose() {
+    setnotifperm(false)
+    setIsOpen(false)
   }
 
   return (
@@ -67,7 +79,7 @@ export default function FabIntegrationSnackbar() {
                     <Button color="inherit" size="small" onClick={() => askPermission()}>
                         OK
                     </Button>
-                    <Button color="inherit" size="small" onClick={() => setIsOpen(false)}>
+                    <Button color="inherit" size="small" onClick={() => handleClose()}>
                         Plus tard
                     </Button>
                 </>
@@ -77,3 +89,10 @@ export default function FabIntegrationSnackbar() {
     </>
   );
 }
+
+const mapStateToProps = state => ({ notifperm: state.notifperm });
+
+export default connect(
+  mapStateToProps,
+  { setnotifperm }
+)(NotificationPermReq)
