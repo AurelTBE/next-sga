@@ -55,13 +55,14 @@ export default function FabIntegrationSnackbar() {
 
   return (
     <>
-        <Snackbar
+        {(('serviceWorker' in navigator) && ('PushManager' in window)) &&
+            <Snackbar
             open={isOpen}
             autoHideDuration={4000}
             ContentProps={{
             'aria-describedby': 'snackbar-fab-message-id',
             }}
-            message={<span id="snackbar-fab-message-id">Voulez-vous recevoir notifications pour être au courant de la publication de résultats ou d'actualités ?</span>}
+            message={<span id="snackbar-fab-message-id">Voulez-vous recevoir des notifications pour être au courant de la publication de résultats ou d'actualités ?</span>}
             action={
             <>
             <Button color="inherit" size="small" onClick={() => askPermission()}>
@@ -74,6 +75,7 @@ export default function FabIntegrationSnackbar() {
             }
             className={classes.snackbar}
         />
+        }
     </>
   );
 }
