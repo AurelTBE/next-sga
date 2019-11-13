@@ -11,6 +11,8 @@ import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actio
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
+import { firebaseCloudMessaging } from '../utils/webPush'
+
 Router.events.on('routeChangeStart', url => {
   NProgress.start()
 })
@@ -34,6 +36,7 @@ class MyApp extends App {
           console.error('Unable to register service worker.', err);
         });
     }
+    firebaseCloudMessaging.init()
   }
 
   render() {

@@ -8,7 +8,6 @@ export default function Layout(props) {
   return (
     <>
       <Header />
-      <NotificationPermReq />
       {children}
       <Topbtn />
     </>
