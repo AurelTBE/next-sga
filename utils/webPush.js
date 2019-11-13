@@ -9,7 +9,8 @@ const firebaseCloudMessaging = {
 
   init: async function () {
     firebase.initializeApp({
-      messagingSenderId: '539284504552'
+      messagingSenderId: '539284504552',
+      projectId: 'notifications-sga',
     })
 
     try {
