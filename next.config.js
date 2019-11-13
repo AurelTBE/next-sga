@@ -12,8 +12,8 @@ const nextConfig = {
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
   workboxOpts: {
-    swDest: 'static/service-worker.js',
-    importScripts: ['static/push.js'],
+    swDest: 'static/firebase-messaging-sw.js',
+    importScripts: ['static/fcm.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
@@ -37,6 +37,7 @@ const nextConfig = {
     // this will output your push listener file to .next folder
     // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
     config.plugins.push(new CopyWebpackPlugin(['static/push.js']));
+    config.plugins.push(new CopyWebpackPlugin(['static/fcm.js']));
     return config
   },
 }

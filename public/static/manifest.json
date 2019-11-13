@@ -18,5 +18,6 @@
   "display": "fullscreen",
   "scope": "/",
   "description": "Version hors ligne du site de la SGA",
-  "theme_color": "#d32f2f"
+  "theme_color": "#d32f2f",
+  "gcm_sender_id": "539284504552"
 }
