@@ -25,14 +25,14 @@ class MyApp extends App {
       jssStyles.parentNode.removeChild(jssStyles);
     }
     if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(function(registration) {
-        console.log('Service worker successfully registered.');
-        return registration;
-      })
-      .catch(function(err) {
-        console.error('Unable to register service worker.', err);
-      });
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then(function(registration) {
+          console.log('Service worker successfully registered.');
+          return registration;
+        })
+        .catch(function(err) {
+          console.error('Unable to register service worker.', err);
+        });
     }
   }
 
