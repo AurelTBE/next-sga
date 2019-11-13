@@ -9,8 +9,14 @@ const firebaseCloudMessaging = {
 
   init: async function () {
     firebase.initializeApp({
-      messagingSenderId: '539284504552',
-      projectId: 'notifications-sga',
+        apiKey: "AIzaSyDIFMxGHgJ64un5OQmiUQW-1umTaEpY8TA",
+        authDomain: "notifications-sga.firebaseapp.com",
+        databaseURL: "https://notifications-sga.firebaseio.com",
+        projectId: "notifications-sga",
+        storageBucket: "notifications-sga.appspot.com",
+        messagingSenderId: "539284504552",
+        appId: "1:539284504552:web:9eb3d24371c3ea28352e5d",
+        measurementId: "G-ND9S7BEXVX"
     })
 
     try {
