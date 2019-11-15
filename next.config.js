@@ -14,7 +14,7 @@ const nextConfig = {
   dontAutoRegisterSw: true,
   workboxOpts: {
     swDest: 'static/firebase-messaging-sw.js',
-    importScripts: ['static/push.js', 'static/fcm.js'],
+    importScripts: ['static/fcm.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
