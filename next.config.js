@@ -13,7 +13,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   dontAutoRegisterSw: true,
   workboxOpts: {
-    swDest: 'static/firebase-messaging-sw.js',
+    swDest: 'static/sw.js',
     importScripts: ['static/fcm.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
@@ -39,6 +39,10 @@ const nextConfig = {
     // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
     config.plugins.push(new CopyWebpackPlugin(['static/push.js']));
     config.plugins.push(new CopyWebpackPlugin(['static/fcm.js']));
+    config.plugins.push(new CopyWebpackPlugin([
+      { from: 'static/OneSignalSDKUpdaterWorker.js', to: '/.next/static/OneSignalSDKUpdaterWorker.js' },
+      { from: 'static/OneSignalSDKWorker.js', to: '/.next/static/OneSignalSDKWorker.js' },
+    ]));
     return config
   },
 }
