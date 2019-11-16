@@ -34,7 +34,7 @@ const nextConfig = {
       },
       {
         urlPattern: new RegExp('^https://sga-gymfeminine.fr/bo/wp-json'),
-        handler: 'staleWhileRevalidate',
+        handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'api-cache',
           cacheableResponse: {
@@ -44,7 +44,7 @@ const nextConfig = {
       },
       {
         urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)/,
-        handler: 'cacheFirst',
+        handler: 'CacheFirst',
         options: {
           cacheName: 'image-cache',
           cacheableResponse: {
