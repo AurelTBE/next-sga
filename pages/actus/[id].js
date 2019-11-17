@@ -93,34 +93,36 @@ function Actu({post}) {
             </Grid>
           </>
         }
-        {liens && (
-          liens.map(lien => 
-            (lien.type === 'Galerie Photo' || lien.type === 'Galerie Vidéo' || lien.type === 'Galerie Musique') ?
-              (<Link href="/medias/[id]" as={`/medias/${lien.lien}`} key={lien.type+Math.random()}>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  {lien.type}
-                </Button>
-              </Link>)
-            :(lien.type === 'Résultat') ?
-              (<Link href="/resultats/[id]" as={`/resultats/${lien.lien}`} key={lien.type+Math.random()}>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  {lien.type}
-                </Button>
-              </Link>)
-            :(lien.type === 'Page du site') ?
-              (<Link href="/" as={`/`} key={lien.type+Math.random()}>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  {lien.lien.nom}
-                </Button>
-              </Link>)
-            :(lien.type === 'Site externe') ?
-              (<Button variant="contained" color="primary" className={classes.button} component="a" aria-label="Facebook" href={lien.lien.url} target="_blank" rel="noopener" key={lien.type+Math.random()}>
-                {lien.lien.nom}
-              </Button>)
-            : null
-          )
-        )}
       </Grid>
+      <Grid container justify="center">
+        {liens && (
+            liens.map(lien => 
+              (lien.type === 'Galerie Photo' || lien.type === 'Galerie Vidéo' || lien.type === 'Galerie Musique') ?
+                (<Link href="/medias/[id]" as={`/medias/${lien.lien}`} key={lien.type+Math.random()}>
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    {lien.type}
+                  </Button>
+                </Link>)
+              :(lien.type === 'Résultat') ?
+                (<Link href="/resultats/[id]" as={`/resultats/${lien.lien}`} key={lien.type+Math.random()}>
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    {lien.type}
+                  </Button>
+                </Link>)
+              :(lien.type === 'Page du site') ?
+                (<Link href="/" as={`/`} key={lien.type+Math.random()}>
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    {lien.lien.nom}
+                  </Button>
+                </Link>)
+              :(lien.type === 'Site externe') ?
+                (<Button variant="contained" color="primary" className={classes.button} component="a" aria-label="Facebook" href={lien.lien.url} target="_blank" rel="noopener" key={lien.type+Math.random()}>
+                  {lien.lien.nom}
+                </Button>)
+              : null
+            )
+          )}
+        </Grid>
     </Layout>
   )
 }
