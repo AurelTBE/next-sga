@@ -57,9 +57,9 @@ function Actu({post}) {
             </Typography>
           </Box>
         </Grid>
-        {article.article_pdf ? 
+        {article.pdf ? 
           <Box className={classes.pdf}>
-            <PDFview pdf={article.article_pdf} />
+            <PDFview pdf={article.pdf} />
           </Box>
         :
           <>
@@ -76,7 +76,7 @@ function Actu({post}) {
                 component="div" 
                 className={classes.textsize}
                 dangerouslySetInnerHTML={ {
-                  __html: article.article
+                  __html: article.text
               } } />
               {image_de_fin && (
                 <Grid container justify="center">
