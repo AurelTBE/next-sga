@@ -11,8 +11,9 @@ const nextConfig = {
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
+  dontAutoRegisterSw: true,
   workboxOpts: {
-    swDest: 'static/service-worker.js',
+    swDest: 'static/firebase-messaging-sw.js',
     importScripts: ['static/fcm.js'],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
@@ -42,7 +43,7 @@ const nextConfig = {
         },
       },
       {
-        urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)/,
+        urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif|pdf)/,
         handler: 'CacheFirst',
         options: {
           cacheName: 'image-cache',
