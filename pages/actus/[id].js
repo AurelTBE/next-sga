@@ -4,6 +4,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
+import Link from 'next/link';
 
 // Redux
 import { connect } from 'react-redux';
@@ -39,13 +41,16 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: "100%",
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 function Actu({post}) {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {title, article, image_de_fin, thumbnail} = post;
+  const {title, article, image_de_fin, thumbnail, liens} = post;
 
   return (
     <Layout>
@@ -88,6 +93,33 @@ function Actu({post}) {
             </Grid>
           </>
         }
+        {liens && (
+          liens.map(lien => 
+            (lien.type === 'Galerie Photo' || lien.type === 'Galerie Vidéo' || lien.type === 'Galerie Musique') ?
+              (<Link href="/medias/[id]" as={`/medias/${lien.lien}`} key={lien.type+Math.random()}>
+                <Button variant="contained" color="primary" className={classes.button}>
+                  {lien.type}
+                </Button>
+              </Link>)
+            :(lien.type === 'Résultat') ?
+              (<Link href="/resultats/[id]" as={`/resultats/${lien.lien}`} key={lien.type+Math.random()}>
+                <Button variant="contained" color="primary" className={classes.button}>
+                  {lien.type}
+                </Button>
+              </Link>)
+            :(lien.type === 'Page du site') ?
+              (<Link href="/" as={`/`} key={lien.type+Math.random()}>
+                <Button variant="contained" color="primary" className={classes.button} key={lien.type+Math.random()}>
+                  {lien.lien.nom}
+                </Button>
+              </Link>)
+            :(lien.type === 'Site externe') ?
+              (<Button variant="contained" color="primary" className={classes.button} component="a" aria-label="Facebook" href={lien.lien.url} target="_blank" rel="noopener" key={lien.type+Math.random()}>
+                {lien.lien.nom}
+              </Button>)
+            : null
+          )
+        )}
       </Grid>
     </Layout>
   )
