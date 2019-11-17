@@ -279,7 +279,7 @@ function Calendar({calcontent}) {
                 </>
               }
               {selectedEvent.localisation.ville ? 
-                <a href={`https://www.google.com/maps/dir/?api=1&destination=${selectedEvent.localisation.adresse.lat},${selectedEvent.localisation.adresse.lng}`} target="_blank" className={classes.link}>
+                <a href={`https://www.google.com/maps/dir/?api=1&destination=${selectedEvent.localisation.adresse.lat},${selectedEvent.localisation.adresse.lng}`} target="_blank" rel="noopener" className={classes.link}>
                   <Typography variant={isSmallScreen ? 'body2' : 'h6'} color="textSecondary" className={classes.ico}>
                     <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} color={eventColor(selectedEvent.type)} />
                     <span className={classes.city}>{selectedEvent.localisation.ville},</span> <span className={classes.linebreak}>{selectedEvent.localisation.lieu}</span>

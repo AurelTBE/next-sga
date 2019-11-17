@@ -32,7 +32,7 @@ export default function LivreCard({livre}) {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea href={livre.fichier} target="_blank" download>
+      <CardActionArea href={livre.fichier} target="_blank" rel="noopener" download>
         <CardContent>
           <Typography variant="h5" component="h2" className={classes.titlesize}>
             <FontAwesomeIcon icon={faFilePdf} className={clsx(classes.leftIcon, classes.yellow)} />{livre.titre_du_livre} {livre.saison}

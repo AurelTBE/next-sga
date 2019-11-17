@@ -159,7 +159,7 @@ function CardSections({autresection, setactivideo}) {
               </Typography>
             </Hidden>
             <Grid item className={classes.contentspacing}>
-              <a href={site_internet} target="_blank" className={classes.link}>
+              <a href={site_internet} target="_blank" rel="noopener" className={classes.link}>
                 <Grid container  direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
                   <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site internet            
                 </Grid>

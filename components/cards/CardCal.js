@@ -32,7 +32,7 @@ export default function CardCal({calendrier}) {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea href={calendrier.fichier} target="_blank" download>
+      <CardActionArea href={calendrier.fichier} target="_blank" rel="noopener" download>
         <CardContent>
           <Typography variant="h5" component="h2" className={classes.titlesize}>
             <FontAwesomeIcon icon={faFilePdf} className={clsx(classes.leftIcon, classes.yellow)} />{calendrier.type[0]} {calendrier.saison}

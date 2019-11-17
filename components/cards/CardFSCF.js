@@ -159,7 +159,7 @@ function CardFSCF({fscf, setactivideo, vidplay}) {
           </Hidden>
           <Grid container justify="center" className={classes.paddingbottom}>
             {site_internet &&
-              <ButtonBase href={site_internet} target="_blank">
+              <ButtonBase href={site_internet} target="_blank" rel="noopener">
                 <Grid container direction="row" justify="flex-start" alignItems="center" className={classes.contentsize}>
                   <FontAwesomeIcon icon={faGlobe} className={clsx(classes.leftIcon, classes.yellow)} /> Site de la FSCF            
                 </Grid>

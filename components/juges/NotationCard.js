@@ -58,7 +58,7 @@ export default function NotationCard({fichenotation}) {
           </Typography>
         </Box>
         {fiche.map(notation => (
-          <CardActionArea key={notation.fichier} href={notation.fichier} target="_blank" download>
+          <CardActionArea key={notation.fichier} href={notation.fichier} target="_blank" rel="noopener" download>
             <Typography variant="h6" component="h2" className={classes.listsize}>
               <FontAwesomeIcon icon={faFileAlt} className={clsx(classes.leftIcon, classes.yellow)}/>{notation.agres}
             </Typography>

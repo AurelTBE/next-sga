@@ -118,7 +118,7 @@ export default function AddToCal({event}) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <StyledMenuItem component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${even.title}${even.description && `&details=${even.description}`}&location=${even.location}&dates=${altformat.debut}%2F${altformat.fin}&ctz=Europe/Paris`} onClick={handleClose}>
+          <StyledMenuItem component="a" aria-label="Google-Calendar" target="_blank" rel="noopener" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${even.title}${even.description && `&details=${even.description}`}&location=${even.location}&dates=${altformat.debut}%2F${altformat.fin}&ctz=Europe/Paris`} onClick={handleClose}>
             <ListItemIcon>
               <FontAwesomeIcon icon={faGoogle} />
             </ListItemIcon>
@@ -144,7 +144,7 @@ export default function AddToCal({event}) {
               <ListItemText primary="Outlook" className={classes.icsdl} onClick={() => handleClose()}/>
             </ICalendarLink>
           </StyledMenuItem>
-          <StyledMenuItem component="a" aria-label="Yahoo-Calendar" target="_blank" href={`http://calendar.yahoo.com/?v=60&TITLE=${even.title}&ST=${altformat.debut}&ET=${altformat.fin}&in_loc=${even.location}&DESC=${even.description ? even.description : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
+          <StyledMenuItem component="a" aria-label="Yahoo-Calendar" target="_blank" rel="noopener" href={`http://calendar.yahoo.com/?v=60&TITLE=${even.title}&ST=${altformat.debut}&ET=${altformat.fin}&in_loc=${even.location}&DESC=${even.description ? even.description : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
             <ListItemIcon onClick={() => handleClose()}>
               <FontAwesomeIcon icon={faYahoo} />
             </ListItemIcon>

@@ -180,14 +180,14 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItem>
-        <ListItem button component="a" aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank">
+        <ListItem button component="a" aria-label="Facebook" href="https://www.facebook.com/sgagymfeminine/?fref=ts" target="_blank" rel="noopener">
           <ListItemIcon><FontAwesomeIcon icon={faFacebookSquare} className={classes.fb} /></ListItemIcon>
           <ListItemText primary="Facebook" />
         </ListItem>
         {
           role ? (
             role.includes("administrator") &&
-              <ListItem button component="a" aria-label="Administration" target="_blank" href={`https://sga-gymfeminine.fr/bo/wp-admin/`}>
+              <ListItem button component="a" aria-label="Administration" target="_blank" rel="noopener" href={`https://sga-gymfeminine.fr/bo/wp-admin/`}>
                 <ListItemIcon><FontAwesomeIcon icon={faTools} className={classes.icons} /></ListItemIcon>            
                 <ListItemText primary="Administration" />
               </ListItem>

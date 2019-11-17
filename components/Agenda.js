@@ -188,7 +188,7 @@ export default function CardBenevole(props) {
                         </Typography>
                       </Box>
                       {event.ville &&
-                        <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" className={classes.link}>
+                        <a href={`https://www.google.com/maps/dir/?api=1&destination=${event.adresse.lat},${event.adresse.lng}`} target="_blank" rel="noopener" className={classes.link}>
                           <Typography variant={labelProps.size==="large" ? 'h6' : 'body2'} color="textSecondary" className={classes.ico}>
                             <FontAwesomeIcon icon={faMapMarkedAlt} className={clsx(classes.leftIcon, classes.iconSmall)} color={eventColor(event.type)} />
                             <span className={classes.city}>{event.ville}{event.lieu && ", "}</span><span className={classes.linebreak}>{event.lieu}</span>
@@ -220,7 +220,7 @@ export default function CardBenevole(props) {
             <DialogContentText component="div">
               {selectedEvent &&
                 <List>
-                  <ListItem button component="a" aria-label="Google-Calendar" target="_blank" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}&ctz=Europe/Paris`} onClick={handleClose}>
+                  <ListItem button component="a" aria-label="Google-Calendar" target="_blank" rel="noopener" href={`https://www.google.com/calendar/render?action=TEMPLATE&text=${selectedEvent.title}${selectedEvent.infos && `&details=${selectedEvent.infos}`}&location=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&dates=${selectedEvent.googdebut}%2F${selectedEvent.googfin}&ctz=Europe/Paris`} onClick={handleClose}>
                     <ListItemIcon><FontAwesomeIcon icon={faGoogle} className={classes.calicons} /></ListItemIcon>
                     <ListItemText primary="Google" />
                   </ListItem>
@@ -252,7 +252,7 @@ export default function CardBenevole(props) {
                       <ListItemText primary="Outlook" className={classes.icsdl} onClick={() => handleClose()}/>
                     </ICalendarLink>
                   </ListItem>
-                  <ListItem button component="a" aria-label="Yahoo-Calendar" target="_blank" href={`http://calendar.yahoo.com/?v=60&TITLE=${selectedEvent.title}&ST=${selectedEvent.datedebut}&ET=${selectedEvent.datefin}&in_loc=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&DESC=${selectedEvent.infos ? selectedEvent.infos : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
+                  <ListItem button component="a" aria-label="Yahoo-Calendar" target="_blank" rel="noopener" href={`http://calendar.yahoo.com/?v=60&TITLE=${selectedEvent.title}&ST=${selectedEvent.datedebut}&ET=${selectedEvent.datefin}&in_loc=${selectedEvent.adresse ? selectedEvent.adresse.address : selectedEvent.ville}&DESC=${selectedEvent.infos ? selectedEvent.infos : "Aucune description"}&URL=${'https://sgagymfem.com/'}`} onClick={handleClose}>
                     <ListItemIcon><FontAwesomeIcon icon={faYahoo} className={classes.calicons} /></ListItemIcon>
                     <ListItemText primary="Yahoo" />
                   </ListItem>
