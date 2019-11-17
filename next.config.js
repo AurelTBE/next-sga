@@ -32,26 +32,6 @@ const nextConfig = {
           },
         },
       },
-      {
-        urlPattern: new RegExp('^https://sga-gymfeminine.fr/bo/wp-json'),
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'api-cache',
-          cacheableResponse: {
-            statuses: [200],
-          },
-        },
-      },
-      {
-        urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif|pdf)/,
-        handler: 'CacheFirst',
-        options: {
-          cacheName: 'image-cache',
-          cacheableResponse: {
-            statuses: [0, 200],
-          },
-        },
-      },
     ],
   },
   webpack: (config) => {
