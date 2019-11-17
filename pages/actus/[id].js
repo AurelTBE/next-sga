@@ -109,7 +109,7 @@ function Actu({post}) {
               </Link>)
             :(lien.type === 'Page du site') ?
               (<Link href="/" as={`/`} key={lien.type+Math.random()}>
-                <Button variant="contained" color="primary" className={classes.button} key={lien.type+Math.random()}>
+                <Button variant="contained" color="primary" className={classes.button}>
                   {lien.lien.nom}
                 </Button>
               </Link>)
