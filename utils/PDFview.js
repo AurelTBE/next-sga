@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import { PDFDownloadLink, Page } from "react-pdf";
-import { Document } from 'react-pdf/dist/entry.webpack';
+import { PDFDownloadLink, Document, Page, pdfjs } from "react-pdf";
 
 // Style
 import Grid from '@material-ui/core/Grid';
 
 // Media Query
 import withWidth from '@material-ui/core/withWidth';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function PDFdoc(props) {
     const [pages, setPages] = useState('');
