@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     paddingBottom: 40,
     [theme.breakpoints.down('sm')]: {
-      paddingBottom: 0,
+      paddingBottom: 10,
     }
   },
   textsize: {
@@ -64,7 +64,8 @@ function Actu({post}) {
         </Grid>
         {article.pdf ? 
           <Box className={classes.pdf}>
-            <PDFview pdf={article.pdf} />
+            <object data={`${article.pdf}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={article.pdf}/>
+            </object>
           </Box>
         :
           <>

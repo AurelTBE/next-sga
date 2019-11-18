@@ -32,6 +32,10 @@ const useStyles = makeStyles(theme => ({
   image: {
     width: "100%",
   },
+  title: {
+    marginTop: 20,
+    marginBottom: 10,
+  },
   pdf: {
     width: "100%",
     maxWidth: "100%",
@@ -153,6 +157,7 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
+                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           {equipe.nom_de_lequipe} - Palmarès
@@ -160,7 +165,8 @@ function Resultat({result}) {
                       </Box>
                       {getFileExtension(equipe.palmares) == "pdf" ? 
                         <Box className={classes.pdf}>
-                          <PDFview pdf={equipe.palmares} />
+                          <object data={`${equipe.palmares}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={equipe.palmares}/>
+                          </object>
                         </Box>
                         :
                         <img src={equipe.palmares} alt={`${equipe.nom_de_lequipe} - palmarès`} className={classes.image} />
@@ -181,6 +187,7 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
+                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           {equipe.nom_de_lequipe} - Résultats des gyms
@@ -188,7 +195,8 @@ function Resultat({result}) {
                       </Box>
                       {getFileExtension(equipe.tableau_de_resultats_des_gyms) == "pdf" ? 
                         <Box className={classes.pdf}>
-                          <PDFview pdf={equipe.tableau_de_resultats_des_gyms} />
+                          <object data={`${equipe.tableau_de_resultats_des_gyms}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={equipe.tableau_de_resultats_des_gyms}/>
+                          </object>
                         </Box>
                         :
                         <img src={equipe.tableau_de_resultats_des_gyms} alt={`Tableau de résultat des gyms`} className={classes.image} />
@@ -215,6 +223,7 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
+                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           Palmarès {categorie.nom_de_la_categorie}
@@ -222,7 +231,8 @@ function Resultat({result}) {
                       </Box>
                       {getFileExtension(categorie.palmares_de_la_categorie) == "pdf" ? 
                         <Box className={classes.pdf}>
-                          <PDFview pdf={categorie.palmares_de_la_categorie} />
+                          <object data={`${categorie.palmares_de_la_categorie}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={categorie.palmares_de_la_categorie}/>
+                          </object>
                         </Box>
                         :
                         <img src={categorie.palmares_de_la_categorie} alt={`Palmarès de la catégorie ${categorie.nom_de_la_categorie}`} className={classes.image} />
@@ -247,6 +257,7 @@ function Resultat({result}) {
                   alignItems="center"
                   height={{xs: 70, md: 90}}
                   width={1}
+                  className={classes.title}
                 >
                   <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                     Résultats des gyms
@@ -254,7 +265,8 @@ function Resultat({result}) {
                 </Box>
                 {getFileExtension(result.tableau_des_resultats_des_gyms) == "pdf" ? 
                   <Box className={classes.pdf}>
-                    <PDFview pdf={result.tableau_des_resultats_des_gyms} />
+                    <object data={`${result.tableau_des_resultats_des_gyms}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={result.tableau_des_resultats_des_gyms}/>
+                    </object>
                   </Box>
                   :
                   <img src={result.tableau_des_resultats_des_gyms} alt={`Tableau de résultat des gyms`} className={classes.image} />
