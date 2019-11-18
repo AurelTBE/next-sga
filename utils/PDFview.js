@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { PDFDownloadLink, Document, Page } from "react-pdf";
+import { PDFDownloadLink, Page } from "react-pdf";
+import { Document } from 'react-pdf/dist/entry.webpack';
 
 // Style
 import Grid from '@material-ui/core/Grid';
