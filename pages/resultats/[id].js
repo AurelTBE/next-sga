@@ -167,6 +167,7 @@ function Resultat({result}) {
                         <Box className={classes.pdf}>
                           <object data={`${equipe.palmares}#view=FitH`} type="application/pdf" style={{height: '70vh'}} width='100%' height='100%'>alt : <a href={equipe.palmares}/>
                           </object>
+                          <PDFview pdf={equipe.palmares} />
                         </Box>
                         :
                         <img src={equipe.palmares} alt={`${equipe.nom_de_lequipe} - palmarès`} className={classes.image} />

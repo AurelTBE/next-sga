@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import { PDFDownloadLink, Document, Page, pdfjs } from "react-pdf";
+import { Document, Page } from "react-pdf/dist/entry.webpack";
 
 // Style
 import Grid from '@material-ui/core/Grid';
 
 // Media Query
 import withWidth from '@material-ui/core/withWidth';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function PDFdoc(props) {
     const [pages, setPages] = useState('');
@@ -91,26 +89,6 @@ function PDFview(props) {
             </Grid>
         </Grid>
       )
-}
-
-export const DLPdf = props => (
-  <div>
-    <PDFDownloadLink document={<PDFdoc pdf={props.pdf} />} fileName="resultats.pdf">
-      {({ blob, url, loading, error }) => (loading ? 'Chargement du document...' : 'Télécharger')}
-    </PDFDownloadLink>
-  </div>
-)
-
-export function PDFviewFP(props) {
-  return (
-      <Grid container spacing={3}>
-          <Grid item xs={12}>
-              <Grid container spacing={1} direction="column" alignItems="center">
-                  <PDFirstpage pdf={props.pdf} width={props.width} />
-              </Grid>
-          </Grid>
-      </Grid>
-    )
 }
 
 export default withWidth()(PDFview)
