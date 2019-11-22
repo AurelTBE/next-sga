@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { PDFDownloadLink, Document, Page, pdfjs } from "react-pdf";
+import { Document, Page, pdfjs } from "react-pdf";
 
 // Style
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +13,7 @@ function PDFdoc(props) {
     const [pages, setPages] = useState('');
     
     const onDocumentLoadSuccess = ({ numPages }) => {
-        setPages(Array.from(Array(numPages).keys()))
+      setPages(Array.from(Array(numPages).keys()))
     };
 
     function containerWidth(width) {
@@ -35,8 +35,8 @@ function PDFdoc(props) {
 
     return (                   
       <Document
-          file={props.pdf}
-          onLoadSuccess={onDocumentLoadSuccess}
+        file={props.pdf}
+        onLoadSuccess={onDocumentLoadSuccess}
       >
         {Object.keys(pages).map(page => (
           <Page
@@ -44,22 +44,21 @@ function PDFdoc(props) {
           pageNumber={pages[page] + 1}
           width={containerWidth(props.width)}
           />
-        ))          
-        }
+        ))}
       </Document>
     );
   }
   
 function PDFview(props) {
-    return (
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
-                <Grid container spacing={1} direction="column" alignItems="center">
-                    <PDFdoc pdf={props.pdf} width={props.width} />
-                </Grid>
-            </Grid>
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Grid container spacing={1} direction="column" alignItems="center">
+          <PDFdoc pdf={props.pdf} width={props.width} />
         </Grid>
-      )
+      </Grid>
+    </Grid>
+  )
 }
 
 export default withWidth()(PDFview)

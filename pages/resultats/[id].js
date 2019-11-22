@@ -32,10 +32,6 @@ const useStyles = makeStyles(theme => ({
   image: {
     width: "100%",
   },
-  title: {
-    marginTop: 20,
-    marginBottom: 10,
-  },
   pdf: {
     width: "100%",
     maxWidth: "100%",
@@ -157,7 +153,6 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
-                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           {equipe.nom_de_lequipe} - Palmarès
@@ -186,7 +181,6 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
-                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           {equipe.nom_de_lequipe} - Résultats des gyms
@@ -221,7 +215,6 @@ function Resultat({result}) {
                         alignItems="center"
                         height={{xs: 70, md: 90}}
                         width={1}
-                        className={classes.title}
                       >
                         <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                           Palmarès {categorie.nom_de_la_categorie}
@@ -254,7 +247,6 @@ function Resultat({result}) {
                   alignItems="center"
                   height={{xs: 70, md: 90}}
                   width={1}
-                  className={classes.title}
                 >
                   <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
                     Résultats des gyms
