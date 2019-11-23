@@ -1,4 +1,6 @@
 import React from 'react';
+import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -60,10 +62,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const fetcher = url => fetch(url).then(r => r.json())
+
 export default function Media(props) {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque', fetcher)
 
   const breakpointColumnsObj = {
     default: 5,
@@ -72,10 +77,12 @@ export default function Media(props) {
     500: 2
   };
 
+  if (error) return <div>Impossible de charger les galeries...</div>
+  if (!data) return <div>Chargement des galeries...</div>
   return (
     <div className={classes.root}>
       <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
-        {props.mediafolders.map(mediafolder => {
+        {data.map(mediafolder => {
           if(mediafolder.media == "Photos") {
             return (
               <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
