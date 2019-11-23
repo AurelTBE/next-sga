@@ -8,7 +8,9 @@
         "cache-control": "public, max-age=43200, immutable",
         "Service-Worker-Allowed": "/"
       }
-    }
+    },
+    { "handle": "filesystem"},
+    { "src": "/(.*)", "dest": "/_next/static/_error"}
   ],
   "builds": [
     {
