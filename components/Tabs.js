@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -26,10 +27,22 @@ import { faDragon, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
 
 // Components
-import Actus from './Actus';
-import Agenda from './Agenda';
-import Medias from './Medias';
-import Resultats from './Resultats';
+const Actus = dynamic(
+  () => import('./Actus'),
+  { loading: () => <p>Chargement des actualités...</p> }
+)
+const Agenda = dynamic(
+  () => import('./Agenda'),
+  { loading: () => <p>Chargement des événements...</p> }
+)
+const Medias = dynamic(
+  () => import('./Medias'),
+  { loading: () => <p>Chargement des galeries...</p> }
+)
+const Resultats = dynamic(
+  () => import('./Resultats'),
+  { loading: () => <p>Chargement des résultats...</p> }
+)
 
 function HideOnScroll(props) {
   const { children, window } = props;
