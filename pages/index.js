@@ -1,6 +1,12 @@
-import Layout from '../components/Layout';
-import Tabs from '../components/Tabs';
+import dynamic from 'next/dynamic'
 import fetch from 'isomorphic-unfetch';
+
+// Comps
+import Layout from '../components/Layout';
+const Tabs = dynamic(
+  () => import('../components/Tabs'),
+  { loading: () => <p>Chargement...</p> }
+)
 
 // Redux
 import { connect } from 'react-redux';
