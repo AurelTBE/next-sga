@@ -11,7 +11,7 @@ import Link from "next/link";
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 // Redux Authentication
@@ -63,7 +63,6 @@ const useStyles = makeStyles(theme => ({
 function Connexion(props) {
   const { authenticate, resetloggerror, autherror } = props;
   const classes = useStyles();
-  const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -180,6 +179,15 @@ function Connexion(props) {
                 </Link>
               </Grid>
             </Grid>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="/"
+            >
+              Retourner à l'accueil
+            </Button>
           </form>
         </div>
         <Dialog
