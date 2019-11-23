@@ -1,9 +1,9 @@
+import fetch from 'isomorphic-unfetch';
 import Layout from '../../components/Layout.js';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 import { CURRENTRESULT } from '../../redux/actionTypes';
 
 //FCT
-import fetch from 'isomorphic-unfetch';
 import PDFview from '../../utils/PDFview';
 
 
@@ -137,7 +136,8 @@ function Resultat({result}) {
                 </Box>
               </Grid>}
             {/* Equipes */}
-            <>{result.equipes && (result.equipes.map(equipe => (
+            <>
+              {result.equipes && (result.equipes.map(equipe => (
                 <div key={result.date + equipe.nom_de_lequipe}>
                   {equipe.palmares && 
                     <>
@@ -196,10 +196,11 @@ function Resultat({result}) {
                     </>
                   }
                 </div>
-              )
-            ))}</>
+              )))}
+            </>
             {/* Catégories */}
-            <>{result.categories && (result.categories.categories.map(categorie => (
+            <>
+              {result.categories && (result.categories.categories.map(categorie => (
                 <div key={result.date + categorie.nom_de_la_categorie}>
                   {categorie.palmares_de_la_categorie && 
                     <>
@@ -230,37 +231,39 @@ function Resultat({result}) {
                     </>
                   }
                 </div>
-              )
-            ))}</>
+              )))}
+            </>
             {/* Tableau de résultat des gyms */}
-            <>{result.tableau_des_resultats_des_gyms && (
-              <>
-                <Box
-                  display="flex" 
-                  color={theme.palette.secondary.main}
-                  border={2} 
-                  borderColor={theme.palette.secondary.main}
-                  fontFamily="h6.fontFamily"
-                  fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
-                  p={{ xs: 2, sm: 3, md: 4 }}
-                  justifyContent="center"
-                  alignItems="center"
-                  height={{xs: 70, md: 90}}
-                  width={1}
-                >
-                  <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
-                    Résultats des gyms
-                  </Typography>
-                </Box>
-                {getFileExtension(result.tableau_des_resultats_des_gyms) == "pdf" ? 
-                  <Box className={classes.pdf}>
-                    <PDFview pdf={result.tableau_des_resultats_des_gyms} />
+            <>
+              {result.tableau_des_resultats_des_gyms && (
+                <>
+                  <Box
+                    display="flex" 
+                    color={theme.palette.secondary.main}
+                    border={2} 
+                    borderColor={theme.palette.secondary.main}
+                    fontFamily="h6.fontFamily"
+                    fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+                    p={{ xs: 2, sm: 3, md: 4 }}
+                    justifyContent="center"
+                    alignItems="center"
+                    height={{xs: 70, md: 90}}
+                    width={1}
+                  >
+                    <Typography component="h3" variant={isSmallScreen ? "h6" : "h4"} align="center">
+                      Résultats des gyms
+                    </Typography>
                   </Box>
-                  :
-                  <img src={result.tableau_des_resultats_des_gyms} alt={`Tableau de résultat des gyms`} className={classes.image} />
-                }
-              </>
-            )}</>
+                  {getFileExtension(result.tableau_des_resultats_des_gyms) == "pdf" ? 
+                    <Box className={classes.pdf}>
+                      <PDFview pdf={result.tableau_des_resultats_des_gyms} />
+                    </Box>
+                    :
+                    <img src={result.tableau_des_resultats_des_gyms} alt={`Tableau de résultat des gyms`} className={classes.image} />
+                  }
+                </>
+              )}
+            </>
           </Grid>
           <Grid container justify="center">
             <Grid item xs={12} sm={10} md={8} lg={6}>

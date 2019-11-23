@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-unfetch';
 import Layout from '../../components/Layout.js';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -12,7 +13,6 @@ import { connect } from 'react-redux';
 import { CURRENTACTU } from '../../redux/actionTypes';
 
 //FCT
-import fetch from 'isomorphic-unfetch';
 import PDFview from '../../utils/PDFview';
 
 // Media Query

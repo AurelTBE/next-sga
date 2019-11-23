@@ -1,4 +1,5 @@
 import React from 'react'
+import fetch from 'isomorphic-unfetch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -20,11 +21,6 @@ import useScrollPosition from "../utils/useScrollPosition";
 import { connect } from 'react-redux';
 import { setactivsgatab } from '../redux/actions/navActions';
 import { SGACONTENT } from '../redux/actionTypes';
-
-// Requetes
-import fetch from 'isomorphic-unfetch';
-
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
