@@ -19,7 +19,7 @@ const nextConfig = {
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
-        handler: 'StaleWhileRevalidate',
+        handler: 'NetworkFirst',
         options: {
           cacheName: 'https-calls',
           networkTimeoutSeconds: 15,
@@ -29,16 +29,6 @@ const nextConfig = {
           },
           cacheableResponse: {
             statuses: [0, 200],
-          },
-        },
-      },
-      {
-        urlPattern: new RegExp('^https://sga-gymfeminine.fr/bo/wp-json'),
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'api-cache',
-          cacheableResponse: {
-            statuses: [200],
           },
         },
       },
