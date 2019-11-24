@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -26,10 +27,22 @@ import { faDragon, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faImages } from '@fortawesome/free-regular-svg-icons';
 
 // Components
-import Actus from './Actus';
-import Agenda from './Agenda';
-import Medias from './Medias';
-import Resultats from './Resultats';
+const Actus = dynamic(
+  () => import('./Actus'),
+  { loading: () => <p>Chargement des actualités...</p> }
+)
+const Agenda = dynamic(
+  () => import('./Agenda'),
+  { loading: () => <p>Chargement des événements...</p> }
+)
+const Medias = dynamic(
+  () => import('./Medias'),
+  { loading: () => <p>Chargement des galeries...</p> }
+)
+const Resultats = dynamic(
+  () => import('./Resultats'),
+  { loading: () => <p>Chargement des résultats...</p> }
+)
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -79,7 +92,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function HomeTabs(props) {
-  const { setactivhometab, activeTab, actus, events, mediafolders, results } = props;
+  const { setactivhometab, activeTab } = props;
   const classes = useStyles();
   const theme = useTheme();
   //const isSmallScreen = /xs|sm/.test(width);
@@ -125,20 +138,20 @@ function HomeTabs(props) {
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
           <Box p={3}>
-            <Actus listactus={actus} />
+            <Actus />
           </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
           <Box p={3}>
-            <Agenda events={events} />
+            <Agenda />
           </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <Medias mediafolders={mediafolders} />
+          <Medias />
         </TabPanel>
         <TabPanel value={activeTab} index={3} dir={theme.direction}>
           <Box p={3}>
-            <Resultats listresults={results} />
+            <Resultats />
           </Box>
         </TabPanel>
       </SwipeableViews>

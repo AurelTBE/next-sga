@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -77,25 +79,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardBenevole(props) {
+export default function CardBenevole() {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('');
   const [open, setOpen] = useState(false);
-
-  function handleClickOpen(event) {
-    setSelectedEvent(event)
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false)
-  }
-
-  useEffect(() => {
+  const fetcher = url => fetch(url).then(r => r.json())
+  const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/evenements', fetcher, { onSuccess: data => {
     const eve = []
-    props.events.map(event => ([
+    data.map(event => ([
       eve.push({
         id: event.id,
         title: event.title,
@@ -116,7 +109,17 @@ export default function CardBenevole(props) {
       })
     ]))
     setEvents(eve)
-  }, [setEvents])
+  }}
+  )
+
+  function handleClickOpen(event) {
+    setSelectedEvent(event)
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false)
+  }
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const labelProps = {
@@ -142,6 +145,8 @@ export default function CardBenevole(props) {
     }
   }
 
+  if (error) return <div>Impossible de charger les événements...</div>
+  if (!data) return <div>Chargement des événements...</div>
   return (
     <Grid container spacing={2}>
       {events.map(event => (

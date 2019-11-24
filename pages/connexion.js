@@ -25,8 +25,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { RingLoader } from 'react-spinners';
-
 import Layout from '../components/Layout'
 
 const useStyles = makeStyles(theme => ({
@@ -63,7 +61,6 @@ const useStyles = makeStyles(theme => ({
 function Connexion(props) {
   const { authenticate, resetloggerror, autherror } = props;
   const classes = useStyles();
-  const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -180,6 +177,15 @@ function Connexion(props) {
                 </Link>
               </Grid>
             </Grid>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="/"
+            >
+              Retourner à l'accueil
+            </Button>
           </form>
         </div>
         <Dialog
