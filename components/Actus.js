@@ -20,7 +20,7 @@ function Actus() {
       const act = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listeposts`);
       const actus = await act.json();
       setData(actus);
-      data && setLoading(false);
+      setLoading(false);
     };
     fetchData();
   }, []);
