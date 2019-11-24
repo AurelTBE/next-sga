@@ -16,7 +16,7 @@ const Actus = props => {
   if (!data) return (
     <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
       {[...Array(n)].map((e, i) =>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
           <CardContSkel />
         </Grid>      
       )}
