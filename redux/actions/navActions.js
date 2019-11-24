@@ -1,4 +1,4 @@
-import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, JUGESTAB, AUDIOPLAY, NOTIFPERM, LOADING } from '../actionTypes';
+import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, JUGESTAB, AUDIOPLAY, NOTIFPERM } from '../actionTypes';
 
 export const setactivhometab = activetab => {
     return dispatch => {
@@ -45,11 +45,5 @@ export const setprogress = activetab => {
 export const setnotifperm = perm => {
     return dispatch => {
         dispatch({ type: NOTIFPERM, payload: perm });
-    };
-};
-
-export const setloading = loadingstate => {
-    return dispatch => {
-        dispatch({ type: LOADING, payload: loadingstate });
     };
 };

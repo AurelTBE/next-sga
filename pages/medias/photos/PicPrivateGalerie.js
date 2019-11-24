@@ -87,35 +87,35 @@ function PicPrivateGalerie(props) {
     return (
       <Layout>
         <Box
-          display="flex" 
-          color="background.paper"
-          bgcolor={theme.palette.secondary.main}
-          fontFamily="h6.fontFamily"
-          fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
-          p={{ xs: 2, sm: 3, md: 4 }}
-          justifyContent="center"
-          alignItems="center"
-          height={{xs: 60, md: 90}}
-          width={1}
+            display="flex" 
+            color="background.paper"
+            bgcolor={theme.palette.secondary.main}
+            fontFamily="h6.fontFamily"
+            fontSize={{ xs: 'h6.fontSize', md: 'h5.fontSize' }}
+            p={{ xs: 2, sm: 3, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            height={{xs: 60, md: 90}}
+            width={1}
         >
-          <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
-            {galerie.title}
-          </Typography>
+            <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
+              {galerie.title}
+            </Typography>
         </Box>
         <div className={classes.root}>
           <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
             {galerie.photos.map(image => (
-              <ButtonBase key={image.id} onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
-                <img src={image.photo} alt={image.title} className={classes.image} />
-              </ButtonBase>
+                <ButtonBase key={image.id} onClick={ () => openLightboxOnSlide(galerie.photos.indexOf(image)+1) }>
+                  <img src={image.photo} alt={image.title} className={classes.image} />
+                </ButtonBase>
             ))}
           </Masonry>
-          <FsLightbox 
+            <FsLightbox 
             toggler={ lightboxController.toggler } 
             slide={ lightboxController.slide } 
             sources={ images } 
             type='image'
-          />
+            /> 
         </div>
       </Layout>
     )

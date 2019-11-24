@@ -7,7 +7,7 @@ import theme from '../src/theme';
 import { makeStore } from '../redux';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
-import { checkServerSideCookie } from '../redux/actions/authActions';
+import { reauthenticate, getCookie, checkServerSideCookie } from '../redux/actions/authActions';
 import Router from 'next/router'
 import NProgress from 'nprogress'
 

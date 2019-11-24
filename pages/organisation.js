@@ -1,9 +1,10 @@
 import Layout from '../components/Layout'
-import fetch from 'isomorphic-unfetch';
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+
+import fetch from 'isomorphic-unfetch';
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'isomorphic-unfetch';
 
 // Components
 import PicPublicGalerie from './photos/PicPublicGalerie'
@@ -13,6 +12,9 @@ import MusPrivateGalerie from './musics/MusPrivateGalerie'
 import { connect } from 'react-redux';
 import { reauthenticate } from '../../redux/actions/authActions';
 import { GALERIECONTENT } from '../../redux/actionTypes';
+
+// FCT
+import fetch from 'isomorphic-unfetch';
 
 function Galerie({galerieContent}) {
   function photoSwitch(visible) {

@@ -1,10 +1,4 @@
-import { HOMEACTUS, VIDPLAYCONTENT } from '../actionTypes';
-
-export const sethomeactus = content => {
-    return dispatch => {
-        dispatch({ type: HOMEACTUS, payload: content });
-    };
-};
+import { VIDPLAYCONTENT } from '../actionTypes';
 
 export const setactivideo = content => {
     return dispatch => {

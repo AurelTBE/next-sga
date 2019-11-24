@@ -172,12 +172,10 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           <ListItemIcon><FontAwesomeIcon icon={faArchive} className={classes.icons} /></ListItemIcon>            
           <ListItemText primary="Archives" />
         </ListItem>
-        {!isAuthenticated && 
-          <ListItem button onClick={() => handleNav('/connexion')}>
-            <ListItemIcon><FontAwesomeIcon icon={faUserCircle} className={classes.icons} /></ListItemIcon>
-            <ListItemText primary="Connexion" />
-          </ListItem>
-        }
+        <ListItem button onClick={() => handleNav('/connexion')}>
+          <ListItemIcon><FontAwesomeIcon icon={faUserCircle} className={classes.icons} /></ListItemIcon>
+          <ListItemText primary="Connexion" />
+        </ListItem>
         <ListItem button onClick={() => handleNav('/contact')}>
           <ListItemIcon><FontAwesomeIcon icon={faEnvelope} className={classes.icons} /></ListItemIcon>
           <ListItemText primary="Contact" />
@@ -220,13 +218,13 @@ function Header({isAuthenticated, role, setactivhometab, setactivsgatab, setacti
           {isAuthenticated ? 
            <Link href="/profil" as={`/profil`}>
             <IconButton color="inherit">
-              <AccountCircle />
+                <AccountCircle />
             </IconButton>
            </Link> 
            : 
            <Link href="/connexion" as={`/connexion`}>
               <IconButton color="inherit">
-                <AccountCircle />
+                  <AccountCircle />
               </IconButton>
             </Link>}
           </Grid>

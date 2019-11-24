@@ -43,7 +43,7 @@ const nextConfig = {
         },
       },
       {
-        urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif|pdf)/,
+        urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)/,
         handler: 'CacheFirst',
         options: {
           cacheName: 'image-cache',
@@ -57,6 +57,7 @@ const nextConfig = {
   webpack: (config) => {
     // this will output your push listener file to .next folder
     // check CopyWebpackPlugin docs if you want to change the destination (e.g. /static or /.next/static)
+    config.plugins.push(new CopyWebpackPlugin(['static/push.js']));
     config.plugins.push(new CopyWebpackPlugin(['static/fcm.js']));
     return config
   },

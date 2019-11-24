@@ -1,5 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 // MUI
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -107,6 +108,9 @@ function VidPublicGalerie({vids, galeriecontent, setactivideo, vidplay}) {
   }
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const labelProps = {
+    size: isSmallScreen ? "small" : "large"
+  };
 
   const breakpointColumnsObj = {
     default: 5,
@@ -130,9 +134,9 @@ function VidPublicGalerie({vids, galeriecontent, setactivideo, vidplay}) {
         height={{xs: 60, md: 90}}
         width={1}
       >
-        <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
-          {galeriecontent.galerie.title}
-        </Typography>
+          <Typography component="h2" variant={isSmallScreen ? "h6" : "h4"}>
+            {galeriecontent.galerie.title}
+          </Typography>
       </Box>
       <div className={classes.root}>
         <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
