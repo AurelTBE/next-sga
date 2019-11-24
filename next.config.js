@@ -1,3 +1,4 @@
+
 const withOffline = require('next-offline')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -29,6 +30,16 @@ const nextConfig = {
           },
           cacheableResponse: {
             statuses: [0, 200],
+          },
+        },
+      },
+      {
+        urlPattern: new RegExp('^https://sga-gymfeminine.fr/bo/wp-json'),
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'api-cache',
+          cacheableResponse: {
+            statuses: [200],
           },
         },
       },

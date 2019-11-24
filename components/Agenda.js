@@ -86,31 +86,35 @@ export default function CardBenevole(props) {
   const [selectedEvent, setSelectedEvent] = useState('');
   const [open, setOpen] = useState(false);
   const fetcher = url => fetch(url).then(r => r.json())
-  const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/evenements', fetcher, { onSuccess: data => {
-    const eve = []
-    data.map(event => ([
-      eve.push({
-        id: event.id,
-        title: event.title,
-        datedebut: new Date(event.datedebut.date),
-        datefin: new Date(event.datefin.date),
-        googdebut: format(new Date(event.datedebut.date), "yyyyMMdd")+'T'+format(new Date(event.datedebut.date), "HHmmss"),
-        googfin: format(new Date(event.datefin.date), "yyyyMMdd")+'T'+format(new Date(event.datefin.date), "HHmmss"),
-        type: event.type,
-        groupe: event.groupe,
-        ville: event.localisation.ville,
-        lieu: event.localisation.lieu,
-        adresse: event.localisation.adresse,
-        participants: event.participants,
-        article: event.article,
-        infos: (event.infos && `${event.infos}\n`)+(event.participants && (!!event.participants[0].nom_equipe ? `Participants :${event.participants.map(part => (
-          ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
-          ))}` : "")),
-      })
-    ]))
-    setEvents(eve)
-  }}
-  )
+  useEffect(() => {
+    const fetchData = async () => {
+      const ev = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/evenements`);
+      const eve = await ev.json();
+      const even = []
+      eve.map(event => ([
+        even.push({
+          id: event.id,
+          title: event.title,
+          datedebut: new Date(event.datedebut.date),
+          datefin: new Date(event.datefin.date),
+          googdebut: format(new Date(event.datedebut.date), "yyyyMMdd")+'T'+format(new Date(event.datedebut.date), "HHmmss"),
+          googfin: format(new Date(event.datefin.date), "yyyyMMdd")+'T'+format(new Date(event.datefin.date), "HHmmss"),
+          type: event.type,
+          groupe: event.groupe,
+          ville: event.localisation.ville,
+          lieu: event.localisation.lieu,
+          adresse: event.localisation.adresse,
+          participants: event.participants,
+          article: event.article,
+          infos: (event.infos && `${event.infos}\n`)+(event.participants && (!!event.participants[0].nom_equipe ? `Participants :${event.participants.map(part => (
+            ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
+            ))}` : "")),
+        })
+      ]))
+      setEvents(even)
+    };
+    fetchData();
+  }, []);
 
   function handleClickOpen(event) {
     setSelectedEvent(event)
@@ -145,8 +149,7 @@ export default function CardBenevole(props) {
     }
   }
 
-  if (error) return <div>Impossible de charger les événements...</div>
-  if (!data) return <div>Chargement des événements...</div>
+  if (!events) return <Box p={3}>Chargement des événements...</Box>
   return (
     <Grid container spacing={2}>
       {events.map(event => (
