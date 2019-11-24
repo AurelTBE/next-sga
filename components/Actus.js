@@ -9,14 +9,14 @@ import ActuCard from "./cards/CardActu"
 
 const fetcher = url => fetch(url).then(r => r.json())
 
-export default function Actus() {
+const Actus = props => {
   const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listeposts', fetcher)
   const n = 12;
   if (error) return <div>Impossible de charger les actualités...</div>
   if (!data) return (
     <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
       {[...Array(n)].map((e, i) =>
-        <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <CardContSkel />
         </Grid>      
       )}
@@ -34,3 +34,5 @@ export default function Actus() {
     </>
   )
 }
+
+export default Actus;

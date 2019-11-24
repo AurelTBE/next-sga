@@ -33,52 +33,52 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function Blabla() {
-    const classes = useStyles();
-    const [values, setValues] = React.useState({
-      name: '',
-    });
+  const classes = useStyles();
+  const [values, setValues] = React.useState({
+    name: '',
+  });
 
-    const handleChange = name => event => {
-      setValues({ ...values, [name]: event.target.value });
-    };
-  
-    return (
-        <>
-            <Typography component="h2" variant="h3" gutterBottom>
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  return (
+    <>
+      <Typography component="h2" variant="h3" gutterBottom>
+        Connexion
+      </Typography>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+      >
+        <form className={classes.container} noValidate autoComplete="off">
+          <Grid item xs={12}>
+            <TextField
+              id="connexion-name"
+              label="Name"
+              className={classes.textField}
+              value={values.name}
+              onChange={handleChange('name')}
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="connexion-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+            />
+          </Grid>
+          <Button variant="contained" color="primary" className={classes.button}>
             Connexion
-            </Typography>
-            <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="stretch"
-            >
-                <form className={classes.container} noValidate autoComplete="off">
-                    <Grid item xs={12}>
-                    <TextField
-                        id="connexion-name"
-                        label="Name"
-                        className={classes.textField}
-                        value={values.name}
-                        onChange={handleChange('name')}
-                        margin="normal"
-                    />
-                    </Grid>
-                    <Grid item xs={12}>
-                    <TextField
-                        id="connexion-password-input"
-                        label="Password"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                    />
-                    </Grid>
-                    <Button variant="contained" color="primary" className={classes.button}>
-                    Connexion
-                    </Button>         
-                </form>
-            </Grid>    
-        </>
-    )
+          </Button>         
+        </form>
+      </Grid>    
+    </>
+  )
 }

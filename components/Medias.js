@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 
 const fetcher = url => fetch(url).then(r => r.json())
 
-export default function Media() {
+export default function Media(props) {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));

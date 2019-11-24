@@ -1,4 +1,4 @@
-import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, JUGESTAB, AUDIOPLAY, NOTIFPERM } from '../actionTypes';
+import { HOMETAB, GFTAB, SGATAB, RESULTAB, MEDIATAB, JUGESTAB, AUDIOPLAY, NOTIFPERM, LOADING } from '../actionTypes';
 
 export const homeTabReducer = (state = 0, action) => {
     switch (action.type) {
@@ -66,6 +66,15 @@ export const audioPlayReducer = (state = 0, action) => {
 export const notifPermReducer = (state = true, action) => {
     switch (action.type) {
         case NOTIFPERM:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
+export const loadingReducer = (state = false, action) => {
+    switch (action.type) {
+        case LOADING:
             return action.payload;
         default:
             return state;

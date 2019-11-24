@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
+import Link from 'next/link';
 
 // MUI
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +10,7 @@ import ResultCard from "./cards/CardResult"
 
 const fetcher = url => fetch(url).then(r => r.json())
 
-function Resultats() {
+const Resultats = props => {
   const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listresults', fetcher)
   if (error) return <div>Impossible de charger les résultats...</div>
   if (!data) return <div>Chargement des résultats...</div>

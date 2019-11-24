@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardBenevole() {
+export default function CardBenevole(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState([]);
