@@ -5,6 +5,7 @@ export const AUTHERROR = 'AUTHERROR';
 export const DEAUTHENTICATE = 'DEAUTHENTICATE';
 // Nav
 export const HOMETAB = 'HOMETAB';
+export const HOMEACTUS = 'HOMEACTUS';
 export const GFTAB = 'GFTAB';
 export const SGATAB = 'SGATAB';
 export const RESULTAB = 'RESULTAB';

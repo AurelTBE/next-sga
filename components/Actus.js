@@ -7,10 +7,16 @@ import useSWR from 'swr';
 import CardContSkel from "./cards/CardContSkel"
 import ActuCard from "./cards/CardActu"
 
+// Redux
+import { connect } from 'react-redux';
+import { sethomeactus } from '../redux/actions/contActions'
+
 const fetcher = url => fetch(url).then(r => r.json())
 
-const Actus = props => {
-  const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listeposts', fetcher)
+function Actus({sethomeactus, homeactus}) {
+  const { data, error } = useSWR('https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listeposts', fetcher, { onSuccess: data => {
+    sethomeactus(data);
+  }})
   const n = 12;
   if (error) return <div>Impossible de charger les actualités...</div>
   if (!data) return (
@@ -25,7 +31,7 @@ const Actus = props => {
   return (
     <>
       <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
-        {data.map((actu) => (
+        {homeactus.map((actu) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={actu.id}>
             <ActuCard id={actu.id} slug={actu.slug} titre={actu.title} excerpt={actu.resume} img={actu.thumbnail ? actu.thumbnail : null} />
           </Grid>
@@ -35,4 +41,7 @@ const Actus = props => {
   )
 }
 
-export default Actus;
+export default connect(
+  state => state,
+  { sethomeactus }
+)(Actus); 
