@@ -92,7 +92,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function HomeTabs(props) {
-  const { setactivhometab, activeTab } = props;
+  const { setactivhometab, activeTab, actus, events, mediafolders, results } = props;
   const classes = useStyles();
   const theme = useTheme();
   //const isSmallScreen = /xs|sm/.test(width);
@@ -138,20 +138,20 @@ function HomeTabs(props) {
       >
         <TabPanel value={activeTab} index={0} dir={theme.direction}>
           <Box p={3}>
-            <Actus />
+            <Actus listactus={actus} />
           </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={1} dir={theme.direction}>
           <Box p={3}>
-            <Agenda />
+            <Agenda events={events} />
           </Box>
         </TabPanel>
         <TabPanel value={activeTab} index={2} dir={theme.direction}>
-          <Medias />
+          <Medias mediafolders={mediafolders} />
         </TabPanel>
         <TabPanel value={activeTab} index={3} dir={theme.direction}>
           <Box p={3}>
-            <Resultats />
+            <Resultats listresults={results} />
           </Box>
         </TabPanel>
       </SwipeableViews>

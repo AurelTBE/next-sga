@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import fetch from 'isomorphic-unfetch';
-import useSWR from 'swr'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -85,36 +83,6 @@ export default function CardBenevole(props) {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('');
   const [open, setOpen] = useState(false);
-  const fetcher = url => fetch(url).then(r => r.json())
-  useEffect(() => {
-    const fetchData = async () => {
-      const ev = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/evenements`);
-      const eve = await ev.json();
-      const even = []
-      eve.map(event => ([
-        even.push({
-          id: event.id,
-          title: event.title,
-          datedebut: new Date(event.datedebut.date),
-          datefin: new Date(event.datefin.date),
-          googdebut: format(new Date(event.datedebut.date), "yyyyMMdd")+'T'+format(new Date(event.datedebut.date), "HHmmss"),
-          googfin: format(new Date(event.datefin.date), "yyyyMMdd")+'T'+format(new Date(event.datefin.date), "HHmmss"),
-          type: event.type,
-          groupe: event.groupe,
-          ville: event.localisation.ville,
-          lieu: event.localisation.lieu,
-          adresse: event.localisation.adresse,
-          participants: event.participants,
-          article: event.article,
-          infos: (event.infos && `${event.infos}\n`)+(event.participants && (!!event.participants[0].nom_equipe ? `Participants :${event.participants.map(part => (
-            ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
-            ))}` : "")),
-        })
-      ]))
-      setEvents(even)
-    };
-    fetchData();
-  }, []);
 
   function handleClickOpen(event) {
     setSelectedEvent(event)
@@ -124,6 +92,31 @@ export default function CardBenevole(props) {
   function handleClose() {
     setOpen(false)
   }
+
+  useEffect(() => {
+    const eve = []
+    props.events.map(event => ([
+      eve.push({
+        id: event.id,
+        title: event.title,
+        datedebut: new Date(event.datedebut.date),
+        datefin: new Date(event.datefin.date),
+        googdebut: format(new Date(event.datedebut.date), "yyyyMMdd")+'T'+format(new Date(event.datedebut.date), "HHmmss"),
+        googfin: format(new Date(event.datefin.date), "yyyyMMdd")+'T'+format(new Date(event.datefin.date), "HHmmss"),
+        type: event.type,
+        groupe: event.groupe,
+        ville: event.localisation.ville,
+        lieu: event.localisation.lieu,
+        adresse: event.localisation.adresse,
+        participants: event.participants,
+        article: event.article,
+        infos: (event.infos && `${event.infos}\n`)+(event.participants && (!!event.participants[0].nom_equipe ? `Participants :${event.participants.map(part => (
+          ' '+part.nom_equipe+` ${part.heure_rdv && `(RDV à ${part.heure_rdv})`}`
+          ))}` : "")),
+      })
+    ]))
+    setEvents(eve)
+  }, [setEvents])
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const labelProps = {
@@ -149,7 +142,6 @@ export default function CardBenevole(props) {
     }
   }
 
-  if (!events) return <Box p={3}>Chargement des événements...</Box>
   return (
     <Grid container spacing={2}>
       {events.map(event => (

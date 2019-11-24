@@ -1,4 +1,3 @@
-
 const withOffline = require('next-offline')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 

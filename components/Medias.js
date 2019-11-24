@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import fetch from 'isomorphic-unfetch';
-import useSWR from 'swr';
+import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -62,21 +60,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const fetcher = url => fetch(url).then(r => r.json())
-
 export default function Media(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [data, setData] = useState();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  useEffect(() => {
-    const fetchData = async () => {
-      const med = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/mediatheque`);
-      const medias = await med.json();
-      setData(medias);
-    };
-    fetchData();
-  }, []);
 
   const breakpointColumnsObj = {
     default: 5,
@@ -85,11 +72,10 @@ export default function Media(props) {
     500: 2
   };
 
-  if (!data) return <div>Chargement des galeries...</div>
   return (
     <div className={classes.root}>
       <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonryGrid} columnClassName={classes.masonryColumn}>
-        {data.map(mediafolder => {
+        {props.mediafolders.map(mediafolder => {
           if(mediafolder.media == "Photos") {
             return (
               <Link href="/medias/[id]" as={`/medias/${mediafolder.slug}`} key={mediafolder.id}>
