@@ -16,11 +16,11 @@ function Actus() {
   
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      !data && setLoading(true);
       const act = await fetch(`https://sga-gymfeminine.fr/bo/wp-json/sga/v1/listeposts`);
       const actus = await act.json();
       setData(actus);
-      setLoading(false);
+      data && setLoading(false);
     };
     fetchData();
   }, []);
