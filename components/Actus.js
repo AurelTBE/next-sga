@@ -15,6 +15,21 @@ const Actus = props => {
   if (error) return <div>Impossible de charger les actualités...</div>
   if (!data) return (
     <Grid container justify="center" alignItems="stretch" alignContent="center" spacing={2}>
+      {process.browser && (
+        function()
+        {
+          if( window.localStorage )
+          {
+            if( !localStorage.getItem('firstLoad') )
+            {
+              localStorage['firstLoad'] = true;
+              window.location.reload();
+            }  
+            else
+              localStorage.removeItem('firstLoad');
+          }
+        }
+      )}
       {[...Array(n)].map((e, i) =>
         <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
           <CardContSkel />
