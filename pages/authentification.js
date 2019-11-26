@@ -9,6 +9,10 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import { connect } from 'react-redux'
+import { withRouter } from 'next/router'
+import { reauthenticate } from '../redux/actions/authActions';
+
 const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(3, 2),
@@ -37,49 +41,57 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function PageName() {
+function Authentification(props) {
   const classes = useStyles();
-
-{/*  useEffect(() => {
-    const isLoggedIn = this.props.authentication.token
-    const { router } = this.props;
-    if(!isLoggedIn) {
-      Router.back();
+  const isLoggedIn = props.authentication.token
+  
+  useEffect(() => {
+    const {router} = props
+    if(isLoggedIn) {
+      router.back();
     }
-  }) */}
+  }, [])
 
-  return (
-    <Layout>
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Zone privée
-        </Typography>
-        <Box p={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Grid container spacing={1} direction="column" alignItems="center">
-                <Box mt={2} pb={2}>
-                  Pour accéder à cette zone, vous devez vous connecter. Si vous n'avez pas de compte, vous pouvez en créer un, ou retourner à l'accueil.
-                </Box>
-                <Grid item>
-                  <ButtonGroup
-                    variant="contained"
-                    color="primary"
-                    aria-label="full-width contained primary button group"
-                  >
-                    <Button href="/connexion">Se connecter</Button>
-                    <Button href="/inscription">Créer un compte</Button>
-                    <Button href="/">Retourner à l'accueil</Button>
-                  </ButtonGroup>
+  if(isLoggedIn) {
+    return null
+  } else {
+    return (
+      <Layout>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Zone privée
+          </Typography>
+          <Box p={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Grid container spacing={1} direction="column" alignItems="center">
+                  <Box mt={2} pb={2}>
+                    Pour accéder à cette zone, vous devez vous connecter. Si vous n'avez pas de compte, vous pouvez en créer un, ou retourner à l'accueil.
+                  </Box>
+                  <Grid item>
+                    <ButtonGroup
+                      variant="contained"
+                      color="primary"
+                      aria-label="full-width contained primary button group"
+                    >
+                      <Button href="/connexion">Connexion</Button>
+                      <Button href="/inscription">Inscription</Button>
+                      <Button href="/">Accueil</Button>
+                    </ButtonGroup>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </div>
-    </Layout>
-  )
+          </Box>
+        </div>
+      </Layout>
+    )
+  }
 }
+
+export default withRouter(connect(
+  state => state,
+  )(Authentification));
