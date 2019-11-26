@@ -29,37 +29,6 @@ class MyApp extends App {
     if ('serviceWorker' in navigator) {	
       navigator.serviceWorker.register('/firebase-messaging-sw.js')	
         .then(function(registration) {	
-          registration.addEventListener(
-            "updatefound",
-            () => {
-              // (1) On récupère le Service
-              // Worker en cours
-              // d'installation
-              const newWorker =
-                registration.installing;
-              // `registration` a aussi
-              // les clés `active` et 
-              // `waiting` qui permettent
-              // de récupérer les Service
-              // Workers correspondant
-    
-              // (2) A chaque fois que le
-              // Service Worker en cours
-              // d'installation change
-              // de statut
-              newWorker.addEventListener(
-                "statechange",
-                () => {
-                  // (2) On affiche son
-                  // nouveau statut
-                  console.log(
-                    "App: Nouvel état :",
-                    newWorker.state
-                  );
-                }
-              );
-            }
-          );
           console.log('Service worker successfully registered.');	
           return registration;	
         })	
