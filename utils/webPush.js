@@ -1,6 +1,7 @@
 import 'firebase/messaging'
 import firebase from 'firebase/app'
 import localforage from 'localforage'
+import firestore from "firebase/firestore";
 
 const firebaseCloudMessaging = {
   tokenInlocalforage: async () => {
@@ -29,7 +30,7 @@ const firebaseCloudMessaging = {
       const token = await messaging.getToken()
 
       localforage.setItem('fcm_token', token)
-      const db = firebase.firestore();
+      const db = firestore();
       db.settings({
         timestampsInSnapshots: true
       });
