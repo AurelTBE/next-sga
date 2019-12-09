@@ -29,6 +29,13 @@ const firebaseCloudMessaging = {
       const token = await messaging.getToken()
 
       localforage.setItem('fcm_token', token)
+      const db = firebase.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      db.collection("users").add({
+        token: token,
+      });  
       console.log('fcm_token', token)
     } catch (error) {
       console.error(error)
